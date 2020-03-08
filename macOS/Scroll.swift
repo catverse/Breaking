@@ -17,10 +17,11 @@ final class Scroll: NSScrollView {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         drawsBackground = false
-        hasVerticalScroller = false
+        hasVerticalScroller = true
         hasHorizontalScroller = false
         verticalScrollElasticity = .automatic
         horizontalScrollElasticity = .automatic
+        verticalScroller!.controlSize = .mini
         documentView = Flipped()
         documentView!.translatesAutoresizingMaskIntoConstraints = false
         documentView!.topAnchor.constraint(equalTo: topAnchor).isActive = true
@@ -28,17 +29,4 @@ final class Scroll: NSScrollView {
     }
     
     func add(_ view: NSView) { documentView!.addSubview(view) }
-    
-    func center(_ frame: CGRect) {
-        var frame = frame
-        frame.origin.x -= (bounds.width - frame.size.width) / 2
-        frame.origin.y -= (bounds.height / 2) - frame.size.height
-        frame.size.width = bounds.width
-        frame.size.height = bounds.height
-        NSAnimationContext.runAnimationGroup {
-            $0.duration = 0.4
-            $0.allowsImplicitAnimation = true
-            contentView.scrollToVisible(frame)
-        }
-    }
 }

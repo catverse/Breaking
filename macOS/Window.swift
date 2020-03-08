@@ -3,6 +3,7 @@ import Combine
 
 final class Window: NSWindow {
     let news = News()
+    private var sub: AnyCancellable?
     
     init() {
         super.init(contentRect: .init(x: 0, y: 0, width: 400, height: 600), styleMask: [.borderless, .miniaturizable, .resizable, .closable, .titled, .unifiedTitleAndToolbar, .fullSizeContentView], backing: .buffered, defer: false)
@@ -40,6 +41,22 @@ final class Window: NSWindow {
         scroll.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -1).isActive = true
         scroll.right.constraint(equalTo: scroll.rightAnchor).isActive = true
         scroll.bottom.constraint(greaterThanOrEqualTo: scroll.bottomAnchor).isActive = true
+        
+        sub = news.$items.receive(on: DispatchQueue.main).sink {
+            scroll.views.forEach { $0.removeFromSuperview() }
+            guard !$0.isEmpty else { return }
+            var top = scroll.top
+            $0.map(Article.init(_:)).forEach {
+                (top == scroll.top ? [$0] : [Separator(), $0]).forEach {
+                    scroll.add($0)
+                    $0.topAnchor.constraint(equalTo: top, constant: 30).isActive = true
+                    $0.leftAnchor.constraint(equalTo: scroll.left, constant: 30).isActive = true
+                    $0.rightAnchor.constraint(equalTo: scroll.right, constant: -30).isActive = true
+                    top = $0.bottomAnchor
+                }
+            }
+            scroll.bottom.constraint(equalTo: top, constant: 30).isActive = true
+        }
     }
     
     override func close() {
