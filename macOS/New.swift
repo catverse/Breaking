@@ -8,8 +8,8 @@ final class New: NSView {
         wantsLayer = true
         layer!.cornerRadius = 4
         
-        let label = Label(.key("Badge.New"), .medium(12))
-        label.textColor = .selectedControlTextColor
+        let label = Label(.key("Badge.New"), .bold(12))
+        label.textColor = .controlBackgroundColor
         addSubview(label)
         
         heightAnchor.constraint(equalToConstant: 25).isActive = true

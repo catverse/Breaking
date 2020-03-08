@@ -13,16 +13,17 @@ final class Article: Control {
         formatter.timeStyle = .none
         
         let date = Label(formatter.string(from: item.date), .light(12))
-        date.textColor = .tertiaryLabelColor
+        date.textColor = item.new ? .tertiaryLabelColor : .quaternaryLabelColor
         date.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         addSubview(date)
         
         let title = Label(item.title, .medium(16))
+        title.textColor = item.new ? .headerTextColor : .tertiaryLabelColor
         title.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         addSubview(title)
         
         let description = Label(item.description, .regular(14))
-        description.textColor = .secondaryLabelColor
+        description.textColor = item.new ? .secondaryLabelColor : .tertiaryLabelColor
         description.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         addSubview(description)
         
