@@ -6,7 +6,7 @@ final class Window: NSWindow {
     private var sub: AnyCancellable?
     
     init() {
-        super.init(contentRect: .init(x: 0, y: 0, width: 400, height: 600), styleMask: [.borderless, .miniaturizable, .resizable, .closable, .titled, .unifiedTitleAndToolbar, .fullSizeContentView], backing: .buffered, defer: false)
+        super.init(contentRect: .init(x: 0, y: 0, width: 600, height: 800), styleMask: [.borderless, .miniaturizable, .resizable, .closable, .titled, .unifiedTitleAndToolbar, .fullSizeContentView], backing: .buffered, defer: false)
         minSize = .init(width: 200, height: 200)
         center()
         titlebarAppearsTransparent = true

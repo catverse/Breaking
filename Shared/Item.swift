@@ -13,9 +13,10 @@ struct Item: Identifiable, Hashable {
                 let id = content($0, tag: "guid"),
                 let title = content($0, tag: "title"),
                 let description = content($0, tag: "description"),
-                let date = content($0, tag: "pubDate").flatMap ( { dates.date(from: $0) } )
+                let date = content($0, tag: "pubDate").flatMap ( { dates.date(from: $0) } ),
+                let link = content($0, tag: "link").flatMap ( { URL(string: $0) } )
             else { return nil }
-            return Item(id, title, description, date)
+            return Item(id, title, description, date, link)
         }
     }
     
@@ -23,16 +24,19 @@ struct Item: Identifiable, Hashable {
         string.components(separatedBy: "<" + tag + ">").last?.components(separatedBy: "</" + tag + ">").first
     }
     
+    var new = true
     let id: String
     let title: String
     let description: String
     let date: Date
+    let link: URL
     
-    private init(_ id: String, _ title: String, _ description: String, _ date: Date) {
+    private init(_ id: String, _ title: String, _ description: String, _ date: Date, _ link: URL) {
         self.id = id
         self.title = title
         self.description = description
         self.date = date
+        self.link = link
     }
     
     func hash(into: inout Hasher) {

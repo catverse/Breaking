@@ -1,13 +1,12 @@
 import AppKit
 
-final class Article: NSView {
+final class Article: Control {
     private let item: Item
     
     required init?(coder: NSCoder) { nil }
     init(_ item: Item) {
         self.item = item
-        super.init(frame: .zero)
-        translatesAutoresizingMaskIntoConstraints = false
+        super.init()
         
         let formatter = DateFormatter()
         formatter.dateStyle = .full
@@ -40,5 +39,19 @@ final class Article: NSView {
         description.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 6).isActive = true
         description.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         description.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor).isActive = true
+        
+        if item.new {
+            let new = New()
+            addSubview(new)
+            
+            new.topAnchor.constraint(equalTo: topAnchor).isActive = true
+            new.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+            date.rightAnchor.constraint(lessThanOrEqualTo: new.leftAnchor, constant: -15).isActive = true
+            title.rightAnchor.constraint(lessThanOrEqualTo: new.leftAnchor, constant: -15).isActive = true
+        }
+    }
+    
+    override func click() {
+        NSWorkspace.shared.open(item.link)
     }
 }
