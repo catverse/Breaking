@@ -46,7 +46,7 @@ final class Window: NSWindow {
             scroll.views.forEach { $0.removeFromSuperview() }
             guard !$0.isEmpty else { return }
             var top = scroll.top
-            $0.map(Article.init(_:)).forEach {
+            $0.sorted { $0.date > $1.date }.map(Article.init(_:)).forEach {
                 (top == scroll.top ? [$0] : [Separator(), $0]).forEach {
                     scroll.add($0)
                     $0.topAnchor.constraint(equalTo: top, constant: 30).isActive = true
