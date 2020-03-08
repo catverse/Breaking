@@ -47,6 +47,8 @@ final class Window: NSWindow {
             guard !$0.isEmpty else { return }
             var top = scroll.top
             $0.sorted { $0.date > $1.date }.map(Article.init(_:)).forEach {
+                $0.target = self
+                $0.action = #selector(self.click(_:))
                 (top == scroll.top ? [$0] : [Separator(), $0]).forEach {
                     scroll.add($0)
                     $0.topAnchor.constraint(equalTo: top, constant: 30).isActive = true
@@ -61,5 +63,10 @@ final class Window: NSWindow {
     
     override func close() {
         NSApp.terminate(nil)
+    }
+    
+    @objc private func click(_ article: Article) {
+        news.read(article.item)
+        NSWorkspace.shared.open(article.item.link)
     }
 }

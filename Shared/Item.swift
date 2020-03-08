@@ -1,6 +1,6 @@
 import Foundation
 
-struct Item: Identifiable, Hashable {
+struct Item: Codable, Identifiable, Hashable {
     static let dates = {
         let formatter = DateFormatter()
         formatter.dateFormat = "E, d MMM yyyy HH:mm:ss Z"

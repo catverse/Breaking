@@ -1,6 +1,8 @@
 import AppKit
 
 class Control: NSView {
+    weak var target: AnyObject!
+    var action: Selector!
     override var mouseDownCanMoveWindow: Bool { false }
     
     required init?(coder: NSCoder) { nil }
@@ -27,7 +29,7 @@ class Control: NSView {
     override func mouseUp(with: NSEvent) {
         window!.makeFirstResponder(self)
         if bounds.contains(convert(with.locationInWindow, from: nil)) {
-            click()
+            _ = target.perform(action, with: self)
         } else {
             super.mouseUp(with: with)
         }
@@ -40,9 +42,5 @@ class Control: NSView {
     
     func hoverOff() {
         alphaValue = 1
-    }
-    
-    func click() {
-        
     }
 }

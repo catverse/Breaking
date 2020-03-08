@@ -1,7 +1,7 @@
 import AppKit
 
 final class Article: Control {
-    private let item: Item
+    let item: Item
     
     required init?(coder: NSCoder) { nil }
     init(_ item: Item) {
@@ -49,9 +49,5 @@ final class Article: Control {
             date.rightAnchor.constraint(lessThanOrEqualTo: new.leftAnchor, constant: -15).isActive = true
             title.rightAnchor.constraint(lessThanOrEqualTo: new.leftAnchor, constant: -15).isActive = true
         }
-    }
-    
-    override func click() {
-        NSWorkspace.shared.open(item.link)
     }
 }
