@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		CE23A0CC24150CD2004F8C96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE23A0C824150CD2004F8C96 /* Assets.xcassets */; };
 		CE23A0CD24150CD2004F8C96 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE23A0CA24150CD2004F8C96 /* App.swift */; };
-		CE23A0CE24150CD2004F8C96 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE23A0CB24150CD2004F8C96 /* Info.plist */; };
 		CE23A0D424150CDD004F8C96 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE23A0D024150CDD004F8C96 /* LaunchScreen.storyboard */; };
 		CE23A0D524150CDD004F8C96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE23A0D124150CDD004F8C96 /* Assets.xcassets */; };
 		CE23A0D624150CDD004F8C96 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE23A0D224150CDD004F8C96 /* App.swift */; };
@@ -383,7 +382,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE23A0CE24150CD2004F8C96 /* Info.plist in Resources */,
 				CEE97007241519D600A01699 /* Localizable.strings in Resources */,
 				CE23A0CC24150CD2004F8C96 /* Assets.xcassets in Resources */,
 			);

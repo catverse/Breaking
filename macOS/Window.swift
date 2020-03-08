@@ -55,7 +55,7 @@ final class Window: NSWindow {
                     top = $0.bottomAnchor
                 }
             }
-            scroll.bottom.constraint(equalTo: top, constant: 30).isActive = true
+            scroll.bottom.constraint(greaterThanOrEqualTo: top, constant: 30).isActive = true
         }
     }
     
