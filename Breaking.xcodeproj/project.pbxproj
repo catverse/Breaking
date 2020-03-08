@@ -31,6 +31,10 @@
 		CEE97007241519D600A01699 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CEE97005241519D600A01699 /* Localizable.strings */; };
 		CEE97008241519D600A01699 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CEE97005241519D600A01699 /* Localizable.strings */; };
 		CEE97009241519D600A01699 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CEE97005241519D600A01699 /* Localizable.strings */; };
+		CEE9700B24151C6700A01699 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE9700A24151C6700A01699 /* Article.swift */; };
+		CEE9700D24151E3300A01699 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE9700C24151E3300A01699 /* News.swift */; };
+		CEE9700E24151E3300A01699 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE9700C24151E3300A01699 /* News.swift */; };
+		CEE9700F24151E3300A01699 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE9700C24151E3300A01699 /* News.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +106,8 @@
 		CE23A10224150FED004F8C96 /* Breaking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Breaking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE23A10324151045004F8C96 /* Breaking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Breaking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEE97006241519D600A01699 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		CEE9700A24151C6700A01699 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
+		CEE9700C24151E3300A01699 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +164,7 @@
 				CE23A0C924150CD2004F8C96 /* macOS.entitlements */,
 				CE23A0CB24150CD2004F8C96 /* Info.plist */,
 				CE23A0CA24150CD2004F8C96 /* App.swift */,
+				CEE9700A24151C6700A01699 /* Article.swift */,
 				CE23A0F924150EC8004F8C96 /* Control.swift */,
 				CE23A0FD24150F28004F8C96 /* Font.swift */,
 				CE23A0F724150EB8004F8C96 /* Label.swift */,
@@ -202,6 +209,7 @@
 		CE23A0EC24150D2C004F8C96 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				CEE9700C24151E3300A01699 /* News.swift */,
 				CEE97005241519D600A01699 /* Localizable.strings */,
 			);
 			path = Shared;
@@ -420,7 +428,9 @@
 				CE23A0CD24150CD2004F8C96 /* App.swift in Sources */,
 				CE23A0FA24150EC8004F8C96 /* Control.swift in Sources */,
 				CE23A0FE24150F28004F8C96 /* Font.swift in Sources */,
+				CEE9700D24151E3300A01699 /* News.swift in Sources */,
 				CE23A0F624150E6B004F8C96 /* Window.swift in Sources */,
+				CEE9700B24151C6700A01699 /* Article.swift in Sources */,
 				CE23A10024150F42004F8C96 /* String.swift in Sources */,
 				CE23A0FC24150EE3004F8C96 /* Scroll.swift in Sources */,
 				CE23A0F824150EB8004F8C96 /* Label.swift in Sources */,
@@ -431,6 +441,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEE9700E24151E3300A01699 /* News.swift in Sources */,
 				CE23A0D624150CDD004F8C96 /* App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -439,6 +450,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEE9700F24151E3300A01699 /* News.swift in Sources */,
 				CE23A0EA24150D17004F8C96 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
