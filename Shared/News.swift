@@ -7,8 +7,12 @@ final class News {
     private var graph: Graph!
     private var subs = Set<AnyCancellable>()
     private let spiegel = URL(string: "https://www.spiegel.de/international/index.rss")!
+    private let reddit = URL(string: "https://www.reddit.com/r/worldnews/.rss")!
+    private let thelocal = URL(string: "https://feeds.thelocal.com/rss/de")!
+    private let formatter = DateFormatter()
  
     init() {
+        formatter.dateFormat = "E, d MMM yyyy HH:mm:ss Z"
         Balam.graph("Breaking").sink {
             self.graph = $0
             self.fetch()
@@ -16,7 +20,7 @@ final class News {
     }
     
     func refresh() {
-        URLSession.shared.dataTaskPublisher(for: spiegel).map(Item.spiegel(_:)).replaceError(with: []).sink {
+        URLSession.shared.dataTaskPublisher(for: reddit).map { self.parse($0, provider: .spiegel) }.replaceError(with: []).sink {
             self.merge($0)
         }.store(in: &subs)
     }
@@ -40,5 +44,22 @@ final class News {
         graph.nodes(Item.self).sink {
             self.items = .init($0)
         }.store(in: &subs)
+    }
+    
+    private func parse(_ output: URLSession.DataTaskPublisher.Output, provider: Provider) -> [Item] {
+        String(decoding: output.0, as: UTF8.self).components(separatedBy: "<item").dropFirst().compactMap {
+            guard
+                let id = content($0, tag: "guid"),
+                let title = content($0, tag: "title"),
+                let description = content($0, tag: "description"),
+                let date = content($0, tag: "pubDate").flatMap ( { formatter.date(from: $0) } ),
+                let link = content($0, tag: "link").flatMap ( { URL(string: $0) } )
+            else { return nil }
+            return Item(.spiegel, id, title, description, date, link)
+        }
+    }
+    
+    private func content(_ string: String, tag: String) -> String? {
+        string.components(separatedBy: "<" + tag).last?.components(separatedBy: ">").dropFirst().first?.components(separatedBy: "</" + tag + ">").first
     }
 }

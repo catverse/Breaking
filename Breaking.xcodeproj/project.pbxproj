@@ -224,8 +224,8 @@
 			children = (
 				CEA38ECB2415292800ED4BBE /* Item.swift */,
 				CEE9700C24151E3300A01699 /* News.swift */,
-				CEE97005241519D600A01699 /* Localizable.strings */,
 				CE6E10B724160FD2003D86A5 /* Provider.swift */,
+				CEE97005241519D600A01699 /* Localizable.strings */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
