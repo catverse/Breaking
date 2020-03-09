@@ -3,6 +3,7 @@ import Combine
 
 final class Window: NSWindow {
     let news = News()
+    private weak var counter: Label!
     private var sub: AnyCancellable?
     
     init() {
@@ -16,13 +17,25 @@ final class Window: NSWindow {
         collectionBehavior = .fullScreenNone
         isReleasedWhenClosed = false
         
+        let formatter = NumberFormatter()
+        
         let blur = NSVisualEffectView()
         blur.translatesAutoresizingMaskIntoConstraints = false
         contentView!.addSubview(blur)
         
-        let title = Label(.key("App.title"), .medium(14))
+        let title = Label(.key("App.title"), .medium(12))
+        title.lineBreakMode = .byTruncatingTail
+        title.maximumNumberOfLines = 1
+        title.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         title.textColor = .headerTextColor
         contentView!.addSubview(title)
+        
+        let counter = Label("", .medium(12))
+        counter.lineBreakMode = .byTruncatingTail
+        counter.maximumNumberOfLines = 1
+        counter.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        counter.textColor = .tertiaryLabelColor
+        contentView!.addSubview(counter)
         
         let scroll = Scroll()
         contentView!.addSubview(scroll)
@@ -35,6 +48,10 @@ final class Window: NSWindow {
         title.leftAnchor.constraint(equalTo: contentView!.leftAnchor, constant: 80).isActive = true
         title.centerYAnchor.constraint(equalTo: blur.centerYAnchor).isActive = true
         
+        counter.leftAnchor.constraint(greaterThanOrEqualTo: title.rightAnchor, constant: 5).isActive = true
+        counter.rightAnchor.constraint(equalTo: contentView!.rightAnchor, constant: -30).isActive = true
+        counter.centerYAnchor.constraint(equalTo: blur.centerYAnchor).isActive = true
+        
         scroll.topAnchor.constraint(equalTo: blur.bottomAnchor, constant: 1).isActive = true
         scroll.leftAnchor.constraint(equalTo: contentView!.leftAnchor, constant: 1).isActive = true
         scroll.rightAnchor.constraint(equalTo: contentView!.rightAnchor, constant: -1).isActive = true
@@ -44,6 +61,7 @@ final class Window: NSWindow {
         
         sub = news.$items.receive(on: DispatchQueue.main).sink {
             scroll.views.forEach { $0.removeFromSuperview() }
+            counter.stringValue = formatter.string(from: .init(value: $0.count))! + .key("Counter")
             guard !$0.isEmpty else { return }
             var top = scroll.top
             $0.sorted { $0.date > $1.date }.map(Article.init(_:)).forEach {

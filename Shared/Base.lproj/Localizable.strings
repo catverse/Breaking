@@ -1,2 +1,3 @@
 App.title="Breaking News";
 Badge.New="New";
+Counter=" articles";

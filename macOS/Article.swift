@@ -13,7 +13,7 @@ final class Article: Control {
         formatter.timeStyle = .none
         
         let date = Label(formatter.string(from: item.date), .light(12))
-        date.textColor = item.new ? .tertiaryLabelColor : .quaternaryLabelColor
+        date.textColor = item.new ? .secondaryLabelColor : .tertiaryLabelColor
         date.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         addSubview(date)
         
