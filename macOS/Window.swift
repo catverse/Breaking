@@ -64,7 +64,7 @@ final class Window: NSWindow {
             counter.stringValue = formatter.string(from: .init(value: $0.count))! + .key("Counter")
             guard !$0.isEmpty else { return }
             var top = scroll.top
-            $0.sorted { $0.date > $1.date }.map(Article.init(_:)).forEach {
+            $0.sorted { $0.date > $1.date }.map(Article.init(_:)).prefix(30).forEach {
                 $0.target = self
                 $0.action = #selector(self.click(_:))
                 (top == scroll.top ? [$0] : [Separator(), $0]).forEach {

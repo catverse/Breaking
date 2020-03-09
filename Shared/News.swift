@@ -72,7 +72,7 @@ final class News {
                 let date = content($0, tag: "pubDate").flatMap( { formatter.date(from: $0) } ),
                 let link = content($0, tag: "link").flatMap( { URL(string: $0) } )
             else { return nil }
-            return Item(.spiegel, id, title, description, date, link)
+            return Item(provider, id, title, description, date, link)
         }
     }
     

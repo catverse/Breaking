@@ -12,6 +12,12 @@ final class Article: Control {
         formatter.dateStyle = .full
         formatter.timeStyle = .none
         
+        let provider = Label(.key("Provider.\(item.provider)") + ":", .light(12))
+        provider.textColor = item.new ? .labelColor : .tertiaryLabelColor
+        provider.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        provider.maximumNumberOfLines = 1
+        addSubview(provider)
+        
         let date = Label(formatter.string(from: item.date), .light(12))
         date.textColor = item.new ? .secondaryLabelColor : .tertiaryLabelColor
         date.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
@@ -29,8 +35,12 @@ final class Article: Control {
         
         bottomAnchor.constraint(equalTo: description.bottomAnchor).isActive = true
         
+        provider.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        provider.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        provider.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor).isActive = true
+        
         date.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        date.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        date.leftAnchor.constraint(equalTo: provider.rightAnchor).isActive = true
         date.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor).isActive = true
         
         title.topAnchor.constraint(equalTo: date.bottomAnchor, constant: 4).isActive = true
