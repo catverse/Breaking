@@ -16,7 +16,7 @@ struct Item: Codable, Identifiable, Hashable {
                 let date = content($0, tag: "pubDate").flatMap ( { dates.date(from: $0) } ),
                 let link = content($0, tag: "link").flatMap ( { URL(string: $0) } )
             else { return nil }
-            return Item(id, title, description, date, link)
+            return Item(.spiegel, id, title, description, date, link)
         }
     }
     
@@ -25,13 +25,16 @@ struct Item: Codable, Identifiable, Hashable {
     }
     
     var new = true
+    var favourite = false
+    let provider: Provider
     let id: String
     let title: String
     let description: String
     let date: Date
     let link: URL
     
-    private init(_ id: String, _ title: String, _ description: String, _ date: Date, _ link: URL) {
+    private init(_ provider: Provider, _ id: String, _ title: String, _ description: String, _ date: Date, _ link: URL) {
+        self.provider = provider
         self.id = id
         self.title = title
         self.description = description
