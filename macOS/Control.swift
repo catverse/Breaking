@@ -2,7 +2,7 @@ import AppKit
 
 class Control: NSView {
     weak var target: AnyObject!
-    var action: Selector!
+    var click: Selector!
     override var mouseDownCanMoveWindow: Bool { false }
     
     required init?(coder: NSCoder) { nil }
@@ -18,21 +18,7 @@ class Control: NSView {
         addCursorRect(bounds, cursor: .pointingHand)
     }
     
-    override func mouseDown(with: NSEvent) {
-        hoverOn()
-    }
-    
     override func mouseExited(with: NSEvent) {
-        hoverOff()
-    }
-    
-    override func mouseUp(with: NSEvent) {
-        window!.makeFirstResponder(self)
-        if bounds.contains(convert(with.locationInWindow, from: nil)) {
-            _ = target.perform(action, with: self)
-        } else {
-            super.mouseUp(with: with)
-        }
         hoverOff()
     }
     

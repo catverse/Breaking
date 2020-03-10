@@ -39,6 +39,12 @@ final class News {
         graph.update(item)
     }
     
+    func favourite(_ item: Item, favourite: Bool) {
+        var item = item
+        item.favourite = favourite
+        graph.update(item)
+    }
+    
     private func request(_ providers: [Provider] = [.spiegel, .theLocal]) {
         guard let provider = providers.first else {
             fetch(false)

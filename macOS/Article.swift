@@ -1,11 +1,15 @@
 import AppKit
 
 final class Article: Control {
+    var hearth: Selector!
     let item: Item
+    private(set) var _favourite: Bool
+    private weak var favourite: NSImageView!
     
     required init?(coder: NSCoder) { nil }
     init(_ item: Item) {
         self.item = item
+        _favourite = item.favourite
         super.init()
         
         let formatter = DateFormatter()
@@ -35,6 +39,12 @@ final class Article: Control {
         description.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         addSubview(description)
         
+        let favourite = NSImageView()
+        favourite.translatesAutoresizingMaskIntoConstraints = false
+        favourite.imageScaling = .scaleNone
+        addSubview(favourite)
+        self.favourite = favourite
+        
         bottomAnchor.constraint(equalTo: description.bottomAnchor, constant: 35).isActive = true
         
         provider.topAnchor.constraint(equalTo: topAnchor).isActive = true
@@ -53,12 +63,52 @@ final class Article: Control {
         description.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         description.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor).isActive = true
         
+        favourite.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        favourite.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        favourite.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        
         if item.new {
             let new = New()
             addSubview(new)
             
             new.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
             new.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+            favourite.leftAnchor.constraint(equalTo: new.rightAnchor, constant: 15).isActive = true
+        } else {
+            favourite.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         }
+        
+        update()
+    }
+    
+    override func mouseDown(with: NSEvent) {
+        if !favourite.frame.contains(convert(with.locationInWindow, from: nil)) {
+            hoverOn()
+        }
+    }
+    
+    override func mouseUp(with: NSEvent) {
+        window!.makeFirstResponder(self)
+        if favourite.frame.contains(convert(with.locationInWindow, from: nil)) {
+            _ = target.perform(hearth, with: self)
+        } else if bounds.contains(convert(with.locationInWindow, from: nil)) {
+            _ = target.perform(click, with: self)
+        } else {
+            super.mouseUp(with: with)
+        }
+        hoverOff()
+    }
+    
+    func toggleFavourite() {
+        _favourite.toggle()
+        update()
+    }
+    
+    private func update() {
+        favourite.image = NSImage(named: "favourite")!.copy() as? NSImage
+        favourite.image!.lockFocus()
+        _favourite ? NSColor.controlAccentColor.set() : NSColor.disabledControlTextColor.set()
+        NSRect(origin: .init(), size: favourite.image!.size).fill(using: .sourceAtop)
+        favourite.image!.unlockFocus()
     }
 }
