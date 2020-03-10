@@ -14,13 +14,15 @@ final class Article: Control {
         
         let provider = Label(.key("Provider.\(item.provider)") + ":", .light(12))
         provider.textColor = item.new ? .labelColor : .tertiaryLabelColor
-        provider.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        provider.setContentCompressionResistancePriority(.init(2), for: .horizontal)
         provider.maximumNumberOfLines = 1
         addSubview(provider)
         
         let date = Label(formatter.string(from: item.date), .light(12))
+        date.maximumNumberOfLines = 1
+        date.lineBreakMode = .byTruncatingTail
         date.textColor = item.new ? .secondaryLabelColor : .tertiaryLabelColor
-        date.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        date.setContentCompressionResistancePriority(.init(1), for: .horizontal)
         addSubview(date)
         
         let title = Label(item.title, .medium(16))
@@ -33,7 +35,7 @@ final class Article: Control {
         description.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         addSubview(description)
         
-        bottomAnchor.constraint(equalTo: description.bottomAnchor).isActive = true
+        bottomAnchor.constraint(equalTo: description.bottomAnchor, constant: 35).isActive = true
         
         provider.topAnchor.constraint(equalTo: topAnchor).isActive = true
         provider.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
@@ -55,10 +57,8 @@ final class Article: Control {
             let new = New()
             addSubview(new)
             
-            new.topAnchor.constraint(equalTo: topAnchor).isActive = true
-            new.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-            date.rightAnchor.constraint(lessThanOrEqualTo: new.leftAnchor, constant: -15).isActive = true
-            title.rightAnchor.constraint(lessThanOrEqualTo: new.leftAnchor, constant: -15).isActive = true
+            new.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+            new.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         }
     }
 }

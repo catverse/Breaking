@@ -8,7 +8,7 @@ final class Window: NSWindow {
     
     init() {
         super.init(contentRect: .init(x: 0, y: 0, width: 600, height: 800), styleMask: [.borderless, .miniaturizable, .resizable, .closable, .titled, .unifiedTitleAndToolbar, .fullSizeContentView], backing: .buffered, defer: false)
-        minSize = .init(width: 200, height: 200)
+        minSize = .init(width: 200, height: 120)
         center()
         titlebarAppearsTransparent = true
         titleVisibility = .hidden
@@ -22,13 +22,6 @@ final class Window: NSWindow {
         let blur = NSVisualEffectView()
         blur.translatesAutoresizingMaskIntoConstraints = false
         contentView!.addSubview(blur)
-        
-        let title = Label(.key("App.title"), .medium(12))
-        title.lineBreakMode = .byTruncatingTail
-        title.maximumNumberOfLines = 1
-        title.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        title.textColor = .headerTextColor
-        contentView!.addSubview(title)
         
         let counter = Label("", .medium(12))
         counter.lineBreakMode = .byTruncatingTail
@@ -45,10 +38,6 @@ final class Window: NSWindow {
         blur.rightAnchor.constraint(equalTo: contentView!.rightAnchor).isActive = true
         blur.heightAnchor.constraint(equalToConstant: 38).isActive = true
         
-        title.leftAnchor.constraint(equalTo: contentView!.leftAnchor, constant: 80).isActive = true
-        title.centerYAnchor.constraint(equalTo: blur.centerYAnchor).isActive = true
-        
-        counter.leftAnchor.constraint(greaterThanOrEqualTo: title.rightAnchor, constant: 5).isActive = true
         counter.rightAnchor.constraint(equalTo: contentView!.rightAnchor, constant: -30).isActive = true
         counter.centerYAnchor.constraint(equalTo: blur.centerYAnchor).isActive = true
         
@@ -64,18 +53,18 @@ final class Window: NSWindow {
             counter.stringValue = formatter.string(from: .init(value: $0.count))! + .key("Counter")
             guard !$0.isEmpty else { return }
             var top = scroll.top
-            $0.sorted { $0.date > $1.date }.map(Article.init(_:)).prefix(30).forEach {
+            $0.sorted { $0.date > $1.date }.map(Article.init(_:)).forEach {
                 $0.target = self
                 $0.action = #selector(self.click(_:))
                 (top == scroll.top ? [$0] : [Separator(), $0]).forEach {
                     scroll.add($0)
-                    $0.topAnchor.constraint(equalTo: top, constant: 30).isActive = true
+                    $0.topAnchor.constraint(equalTo: top, constant: 15).isActive = true
                     $0.leftAnchor.constraint(equalTo: scroll.left, constant: 30).isActive = true
                     $0.rightAnchor.constraint(equalTo: scroll.right, constant: -30).isActive = true
                     top = $0.bottomAnchor
                 }
             }
-            scroll.bottom.constraint(greaterThanOrEqualTo: top, constant: 30).isActive = true
+            scroll.bottom.constraint(greaterThanOrEqualTo: top, constant: 15).isActive = true
         }
     }
     
