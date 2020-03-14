@@ -3,6 +3,7 @@ import Foundation
 import Combine
 
 final class News {
+    let publisher = Future<Graph, Never>(<#(@escaping (Result<Output, Failure>) -> Void) -> Void#>)
     @Published private(set) var items = Set<Item>()
     private var graph: Graph!
     private var sub: AnyCancellable?

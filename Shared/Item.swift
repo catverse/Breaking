@@ -1,7 +1,7 @@
 import Foundation
 
-struct Item: Codable, Identifiable, Hashable {
-    var new = true
+struct Item: Codable, Equatable, Hashable {
+    var status = Status.new
     var favourite = false
     let provider: Provider
     let id: String
