@@ -48,7 +48,7 @@ final class Window: NSWindow {
         scroll.right.constraint(equalTo: scroll.rightAnchor).isActive = true
         scroll.bottom.constraint(greaterThanOrEqualTo: scroll.bottomAnchor).isActive = true
         
-        sub = news.$items.receive(on: DispatchQueue.main).sink {
+        sub = news.receive(on: DispatchQueue.main).sink {
             scroll.views.forEach { $0.removeFromSuperview() }
             counter.stringValue = formatter.string(from: .init(value: $0.count))! + .key("Counter")
             guard !$0.isEmpty else { return }

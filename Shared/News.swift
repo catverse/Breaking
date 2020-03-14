@@ -2,10 +2,10 @@ import Balam
 import Foundation
 import Combine
 
-final class News {
-    let publisher = Future<Graph, Never>(<#(@escaping (Result<Output, Failure>) -> Void) -> Void#>)
-    @Published private(set) var items = Set<Item>()
-    private var graph: Graph!
+final class News: Publisher {
+    typealias Output = Set<Item>
+    typealias Failure = Never
+    private(set) var graph: Graph!
     private var sub: AnyCancellable?
     private let formatter = DateFormatter()
     private let url = [Provider.spiegel : URL(string: "https://www.spiegel.de/international/index.rss")!,
@@ -34,16 +34,8 @@ final class News {
         }
     }
     
-    func read(_ item: Item) {
-        var item = item
-        item.new = false
-        graph.update(item)
-    }
-    
-    func favourite(_ item: Item, favourite: Bool) {
-        var item = item
-        item.favourite = favourite
-        graph.update(item)
+    func receive<S>(subscriber: S) where S : Subscriber, Never == S.Failure, Set<Item> == S.Input {
+        let sub = NewsSubscription()
     }
     
     private func request(_ providers: [Provider] = [.spiegel, .theLocal]) {
@@ -52,11 +44,7 @@ final class News {
             return
         }
         sub = URLSession.shared.dataTaskPublisher(for: url[provider]!).map { self.parse($0, provider: provider) }.replaceError(with: []).sink {
-            $0.forEach {
-                if !self.items.contains($0) {
-                    self.graph.add($0)
-                }
-            }
+            self.graph.add($0)
             self.request(.init(providers.dropFirst()))
         }
     }
