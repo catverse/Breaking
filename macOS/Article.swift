@@ -16,7 +16,7 @@ final class Article: Control {
         
         let formatter = DateFormatter()
         formatter.dateStyle = .full
-        formatter.timeStyle = .none
+        formatter.timeStyle = .short
         
         let provider = Label(.key("Provider.\(item.provider)") + ":", .light(12))
         provider.setContentCompressionResistancePriority(.init(2), for: .horizontal)
@@ -109,8 +109,8 @@ final class Article: Control {
         
         hearth.image = NSImage(named: "favourite")!.copy() as? NSImage
         hearth.image!.lockFocus()
-        item.favourite ? NSColor.controlAccentColor.set() : NSColor.disabledControlTextColor.set()
-        NSRect(origin: .init(), size: hearth.image!.size).fill(using: .sourceAtop)
+        item.favourite ? NSColor.controlAccentColor.set() : NSColor.tertiaryLabelColor.set()
+        NSRect(origin: .init(), size: hearth.image!.size).fill(using: .sourceIn)
         hearth.image!.unlockFocus()
     }
 }

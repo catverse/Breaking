@@ -10,7 +10,7 @@ final class News: Publisher {
     private var last = Date()
     private let sub = Sub()
     private let formatter = DateFormatter()
-    private let url = [Provider.guardian : URL(string: "https://www.theguardian.com/uk/rss")!,
+    private let url = [Provider.guardian : URL(string: "https://www.theguardian.com/world/rss")!,
                        .spiegel : URL(string: "https://www.spiegel.de/international/index.rss")!,
                        .theLocal : URL(string: "https://feeds.thelocal.com/rss/de")!]
     private let characters = [
@@ -72,7 +72,7 @@ final class News: Publisher {
             guard
                 let id = content($0, tag: "guid"),
                 let title = content($0, tag: "title").flatMap( { clean($0) }),
-                let description = content($0, tag: "description").flatMap( { clean($0) } ),
+                let description = content($0, tag: "description").flatMap( { strip(clean($0)) } ),
                 let date = content($0, tag: "pubDate").flatMap( { formatter.date(from: $0) } ),
                 let link = content($0, tag: "link").flatMap( { URL(string: $0) } )
             else { return nil }
@@ -88,6 +88,10 @@ final class News: Publisher {
         characters.reduce(string) {
             $0.replacingOccurrences(of: $1.0, with: $1.1)
         }
+    }
+    
+    private func strip(_ string: String) -> String {
+        string.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression)
     }
     
     private final class Sub: Subscription {
