@@ -37,6 +37,7 @@
 		CE6E10B824160FD2003D86A5 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E10B724160FD2003D86A5 /* Provider.swift */; };
 		CE6E10B924160FD2003D86A5 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E10B724160FD2003D86A5 /* Provider.swift */; };
 		CE6E10BA24160FD2003D86A5 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E10B724160FD2003D86A5 /* Provider.swift */; };
+		CE7F11AB241E5EF300E23EFB /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7F11AA241E5EF300E23EFB /* Menu.swift */; };
 		CEA38ECC2415292800ED4BBE /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA38ECB2415292800ED4BBE /* Item.swift */; };
 		CEA38ECD2415292800ED4BBE /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA38ECB2415292800ED4BBE /* Item.swift */; };
 		CEA38ECE2415292800ED4BBE /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA38ECB2415292800ED4BBE /* Item.swift */; };
@@ -122,6 +123,7 @@
 		CE23A10324151045004F8C96 /* Breaking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Breaking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE435D072417670E00130754 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		CE6E10B724160FD2003D86A5 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
+		CE7F11AA241E5EF300E23EFB /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		CEA38ECB2415292800ED4BBE /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		CEA38ECF241533C300ED4BBE /* Separator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Separator.swift; sourceTree = "<group>"; };
 		CEE97006241519D600A01699 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 				CE23A0F924150EC8004F8C96 /* Control.swift */,
 				CE23A0FD24150F28004F8C96 /* Font.swift */,
 				CE23A0F724150EB8004F8C96 /* Label.swift */,
+				CE7F11AA241E5EF300E23EFB /* Menu.swift */,
 				CE0939C024154A00008EFAC1 /* New.swift */,
 				CE23A0FB24150EE3004F8C96 /* Scroll.swift */,
 				CEA38ECF241533C300ED4BBE /* Separator.swift */,
@@ -461,6 +464,7 @@
 				CE23A0F624150E6B004F8C96 /* Window.swift in Sources */,
 				CEE9700B24151C6700A01699 /* Article.swift in Sources */,
 				CE23A10024150F42004F8C96 /* String.swift in Sources */,
+				CE7F11AB241E5EF300E23EFB /* Menu.swift in Sources */,
 				CE1AE62D241D06C5009CC86A /* Status.swift in Sources */,
 				CE6E10B824160FD2003D86A5 /* Provider.swift in Sources */,
 				CE23A0FC24150EE3004F8C96 /* Scroll.swift in Sources */,
