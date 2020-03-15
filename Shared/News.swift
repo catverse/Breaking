@@ -7,6 +7,7 @@ final class News: Publisher {
     typealias Failure = Never
     private(set) var graph: Graph!
     private var cancellables = Set<AnyCancellable>()
+    private var last = Date.distantPast
     private let sub = Sub()
     private let formatter = DateFormatter()
     private let url = [Provider.spiegel : URL(string: "https://www.spiegel.de/international/index.rss")!,
@@ -31,7 +32,9 @@ final class News: Publisher {
                 self.fetch()
                 self.request()
             }.store(in: &cancellables)
-        } else {
+        } else if Calendar.current.date(byAdding: .minute, value: 10, to: last)! > .init() {
+            last = .init()
+            print("request")
             request()
         }
     }
@@ -53,9 +56,9 @@ final class News: Publisher {
     }
     
     private func fetch() {
-        let last = Calendar.current.date(byAdding: .hour, value: -1, to: .init())!
+        let limit = Calendar.current.date(byAdding: .hour, value: -1, to: .init())!
         graph.update(Item.self) {
-            if $0.status == .new && $0.downloaded < last {
+            if $0.status == .new && $0.downloaded < limit {
                 $0.status = .waiting
             }
         }

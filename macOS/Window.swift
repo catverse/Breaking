@@ -76,12 +76,13 @@ final class Window: NSWindow {
     @objc private func favourite(_ article: Article) {
         article.item.favourite.toggle()
         news.graph.update(article.item)
-        article.updateFavourite()
+        article.update()
     }
     
     @objc private func click(_ article: Article) {
         article.item.status = .read
         news.graph.update(article.item)
+        article.update()
         NSWorkspace.shared.open(article.item.link)
     }
 }

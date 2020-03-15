@@ -3,6 +3,10 @@ import AppKit
 final class Article: Control {
     var favourite: Selector!
     var item: Item
+    private weak var provider: Label!
+    private weak var date: Label!
+    private weak var title: Label!
+    private weak var descr: Label!
     private weak var hearth: NSImageView!
     
     required init?(coder: NSCoder) { nil }
@@ -15,27 +19,27 @@ final class Article: Control {
         formatter.timeStyle = .none
         
         let provider = Label(.key("Provider.\(item.provider)") + ":", .light(12))
-        provider.textColor = item.status == .read ? .tertiaryLabelColor : .labelColor
         provider.setContentCompressionResistancePriority(.init(2), for: .horizontal)
         provider.maximumNumberOfLines = 1
         addSubview(provider)
+        self.provider = provider
         
         let date = Label(formatter.string(from: item.date), .light(12))
         date.maximumNumberOfLines = 1
         date.lineBreakMode = .byTruncatingTail
-        date.textColor = item.status == .read ? .tertiaryLabelColor : .secondaryLabelColor
         date.setContentCompressionResistancePriority(.init(1), for: .horizontal)
         addSubview(date)
+        self.date = date
         
         let title = Label(item.title, .medium(16))
-        title.textColor = item.status == .read ? .tertiaryLabelColor : .headerTextColor
         title.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         addSubview(title)
+        self.title = title
         
-        let description = Label(item.description, .regular(14))
-        description.textColor = item.status == .read ? .tertiaryLabelColor : .secondaryLabelColor
-        description.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        addSubview(description)
+        let descr = Label(item.description, .regular(14))
+        descr.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        addSubview(descr)
+        self.descr = descr
         
         let hearth = NSImageView()
         hearth.translatesAutoresizingMaskIntoConstraints = false
@@ -43,7 +47,7 @@ final class Article: Control {
         addSubview(hearth)
         self.hearth = hearth
         
-        bottomAnchor.constraint(equalTo: description.bottomAnchor, constant: 35).isActive = true
+        bottomAnchor.constraint(equalTo: descr.bottomAnchor, constant: 35).isActive = true
         
         provider.topAnchor.constraint(equalTo: topAnchor).isActive = true
         provider.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
@@ -57,9 +61,9 @@ final class Article: Control {
         title.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         title.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor).isActive = true
         
-        description.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 6).isActive = true
-        description.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        description.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor).isActive = true
+        descr.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 6).isActive = true
+        descr.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        descr.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor).isActive = true
         
         hearth.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         hearth.widthAnchor.constraint(equalToConstant: 25).isActive = true
@@ -76,7 +80,7 @@ final class Article: Control {
             hearth.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         }
         
-        updateFavourite()
+        update()
     }
     
     override func mouseDown(with: NSEvent) {
@@ -97,7 +101,12 @@ final class Article: Control {
         hoverOff()
     }
     
-    func updateFavourite() {
+    func update() {
+        provider.textColor = item.status == .read ? .tertiaryLabelColor : .labelColor
+        date.textColor = item.status == .read ? .tertiaryLabelColor : .secondaryLabelColor
+        title.textColor = item.status == .read ? .tertiaryLabelColor : .headerTextColor
+        descr.textColor = item.status == .read ? .tertiaryLabelColor : .secondaryLabelColor
+        
         hearth.image = NSImage(named: "favourite")!.copy() as? NSImage
         hearth.image!.lockFocus()
         item.favourite ? NSColor.controlAccentColor.set() : NSColor.disabledControlTextColor.set()
