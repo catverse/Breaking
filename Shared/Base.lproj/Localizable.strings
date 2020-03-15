@@ -1,4 +1,5 @@
 Badge.New="New";
 Counter=" articles";
+Provider.guardian="The Guardian";
 Provider.spiegel="Der Spiegel";
 Provider.theLocal="The Local";

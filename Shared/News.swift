@@ -7,10 +7,11 @@ final class News: Publisher {
     typealias Failure = Never
     private(set) var graph: Graph!
     private var cancellables = Set<AnyCancellable>()
-    private var last = Date.distantPast
+    private var last = Date()
     private let sub = Sub()
     private let formatter = DateFormatter()
-    private let url = [Provider.spiegel : URL(string: "https://www.spiegel.de/international/index.rss")!,
+    private let url = [Provider.guardian : URL(string: "https://www.theguardian.com/uk/rss")!,
+                       .spiegel : URL(string: "https://www.spiegel.de/international/index.rss")!,
                        .theLocal : URL(string: "https://feeds.thelocal.com/rss/de")!]
     private let characters = [
         "&quot;" : "\"",
@@ -32,9 +33,8 @@ final class News: Publisher {
                 self.fetch()
                 self.request()
             }.store(in: &cancellables)
-        } else if Calendar.current.date(byAdding: .minute, value: 10, to: last)! > .init() {
+        } else if Calendar.current.date(byAdding: .minute, value: 15, to: last)! < .init() {
             last = .init()
-            print("request")
             request()
         }
     }
@@ -44,7 +44,7 @@ final class News: Publisher {
         subscriber.receive(subscription: sub)
     }
     
-    private func request(_ providers: [Provider] = [.spiegel, .theLocal]) {
+    private func request(_ providers: [Provider] = [.guardian, .spiegel, .theLocal]) {
         guard let provider = providers.first else {
             fetch()
             return
