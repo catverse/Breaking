@@ -53,6 +53,12 @@ final class News: Publisher {
     }
     
     private func fetch() {
+        let last = Calendar.current.date(byAdding: .hour, value: -1, to: .init())!
+        graph.update(Item.self) {
+            if $0.status == .new && $0.downloaded < last {
+                $0.status = .waiting
+            }
+        }
         graph.nodes(Item.self).sink {
             _ = self.sub.subscriber?.receive(.init($0))
         }.store(in: &cancellables)

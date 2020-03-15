@@ -9,6 +9,7 @@ struct Item: Codable, Equatable, Hashable {
     let description: String
     let date: Date
     let link: URL
+    let downloaded: Date
     
     init(_ provider: Provider, _ id: String, _ title: String, _ description: String, _ date: Date, _ link: URL) {
         self.provider = provider
@@ -17,6 +18,7 @@ struct Item: Codable, Equatable, Hashable {
         self.description = description
         self.date = date
         self.link = link
+        self.downloaded = .init()
     }
     
     func hash(into: inout Hasher) {
