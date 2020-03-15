@@ -6,7 +6,8 @@ final class News: Publisher {
     typealias Output = Set<Item>
     typealias Failure = Never
     private(set) var graph: Graph!
-    private var sub: AnyCancellable?
+    private var cancellables = Set<AnyCancellable>()
+    private let sub = Sub()
     private let formatter = DateFormatter()
     private let url = [Provider.spiegel : URL(string: "https://www.spiegel.de/international/index.rss")!,
                        .theLocal : URL(string: "https://feeds.thelocal.com/rss/de")!]
@@ -25,37 +26,36 @@ final class News: Publisher {
     
     func refresh() {
         if graph == nil {
-            sub = Balam.graph("Breaking").sink {
+            Balam.graph("Breaking").sink {
                 self.graph = $0
-                self.fetch(true)
-            }
+                self.fetch()
+                self.request()
+            }.store(in: &cancellables)
         } else {
             request()
         }
     }
     
-    func receive<S>(subscriber: S) where S : Subscriber, Never == S.Failure, Set<Item> == S.Input {
-        let sub = NewsSub(subscriber)
+    func receive<S>(subscriber: S) where S : Subscriber, Failure == S.Failure, Output == S.Input {
+        sub.subscriber = .init(subscriber)
+        subscriber.receive(subscription: sub)
     }
     
     private func request(_ providers: [Provider] = [.spiegel, .theLocal]) {
         guard let provider = providers.first else {
-            fetch(false)
+            fetch()
             return
         }
-        sub = URLSession.shared.dataTaskPublisher(for: url[provider]!).map { self.parse($0, provider: provider) }.replaceError(with: []).sink {
+        URLSession.shared.dataTaskPublisher(for: url[provider]!).map { self.parse($0, provider: provider) }.replaceError(with: []).sink {
             self.graph.add($0)
             self.request(.init(providers.dropFirst()))
-        }
+        }.store(in: &cancellables)
     }
     
-    private func fetch(_ request: Bool) {
-        sub = graph.nodes(Item.self).sink { _ in
-//            self.items = .init($0)
-//            if request {
-//                self.request()
-//            }
-        }
+    private func fetch() {
+        graph.nodes(Item.self).sink {
+            _ = self.sub.subscriber?.receive(.init($0))
+        }.store(in: &cancellables)
     }
     
     private func parse(_ output: URLSession.DataTaskPublisher.Output, provider: Provider) -> [Item] {
@@ -80,18 +80,10 @@ final class News: Publisher {
             $0.replacingOccurrences(of: $1.0, with: $1.1)
         }
     }
-}
-
-private final class NewsSub<T>: Subscription where T : Subscriber, T.Input == Set<Item> {
-    private(set) var subscriber: T?
     
-    init(_ subscriber: T) {
-        self.subscriber = subscriber
-    }
-
-    func request(_ demand: Subscribers.Demand) { }
-    
-    func cancel() {
-        subscriber = nil
+    private final class Sub: Subscription {
+        var subscriber: AnySubscriber<Output, Failure>?
+        func request(_ demand: Subscribers.Demand) { }
+        func cancel() { subscriber = nil }
     }
 }
