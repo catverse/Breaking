@@ -35,7 +35,7 @@ final class News: Publisher {
     }
     
     func receive<S>(subscriber: S) where S : Subscriber, Never == S.Failure, Set<Item> == S.Input {
-        let sub = NewsSubscription()
+        let sub = NewsSub(subscriber)
     }
     
     private func request(_ providers: [Provider] = [.spiegel, .theLocal]) {
@@ -50,11 +50,11 @@ final class News: Publisher {
     }
     
     private func fetch(_ request: Bool) {
-        sub = graph.nodes(Item.self).sink {
-            self.items = .init($0)
-            if request {
-                self.request()
-            }
+        sub = graph.nodes(Item.self).sink { _ in
+//            self.items = .init($0)
+//            if request {
+//                self.request()
+//            }
         }
     }
     
@@ -79,5 +79,19 @@ final class News: Publisher {
         characters.reduce(string) {
             $0.replacingOccurrences(of: $1.0, with: $1.1)
         }
+    }
+}
+
+private final class NewsSub<T>: Subscription where T : Subscriber, T.Input == Set<Item> {
+    private(set) var subscriber: T?
+    
+    init(_ subscriber: T) {
+        self.subscriber = subscriber
+    }
+
+    func request(_ demand: Subscribers.Demand) { }
+    
+    func cancel() {
+        subscriber = nil
     }
 }

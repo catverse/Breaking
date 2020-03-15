@@ -56,7 +56,7 @@ final class Window: NSWindow {
             $0.sorted { $0.date > $1.date }.map(Article.init(_:)).forEach {
                 $0.target = self
                 $0.click = #selector(self.click(_:))
-                $0.hearth = #selector(self.hearth(_:))
+                $0.favourite = #selector(self.favourite(_:))
                 (top == scroll.top ? [$0] : [Separator(), $0]).forEach {
                     scroll.add($0)
                     $0.topAnchor.constraint(equalTo: top, constant: 15).isActive = true
@@ -73,13 +73,15 @@ final class Window: NSWindow {
         NSApp.terminate(nil)
     }
     
-    @objc private func hearth(_ article: Article) {
-        article.toggleFavourite()
-        news.favourite(article.item, favourite: article._favourite)
+    @objc private func favourite(_ article: Article) {
+        article.item.favourite.toggle()
+        news.graph.update(article.item)
+        article.updateFavourite()
     }
     
     @objc private func click(_ article: Article) {
-        news.read(article.item)
+        article.item.status = .read
+        news.graph.update(article.item)
         NSWorkspace.shared.open(article.item.link)
     }
 }

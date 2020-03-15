@@ -1,15 +1,13 @@
 import AppKit
 
 final class Article: Control {
-    var hearth: Selector!
-    let item: Item
-    private(set) var _favourite: Bool
-    private weak var favourite: NSImageView!
+    var favourite: Selector!
+    var item: Item
+    private weak var hearth: NSImageView!
     
     required init?(coder: NSCoder) { nil }
     init(_ item: Item) {
         self.item = item
-        _favourite = item.favourite
         super.init()
         
         let formatter = DateFormatter()
@@ -17,7 +15,7 @@ final class Article: Control {
         formatter.timeStyle = .none
         
         let provider = Label(.key("Provider.\(item.provider)") + ":", .light(12))
-        provider.textColor = item.new ? .labelColor : .tertiaryLabelColor
+        provider.textColor = item.status == .read ? .tertiaryLabelColor : .labelColor
         provider.setContentCompressionResistancePriority(.init(2), for: .horizontal)
         provider.maximumNumberOfLines = 1
         addSubview(provider)
@@ -25,25 +23,25 @@ final class Article: Control {
         let date = Label(formatter.string(from: item.date), .light(12))
         date.maximumNumberOfLines = 1
         date.lineBreakMode = .byTruncatingTail
-        date.textColor = item.new ? .secondaryLabelColor : .tertiaryLabelColor
+        date.textColor = item.status == .read ? .tertiaryLabelColor : .secondaryLabelColor
         date.setContentCompressionResistancePriority(.init(1), for: .horizontal)
         addSubview(date)
         
         let title = Label(item.title, .medium(16))
-        title.textColor = item.new ? .headerTextColor : .tertiaryLabelColor
+        title.textColor = item.status == .read ? .tertiaryLabelColor : .headerTextColor
         title.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         addSubview(title)
         
         let description = Label(item.description, .regular(14))
-        description.textColor = item.new ? .secondaryLabelColor : .tertiaryLabelColor
+        description.textColor = item.status == .read ? .tertiaryLabelColor : .secondaryLabelColor
         description.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         addSubview(description)
         
-        let favourite = NSImageView()
-        favourite.translatesAutoresizingMaskIntoConstraints = false
-        favourite.imageScaling = .scaleNone
-        addSubview(favourite)
-        self.favourite = favourite
+        let hearth = NSImageView()
+        hearth.translatesAutoresizingMaskIntoConstraints = false
+        hearth.imageScaling = .scaleNone
+        addSubview(hearth)
+        self.hearth = hearth
         
         bottomAnchor.constraint(equalTo: description.bottomAnchor, constant: 35).isActive = true
         
@@ -63,34 +61,34 @@ final class Article: Control {
         description.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         description.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor).isActive = true
         
-        favourite.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        favourite.widthAnchor.constraint(equalToConstant: 25).isActive = true
-        favourite.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        hearth.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        hearth.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        hearth.heightAnchor.constraint(equalToConstant: 25).isActive = true
         
-        if item.new {
+        if item.status == .new {
             let new = New()
             addSubview(new)
             
             new.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
             new.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-            favourite.leftAnchor.constraint(equalTo: new.rightAnchor, constant: 15).isActive = true
+            hearth.leftAnchor.constraint(equalTo: new.rightAnchor, constant: 15).isActive = true
         } else {
-            favourite.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+            hearth.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         }
         
-        update()
+        updateFavourite()
     }
     
     override func mouseDown(with: NSEvent) {
-        if !favourite.frame.contains(convert(with.locationInWindow, from: nil)) {
+        if !hearth.frame.contains(convert(with.locationInWindow, from: nil)) {
             hoverOn()
         }
     }
     
     override func mouseUp(with: NSEvent) {
         window!.makeFirstResponder(self)
-        if favourite.frame.contains(convert(with.locationInWindow, from: nil)) {
-            _ = target.perform(hearth, with: self)
+        if hearth.frame.contains(convert(with.locationInWindow, from: nil)) {
+            _ = target.perform(favourite, with: self)
         } else if bounds.contains(convert(with.locationInWindow, from: nil)) {
             _ = target.perform(click, with: self)
         } else {
@@ -99,16 +97,11 @@ final class Article: Control {
         hoverOff()
     }
     
-    func toggleFavourite() {
-        _favourite.toggle()
-        update()
-    }
-    
-    private func update() {
-        favourite.image = NSImage(named: "favourite")!.copy() as? NSImage
-        favourite.image!.lockFocus()
-        _favourite ? NSColor.controlAccentColor.set() : NSColor.disabledControlTextColor.set()
-        NSRect(origin: .init(), size: favourite.image!.size).fill(using: .sourceAtop)
-        favourite.image!.unlockFocus()
+    func updateFavourite() {
+        hearth.image = NSImage(named: "favourite")!.copy() as? NSImage
+        hearth.image!.lockFocus()
+        item.favourite ? NSColor.controlAccentColor.set() : NSColor.disabledControlTextColor.set()
+        NSRect(origin: .init(), size: hearth.image!.size).fill(using: .sourceAtop)
+        hearth.image!.unlockFocus()
     }
 }
