@@ -15,7 +15,6 @@
 		CE23A0CD24150CD2004F8C96 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE23A0CA24150CD2004F8C96 /* App.swift */; };
 		CE23A0D424150CDD004F8C96 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE23A0D024150CDD004F8C96 /* LaunchScreen.storyboard */; };
 		CE23A0D524150CDD004F8C96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE23A0D124150CDD004F8C96 /* Assets.xcassets */; };
-		CE23A0D624150CDD004F8C96 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE23A0D224150CDD004F8C96 /* App.swift */; };
 		CE23A0E424150D0C004F8C96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE23A0E124150D0C004F8C96 /* Assets.xcassets */; };
 		CE23A0E624150D0C004F8C96 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE23A0E324150D0C004F8C96 /* Interface.storyboard */; };
 		CE23A0EA24150D17004F8C96 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE23A0E824150D17004F8C96 /* ContentView.swift */; };
@@ -47,6 +46,8 @@
 		CEE9700E24151E3300A01699 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE9700C24151E3300A01699 /* News.swift */; };
 		CEE9700F24151E3300A01699 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE9700C24151E3300A01699 /* News.swift */; };
 		CEF8BDF6241F4DCB0040B9F9 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF8BDF5241F4DCB0040B9F9 /* List.swift */; };
+		CEF8BDF8241F50FF0040B9F9 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF8BDF7241F50FF0040B9F9 /* Scene.swift */; };
+		CEF8BDFA241F53580040B9F9 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF8BDF9241F53580040B9F9 /* App.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,7 +104,6 @@
 		CE23A0CB24150CD2004F8C96 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE23A0D024150CDD004F8C96 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE23A0D124150CDD004F8C96 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		CE23A0D224150CDD004F8C96 /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		CE23A0D324150CDD004F8C96 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE23A0E124150D0C004F8C96 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE23A0E224150D0C004F8C96 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -128,6 +128,8 @@
 		CEE9700A24151C6700A01699 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		CEE9700C24151E3300A01699 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		CEF8BDF5241F4DCB0040B9F9 /* List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
+		CEF8BDF7241F50FF0040B9F9 /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
+		CEF8BDF9241F53580040B9F9 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,8 +206,9 @@
 			children = (
 				CE23A0D324150CDD004F8C96 /* Info.plist */,
 				CE23A0D024150CDD004F8C96 /* LaunchScreen.storyboard */,
-				CE23A0D224150CDD004F8C96 /* App.swift */,
+				CEF8BDF9241F53580040B9F9 /* App.swift */,
 				CEF8BDF5241F4DCB0040B9F9 /* List.swift */,
+				CEF8BDF7241F50FF0040B9F9 /* Scene.swift */,
 				CE23A0D124150CDD004F8C96 /* Assets.xcassets */,
 			);
 			path = iOS;
@@ -478,7 +481,8 @@
 				CE1AE62E241D06C5009CC86A /* Status.swift in Sources */,
 				CEE9700E24151E3300A01699 /* News.swift in Sources */,
 				CEA38ECD2415292800ED4BBE /* Item.swift in Sources */,
-				CE23A0D624150CDD004F8C96 /* App.swift in Sources */,
+				CEF8BDF8241F50FF0040B9F9 /* Scene.swift in Sources */,
+				CEF8BDFA241F53580040B9F9 /* App.swift in Sources */,
 				CEF8BDF6241F4DCB0040B9F9 /* List.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
