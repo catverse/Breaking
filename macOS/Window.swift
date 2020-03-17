@@ -17,8 +17,6 @@ final class Window: NSWindow {
         collectionBehavior = .fullScreenNone
         isReleasedWhenClosed = false
         
-        let formatter = NumberFormatter()
-        
         let blur = NSVisualEffectView()
         blur.translatesAutoresizingMaskIntoConstraints = false
         contentView!.addSubview(blur)
@@ -48,6 +46,7 @@ final class Window: NSWindow {
         scroll.right.constraint(equalTo: scroll.rightAnchor).isActive = true
         scroll.bottom.constraint(greaterThanOrEqualTo: scroll.bottomAnchor).isActive = true
         
+        let formatter = NumberFormatter()
         sub = news.receive(on: DispatchQueue.main).sink {
             scroll.views.forEach { $0.removeFromSuperview() }
             counter.stringValue = formatter.string(from: .init(value: $0.count))! + .key("Counter")
@@ -75,13 +74,13 @@ final class Window: NSWindow {
     
     @objc private func favourite(_ article: Article) {
         article.item.favourite.toggle()
-        news.graph.update(article.item)
+        news.balam.update(article.item)
         article.update()
     }
     
     @objc private func click(_ article: Article) {
         article.item.status = .read
-        news.graph.update(article.item)
+        news.balam.update(article.item)
         article.update()
         NSWorkspace.shared.open(article.item.link)
     }

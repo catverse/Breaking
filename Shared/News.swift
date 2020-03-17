@@ -5,9 +5,9 @@ import Combine
 final class News: Publisher {
     typealias Output = Set<Item>
     typealias Failure = Never
-    private(set) var graph: Graph!
+    let balam = Balam("Breaking")
     private var cancellables = Set<AnyCancellable>()
-    private var last = Date()
+    private var last = Date.distantPast
     private let sub = Sub()
     private let formatter = DateFormatter()
     private let url = [Provider.guardian : URL(string: "https://www.theguardian.com/world/rss")!,
@@ -27,13 +27,7 @@ final class News: Publisher {
     }
     
     func refresh() {
-        if graph == nil {
-            Balam.graph("Breaking").sink {
-                self.graph = $0
-                self.fetch()
-                self.request()
-            }.store(in: &cancellables)
-        } else if Calendar.current.date(byAdding: .minute, value: 15, to: last)! < .init() {
+        if Calendar.current.date(byAdding: .minute, value: 15, to: last)! < .init() {
             last = .init()
             request()
         }
@@ -50,19 +44,19 @@ final class News: Publisher {
             return
         }
         URLSession.shared.dataTaskPublisher(for: url[provider]!).map { self.parse($0, provider: provider) }.replaceError(with: []).sink {
-            self.graph.add($0)
+            self.balam.add($0)
             self.request(.init(providers.dropFirst()))
         }.store(in: &cancellables)
     }
     
     private func fetch() {
         let limit = Calendar.current.date(byAdding: .hour, value: -1, to: .init())!
-        graph.update(Item.self) {
+        balam.update(Item.self) {
             if $0.status == .new && $0.downloaded < limit {
                 $0.status = .waiting
             }
         }
-        graph.nodes(Item.self).sink {
+        balam.nodes(Item.self).sink {
             _ = self.sub.subscriber?.receive(.init($0))
         }.store(in: &cancellables)
     }
