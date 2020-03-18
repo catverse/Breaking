@@ -19,7 +19,8 @@ final class News: Publisher {
         "&apos;" : "'",
         "&lt;" : "<",
         "&gt;" : ">",
-        "&#039;" : "'"
+        "&#039;" : "'",
+        "&nbsp;" : ""
     ]
 
     init() {
@@ -85,7 +86,12 @@ final class News: Publisher {
     }
     
     private func strip(_ string: String) -> String {
-        string.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression)
+        string.contains("<p")
+            ? string.components(separatedBy: "<p>").dropFirst().reduce(into: "") {
+                $0 += $0.isEmpty ? "" : " "
+                $0 += $1.components(separatedBy: "</p>").first!
+            }.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression)
+            : string
     }
     
     private final class Sub: Subscription {
