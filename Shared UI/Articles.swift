@@ -13,11 +13,15 @@ struct Articles: View {
                         .resizable()
                         .frame(width: 30, height: 30)
                 } else {
-                    List(items) {
-                        Article(item: $0)
+                    List {
+                        Section(header: Text(.init(formatter.string(from: .init(value: items.count))! + .key("Counter")))) {
+                            ForEach(items) {
+                                Article(item: $0)
+                            }
+                        }
                     }.listStyle(GroupedListStyle())
                 }
-            }.navigationBarTitle(.init(formatter.string(from: .init(value: items.count))! + .key("Counter")), displayMode: .large)
+            }.navigationBarTitle(.init("App.title"), displayMode: .large)
         }
         .onReceive(news) {
             self.items = $0.sorted { $0.date > $1.date }
