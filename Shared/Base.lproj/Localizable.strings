@@ -1,3 +1,4 @@
+App.title="Breaking News";
 Badge.New="New";
 Counter=" articles";
 Provider.guardian="The Guardian";
