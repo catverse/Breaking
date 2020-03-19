@@ -20,7 +20,10 @@ final class News: Publisher {
         "&lt;" : "<",
         "&gt;" : ">",
         "&#039;" : "'",
-        "&nbsp;" : ""
+        "  " : " ",
+        "&nbsp;" : "",
+        "\r" : "",
+        "\n" : ""
     ]
 
     init() {
@@ -92,6 +95,9 @@ final class News: Publisher {
             ? string.components(separatedBy: "<p>").dropFirst().reduce(into: "") {
                 $0 += $0.isEmpty ? "" : " "
                 $0 += $1.components(separatedBy: "</p>").first!
+                if !$0.hasSuffix(".") && !$0.hasSuffix(". ") {
+                    $0 += "."
+                }
             }.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression)
             : string
     }

@@ -39,6 +39,13 @@ private struct Article: View {
                     .fixedSize(horizontal: false, vertical: true)
                 Spacer()
             }
+            HStack {
+                Text(item.description)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .foregroundColor(.secondary)
+                    .font(.footnote)
+                Spacer()
+            }
         }
     }
 }
