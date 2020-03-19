@@ -31,9 +31,16 @@ struct Articles: View {
 
 private struct Article: View {
     let item: Item
+    @State private var when = ""
     
     var body: some View {
         VStack {
+            HStack {
+                Text(when)
+                    .foregroundColor(.secondary)
+                    .font(Font.caption.bold())
+                Spacer()
+            }
             HStack {
                 Text(item.title)
                     .fixedSize(horizontal: false, vertical: true)
@@ -46,6 +53,14 @@ private struct Article: View {
                     .font(.footnote)
                 Spacer()
             }
+        }.onAppear {
+            self.when = self.item.date > Calendar.current.date(byAdding: .hour, value: -13, to: self.item.date)!
+                ? RelativeDateTimeFormatter().localizedString(for: self.item.date, relativeTo: .init())
+                : {
+                    $0.dateStyle = .full
+                    $0.timeStyle = .short
+                    return $0.string(from: self.item.date)
+            } (DateFormatter())
         }
     }
 }
