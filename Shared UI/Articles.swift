@@ -4,7 +4,7 @@ struct Articles: View {
     let news: News
     @State private var items = [Item]()
     private let formatter = NumberFormatter()
-    //counter.stringValue =
+    
     var body: some View {
         NavigationView {
             Group {
