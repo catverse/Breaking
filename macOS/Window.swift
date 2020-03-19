@@ -47,7 +47,7 @@ final class Window: NSWindow {
         scroll.bottom.constraint(greaterThanOrEqualTo: scroll.bottomAnchor).isActive = true
         
         let formatter = NumberFormatter()
-        sub = news.receive(on: DispatchQueue.main).sink {
+        sub = news.sink {
             scroll.views.forEach { $0.removeFromSuperview() }
             counter.stringValue = formatter.string(from: .init(value: $0.count))! + .key("Counter")
             guard !$0.isEmpty else { return }

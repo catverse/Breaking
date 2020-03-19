@@ -3,7 +3,8 @@ import SwiftUI
 struct Articles: View {
     let news: News
     @State private var items = [Item]()
-    
+    private let formatter = NumberFormatter()
+    //counter.stringValue =
     var body: some View {
         NavigationView {
             Group {
@@ -16,9 +17,9 @@ struct Articles: View {
                         Article(item: $0)
                     }.listStyle(GroupedListStyle())
                 }
-            }.navigationBarTitle(.init("App.title"), displayMode: .large)
-        }.onReceive(news) {
-            assert(Thread.main == .current)
+            }.navigationBarTitle(.init(formatter.string(from: .init(value: items.count))! + .key("Counter")), displayMode: .large)
+        }
+        .onReceive(news) {
             self.items = $0.sorted { $0.date > $1.date }
         }
     }

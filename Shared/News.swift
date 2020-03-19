@@ -57,8 +57,10 @@ final class News: Publisher {
                 $0.status = .waiting
             }
         }
-        balam.nodes(Item.self).sink {
-            _ = self.sub.subscriber?.receive(.init($0))
+        balam.nodes(Item.self).sink { items in
+            DispatchQueue.main.async {
+                _ = self.sub.subscriber?.receive(.init(items))
+            }
         }.store(in: &cancellables)
     }
     
