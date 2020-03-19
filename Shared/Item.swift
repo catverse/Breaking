@@ -1,6 +1,6 @@
 import Foundation
 
-struct Item: Codable, Identifiable, Hashable {
+struct Item: Codable, Identifiable {
     var status = Status.new
     var favourite = false
     let provider: Provider
@@ -19,13 +19,5 @@ struct Item: Codable, Identifiable, Hashable {
         self.date = date
         self.link = link
         self.downloaded = .init()
-    }
-    
-    func hash(into: inout Hasher) {
-        into.combine(id)
-    }
-    
-    static func == (lhs: Item, rhs: Item) -> Bool {
-        lhs.id == rhs.id
     }
 }

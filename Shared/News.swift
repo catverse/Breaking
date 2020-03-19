@@ -3,7 +3,7 @@ import Foundation
 import Combine
 
 final class News: Publisher {
-    typealias Output = Set<Item>
+    typealias Output = [Item]
     typealias Failure = Never
     let balam = Balam("Breaking")
     private var cancellables = Set<AnyCancellable>()
@@ -59,7 +59,7 @@ final class News: Publisher {
         }
         balam.nodes(Item.self).sink { items in
             DispatchQueue.main.async {
-                _ = self.sub.subscriber?.receive(.init(items))
+                _ = self.sub.subscriber?.receive(items.sorted { $0.date > $1.date })
             }
         }.store(in: &cancellables)
     }

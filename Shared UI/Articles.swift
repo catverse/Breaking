@@ -24,7 +24,7 @@ struct Articles: View {
             }.navigationBarTitle(.init("App.title"), displayMode: .large)
         }
         .onReceive(news) {
-            self.items = $0.sorted { $0.date > $1.date }
+            self.items = $0
         }
     }
 }
