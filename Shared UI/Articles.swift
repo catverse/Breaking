@@ -1,21 +1,25 @@
 import SwiftUI
 
 struct Articles: View {
-    @ObservedObject var observable: Observable
+    let news: News
+    @State private var items = [Item]()
     
     var body: some View {
         NavigationView {
             Group {
-                if observable.articles.isEmpty {
+                if items.isEmpty {
                     Image(systemName: "arrow.counterclockwise.circle")
                         .resizable()
-                        .frame(width: 50, height: 50)
+                        .frame(width: 30, height: 30)
                 } else {
-                    List(observable.articles) {
+                    List(items) {
                         Article(item: $0)
                     }.listStyle(GroupedListStyle())
                 }
             }.navigationBarTitle(.init("App.title"), displayMode: .large)
+        }.onReceive(news) {
+            assert(Thread.main == .current)
+            self.items = $0.sorted { $0.date > $1.date }
         }
     }
 }
