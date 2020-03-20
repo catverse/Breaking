@@ -18,8 +18,10 @@ struct Article: View {
             HStack {
                 if item.status == .new {
                     Image(systemName: "plus")
+                        .foregroundColor(.primary)
                 }
                 Text(item.title)
+                    .foregroundColor(.primary)
                     .fixedSize(horizontal: false, vertical: true)
                 Spacer()
             }
