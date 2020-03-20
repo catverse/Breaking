@@ -56,16 +56,26 @@ private struct Article: View {
             HStack {
                 Text(.init(.key("Provider.\(item.provider)")))
                     .foregroundColor(.accentColor)
-                    .font(.caption)
+                    .font(.footnote)
                 Spacer()
                 Text(when)
                     .foregroundColor(.secondary)
                     .font(.caption)
             }.padding(.bottom, 10)
             HStack {
+                if item.status == .new {
+                    Image(systemName: "plus")
+                }
                 Text(item.title)
                     .fixedSize(horizontal: false, vertical: true)
                 Spacer()
+            }
+            HStack {
+                Spacer()
+                if item.favourite {
+                    Image(systemName: "heart.fill")
+                        .foregroundColor(.accentColor)
+                }
             }
         }.padding(.vertical, 10)
             .onAppear {
