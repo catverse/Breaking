@@ -7,24 +7,42 @@ struct Articles: View {
     
     var body: some View {
         NavigationView {
-            Group {
-                if items.isEmpty {
-                    Image(systemName: "arrow.counterclockwise.circle")
-                        .resizable()
-                        .frame(width: 30, height: 30)
-                } else {
-                    List {
-                        Section(header: Text(.init(formatter.string(from: .init(value: items.count))! + .key("Counter")))) {
-                            ForEach(items) {
-                                Article(item: $0)
-                            }
-                        }
-                    }.listStyle(GroupedListStyle())
+            List {
+                Section {
+                    if items.isEmpty {
+                        Empty()
+                    }
                 }
-            }.navigationBarTitle(.init("App.title"), displayMode: .large)
+                Section(header: Text(items.isEmpty
+                    ? ""
+                    : .init(formatter.string(from: .init(value: items.count))! + .key("Counter")))) {
+                    ForEach(items) {
+                        Article(item: $0)
+                    }
+                }
+            }.listStyle(GroupedListStyle())
+                .navigationBarTitle(.init("App.title"), displayMode: .large)
         }
         .onReceive(news) {
             self.items = $0
+        }
+    }
+}
+
+private struct Empty: View {
+    var body: some View {
+        VStack {
+            HStack {
+                Text("this")
+                    .foregroundColor(.secondary)
+                    .font(Font.caption.bold())
+                Spacer()
+            }
+            HStack {
+                Text("Loading")
+                    .fixedSize(horizontal: false, vertical: true)
+                Spacer()
+            }
         }
     }
 }
@@ -36,24 +54,21 @@ private struct Article: View {
     var body: some View {
         VStack {
             HStack {
+                Text(.init(.key("Provider.\(item.provider)")))
+                    .foregroundColor(.accentColor)
+                    .font(.caption)
+                Spacer()
                 Text(when)
                     .foregroundColor(.secondary)
-                    .font(Font.caption.bold())
-                Spacer()
-            }
+                    .font(.caption)
+            }.padding(.bottom, 10)
             HStack {
                 Text(item.title)
                     .fixedSize(horizontal: false, vertical: true)
                 Spacer()
             }
-            HStack {
-                Text(item.description)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .foregroundColor(.secondary)
-                    .font(.footnote)
-                Spacer()
-            }
-        }.onAppear {
+        }.padding(.vertical, 10)
+            .onAppear {
             self.when = self.item.date > Calendar.current.date(byAdding: .hour, value: -13, to: self.item.date)!
                 ? RelativeDateTimeFormatter().localizedString(for: self.item.date, relativeTo: .init())
                 : {

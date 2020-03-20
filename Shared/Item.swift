@@ -1,8 +1,8 @@
 import Foundation
 
 struct Item: Codable, Identifiable {
-    var status = Status.new
     var favourite = false
+    var status = Status.new
     let provider: Provider
     let id: String
     let title: String
