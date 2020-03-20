@@ -28,10 +28,11 @@ struct Articles: View {
                 }
             }.listStyle(GroupedListStyle())
                 .navigationBarTitle(.init("App.title"), displayMode: .large)
-        }.sheet(item: $selected) {
-            Detail(item: $0) {
-                self.selected = nil
-            }
+        }.navigationViewStyle(StackNavigationViewStyle())
+            .sheet(item: $selected) {
+                Detail(item: $0) {
+                    self.selected = nil
+                }
         }.onReceive(news) {
             self.items = $0
         }
