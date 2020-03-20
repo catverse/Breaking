@@ -18,15 +18,20 @@ struct Articles: View {
                     ? ""
                     : .init(formatter.string(from: .init(value: items.count))! + .key("Counter")))) {
                     ForEach(items) { item in
-                        Article(item: item).onTapGesture {
+                        Button(action: {
                             self.selected = item
-                        }
+                        }) {
+                            Article(item: item)
+                        }.accentColor(.accentColor)
+                            .background(Color.clear)
                     }
                 }
             }.listStyle(GroupedListStyle())
                 .navigationBarTitle(.init("App.title"), displayMode: .large)
         }.sheet(item: $selected) {
-            Detail(item: $0)
+            Detail(item: $0) {
+                self.selected = nil
+            }
         }.onReceive(news) {
             self.items = $0
         }
