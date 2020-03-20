@@ -13,17 +13,31 @@ struct Detail: View {
                         .foregroundColor(.primary)
                         .fixedSize(horizontal: false, vertical: true)
                     Spacer()
-                }.padding(.init(top: 20, leading: 20, bottom: 10, trailing: 20))
+                }.padding()
                 HStack {
                     Text(item.description)
                         .foregroundColor(.secondary)
                         .fixedSize(horizontal: false, vertical: true)
                     Spacer()
-                }.padding(.horizontal, 20)
-                }.navigationBarItems(leading: Button(action: close) {
+                }.padding()
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        
+                    }) {
+                        Text("More")
+                    }.frame(width: 200, height: 50)
+                        .foregroundColor(.white)
+                        .background(Color.accentColor)
+                        .cornerRadius(6)
+                        .padding()
+                    Spacer()
+                }
+            }.navigationBarTitle(.init(.key("Provider.\(item.provider)")), displayMode: .inline)
+                .navigationBarItems(leading: Button(action: close) {
                     Image(systemName: "xmark")
                         .accentColor(.secondary)
-                }, trailing: Text(when)).navigationBarTitle(.init(.key("Provider.\(item.provider)")), displayMode: .inline)
+                }, trailing: Text(when))
         }.navigationViewStyle(StackNavigationViewStyle())
             .onAppear {
             self.when = self.item.date > Calendar.current.date(byAdding: .hour, value: -13, to: self.item.date)!
