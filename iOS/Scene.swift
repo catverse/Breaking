@@ -6,12 +6,10 @@ final class Scene: NSObject, UIWindowSceneDelegate {
     private let news = News()
     
     func scene(_ scene: UIScene, willConnectTo: UISceneSession, options: UIScene.ConnectionOptions) {
-        if let scene = scene as? UIWindowScene {
-            let window = UIWindow(windowScene: scene)
-            window.rootViewController = UIHostingController(rootView: Articles(news: news))
-            window.makeKeyAndVisible()
-            self.window = window
-        }
+        let window = UIWindow(windowScene: scene as! UIWindowScene)
+        window.rootViewController = UIHostingController(rootView: Articles(news: news))
+        window.makeKeyAndVisible()
+        self.window = window
     }
     
     func sceneDidBecomeActive(_: UIScene) {

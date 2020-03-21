@@ -26,19 +26,21 @@ struct Detail: View {
                         
                     }) {
                         Text("More")
-                    }.frame(width: 200, height: 50)
-                        .foregroundColor(.white)
-                        .background(Color.accentColor)
+                    }.frame(width: 170, height: 42)
+                        .font(Font.caption.bold())
+                        .foregroundColor(.black)
+                        .background(Color("lightning"))
                         .cornerRadius(6)
                         .padding()
                     Spacer()
-                }
+                }.padding(.vertical, 20)
             }.navigationBarItems(leading:
                 HStack {
                     Text(.init(.key("Provider.\(item.provider)")))
-                        .font(Font.footnote.bold())
+                        .font(Font.caption.bold())
                         .foregroundColor(.secondary)
-                    Text(when).font(.footnote)
+                    Text(when)
+                        .font(.caption)
                         .foregroundColor(.secondary)
                 },
                                  trailing:
@@ -46,6 +48,7 @@ struct Detail: View {
                     Image(systemName: "xmark")
                         .accentColor(.secondary)
                 }.frame(width: 120, height: 65, alignment: .trailing))
+            .navigationBarTitle("", displayMode: .inline)
         }.navigationViewStyle(StackNavigationViewStyle())
             .onAppear {
                 self.when = self.item.date > Calendar.current.date(byAdding: .hour, value: -23, to: .init())!
