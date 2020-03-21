@@ -40,7 +40,7 @@ struct Article: View {
                     Spacer()
                     if item.favourite {
                         Image(systemName: "heart.fill")
-                            .foregroundColor(.accentColor)
+                            .foregroundColor(.init("lightning"))
                     }
                 }
             }

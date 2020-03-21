@@ -27,24 +27,23 @@ struct Detail: View {
                         balam.update(self.item)
                     }) {
                         Image(systemName: "heart.fill")
-                            .foregroundColor(item.favourite ? .accentColor : .secondary)
-                    }.frame(width: 50, height: 50)
+                            .foregroundColor(item.favourite ? .init("lightning") : .secondary)
+                    }.frame(width: 60, height: 60)
                     Spacer()
-                }.padding()
+                }
                 HStack {
                     Spacer()
                     Button(action: {
                         UIApplication.shared.open(self.item.link)
                     }) {
                         Text("More")
-                    }.frame(width: 170, height: 42)
+                    }.frame(width: 170, height: 40)
                         .font(Font.caption.bold())
                         .foregroundColor(.black)
                         .background(Color("lightning"))
                         .cornerRadius(6)
-                        .padding()
                     Spacer()
-                }.padding(.bottom, 20)
+                }.padding(.bottom, 35)
             }.navigationBarItems(leading:
                 HStack {
                     Text(.init(.key("Provider.\(item.provider)")))

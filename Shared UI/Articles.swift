@@ -27,6 +27,13 @@ struct Articles: View {
                 }
             }.listStyle(GroupedListStyle())
                 .navigationBarTitle(.init("App.title"), displayMode: .large)
+                .navigationBarItems(trailing:
+                    Button(action: {
+                        
+                    }) {
+                        Image(systemName: "slider.horizontal.3")
+                            .accentColor(.init("lightning"))
+                })
         }.navigationViewStyle(StackNavigationViewStyle())
         .sheet(isPresented: $detail) {
             Detail(item: self.selected!.$item) {
