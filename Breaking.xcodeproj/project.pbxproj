@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		CE0939C124154A00008EFAC1 /* New.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0939C024154A00008EFAC1 /* New.swift */; };
+		CE0C676B242613F900FE89F4 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0C676A242613F900FE89F4 /* Settings.swift */; };
+		CE0C676C242613F900FE89F4 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0C676A242613F900FE89F4 /* Settings.swift */; };
 		CE1AE62D241D06C5009CC86A /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1AE62C241D06C5009CC86A /* Status.swift */; };
 		CE1AE62E241D06C5009CC86A /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1AE62C241D06C5009CC86A /* Status.swift */; };
 		CE1AE62F241D06C5009CC86A /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1AE62C241D06C5009CC86A /* Status.swift */; };
@@ -101,6 +103,7 @@
 
 /* Begin PBXFileReference section */
 		CE0939C024154A00008EFAC1 /* New.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = New.swift; sourceTree = "<group>"; };
+		CE0C676A242613F900FE89F4 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		CE1AE62C241D06C5009CC86A /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		CE23A0C224150C28004F8C96 /* BreakingWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BreakingWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE23A0C324150C2D004F8C96 /* BreakingWatchExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BreakingWatchExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -272,6 +275,7 @@
 				CEF8BDF5241F4DCB0040B9F9 /* Articles.swift */,
 				CE75922924249A03000B4CB9 /* Detail.swift */,
 				CE759226242499F3000B4CB9 /* Empty.swift */,
+				CE0C676A242613F900FE89F4 /* Settings.swift */,
 			);
 			path = "Shared UI";
 			sourceTree = "<group>";
@@ -506,6 +510,7 @@
 				CEE9700E24151E3300A01699 /* News.swift in Sources */,
 				CEA38ECD2415292800ED4BBE /* Item.swift in Sources */,
 				CEF8BDF8241F50FF0040B9F9 /* Scene.swift in Sources */,
+				CE0C676B242613F900FE89F4 /* Settings.swift in Sources */,
 				CEF8BDFA241F53580040B9F9 /* App.swift in Sources */,
 				CE759227242499F3000B4CB9 /* Empty.swift in Sources */,
 				CED94A9124234841007D19F9 /* String.swift in Sources */,
@@ -527,6 +532,7 @@
 				CE75922B24249A03000B4CB9 /* Detail.swift in Sources */,
 				CED94A9024234841007D19F9 /* String.swift in Sources */,
 				CE23A0EA24150D17004F8C96 /* ContentView.swift in Sources */,
+				CE0C676C242613F900FE89F4 /* Settings.swift in Sources */,
 				CED94A8C24234088007D19F9 /* Articles.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -3,16 +3,22 @@ import SwiftUI
 struct Articles: View {
     let news: News
     @State private var items = [Item]()
-    @State private var detail = false
     @State private var selected: Article?
+    @State private var detail = false
+    @State private var settings = false
     private let formatter = NumberFormatter()
     
     var body: some View {
         NavigationView {
             List {
-                Section {
-                    if items.isEmpty {
+                if items.isEmpty {
+                    Section {
                         Empty()
+                    }
+                }
+                if settings {
+                    Section {
+                        Settings()
                     }
                 }
                 Section(header: Text(items.isEmpty
@@ -29,18 +35,18 @@ struct Articles: View {
                 .navigationBarTitle(.init("App.title"), displayMode: .large)
                 .navigationBarItems(trailing:
                     Button(action: {
-                        
+                        self.settings.toggle()
                     }) {
                         Image(systemName: "slider.horizontal.3")
-                            .accentColor(.init("lightning"))
-                })
+                            .accentColor(settings ? .init("lightning") : .secondary)
+                }.frame(width: 120, height: 80, alignment: .trailing))
         }.navigationViewStyle(StackNavigationViewStyle())
-        .sheet(isPresented: $detail) {
-            Detail(item: self.selected!.$item) {
-                self.detail = false
-            }
-        }.onReceive(news) {
+            .onReceive(news) {
             self.items = $0
+        }.sheet(isPresented: $detail) {
+                Detail(item: self.selected!.$item) {
+                    self.detail = false
+                }
         }
     }
 }

@@ -57,7 +57,7 @@ struct Detail: View {
                 Button(action: close) {
                     Image(systemName: "xmark")
                         .accentColor(.secondary)
-                }.frame(width: 120, height: 65, alignment: .trailing))
+                }.frame(width: 120, height: 80, alignment: .trailing))
             .navigationBarTitle("", displayMode: .inline)
         }.navigationViewStyle(StackNavigationViewStyle())
             .onAppear {
