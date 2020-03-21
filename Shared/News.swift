@@ -94,7 +94,7 @@ final class News: Publisher {
     private func strip(_ string: String) -> String {
         string.contains("<p")
             ? string.components(separatedBy: "<p>").dropFirst().reduce(into: "") {
-                $0 += $0.isEmpty ? "" : " "
+                $0 += $0.isEmpty ? "" : "\n\n"
                 $0 += $1.components(separatedBy: "</p>").first!
                 if !$0.hasSuffix(".") && !$0.hasSuffix(". ") {
                     $0 += "."
