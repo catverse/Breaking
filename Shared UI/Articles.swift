@@ -19,6 +19,9 @@ struct Articles: View {
                     : .init(formatter.string(from: .init(value: items.count))! + .key("Counter")))) {
                     ForEach(items) { item in
                         Button(action: {
+                            var item = item
+                            item.status = .read
+                            balam.update(item)
                             self.selected = item
                         }) {
                             Article(item: item)

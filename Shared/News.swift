@@ -2,10 +2,11 @@ import Balam
 import Foundation
 import Combine
 
+let balam = Balam("Breaking")
+
 final class News: Publisher {
     typealias Output = [Item]
     typealias Failure = Never
-    let balam = Balam("Breaking")
     private var cancellables = Set<AnyCancellable>()
     private var last = Date.distantPast
     private let sub = Sub()
@@ -48,13 +49,13 @@ final class News: Publisher {
             return
         }
         URLSession.shared.dataTaskPublisher(for: url[provider]!).map { self.parse($0, provider: provider) }.replaceError(with: []).sink {
-            self.balam.add($0)
+            balam.add($0)
             self.request(.init(providers.dropFirst()))
         }.store(in: &cancellables)
     }
     
     private func fetch() {
-        let limit = Calendar.current.date(byAdding: .hour, value: -1, to: .init())!
+        let limit = Calendar.current.date(byAdding: .hour, value: -3, to: .init())!
         balam.update(Item.self) {
             if $0.status == .new && $0.downloaded < limit {
                 $0.status = .waiting

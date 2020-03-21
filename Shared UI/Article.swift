@@ -8,8 +8,8 @@ struct Article: View {
         VStack {
             HStack {
                 Text(.init(.key("Provider.\(item.provider)")))
-                    .foregroundColor(.accentColor)
-                    .font(.footnote)
+                    .foregroundColor(.primary)
+                    .font(.caption)
                 Spacer()
                 Text(when)
                     .foregroundColor(.secondary)
@@ -33,6 +33,7 @@ struct Article: View {
                 }
             }
         }.padding(.vertical, 10)
+            .opacity(item.status == .read ? 0.4 : 1)
             .onAppear {
                 self.when = self.item.date > Calendar.current.date(byAdding: .hour, value: -23, to: .init())!
                 ? RelativeDateTimeFormatter().localizedString(for: self.item.date, relativeTo: .init())

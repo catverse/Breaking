@@ -23,7 +23,7 @@ struct Detail: View {
                 HStack {
                     Spacer()
                     Button(action: {
-                        
+                        UIApplication.shared.open(self.item.link)
                     }) {
                         Text("More")
                     }.frame(width: 170, height: 42)
