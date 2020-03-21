@@ -1,38 +1,49 @@
 import SwiftUI
 
 struct Article: View {
-    let item: Item
+    @State var item: Item
+    let select: (Item) -> Void
     @State private var when = ""
     
     var body: some View {
-        VStack {
-            HStack {
-                Text(.init(.key("Provider.\(item.provider)")))
-                    .foregroundColor(.primary)
-                    .font(.caption)
-                Spacer()
-                Text(when)
-                    .foregroundColor(.secondary)
-                    .font(.caption)
-            }.padding(.bottom, 10)
-            HStack {
-                if item.status == .new {
-                    Image(systemName: "plus")
+        Button(action: {
+            withAnimation {
+                self.item.status = .read
+            }
+            balam.update(self.item)
+            self.select(self.item)
+        }) {
+            VStack {
+                HStack {
+                    Text(.init(.key("Provider.\(item.provider)")))
                         .foregroundColor(.primary)
+                        .font(.caption)
+                    Spacer()
+                    Text(when)
+                        .foregroundColor(.secondary)
+                        .font(.caption)
+                }.padding(.bottom, 10)
+                HStack {
+                    if item.status == .new {
+                        Image(systemName: "plus")
+                            .foregroundColor(.primary)
+                    }
+                    Text(item.title)
+                        .foregroundColor(.primary)
+                        .fixedSize(horizontal: false, vertical: true)
+                    Spacer()
                 }
-                Text(item.title)
-                    .foregroundColor(.primary)
-                    .fixedSize(horizontal: false, vertical: true)
-                Spacer()
-            }
-            HStack {
-                Spacer()
-                if item.favourite {
-                    Image(systemName: "heart.fill")
-                        .foregroundColor(.accentColor)
+                HStack {
+                    Spacer()
+                    if item.favourite {
+                        Image(systemName: "heart.fill")
+                            .foregroundColor(.accentColor)
+                    }
                 }
             }
-        }.padding(.vertical, 10)
+        }.accentColor(.accentColor)
+            .background(Color.clear)
+            .padding(.vertical, 10)
             .opacity(item.status == .read ? 0.4 : 1)
             .onAppear {
                 self.when = self.item.date > Calendar.current.date(byAdding: .hour, value: -23, to: .init())!
