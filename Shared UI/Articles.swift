@@ -17,9 +17,7 @@ struct Articles: View {
                     }
                 }
                 if settings {
-                    Section {
-                        Settings()
-                    }
+                    Settings()
                 }
                 Section(header: Text(items.isEmpty
                     ? ""

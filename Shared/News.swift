@@ -2,6 +2,7 @@ import Balam
 import Foundation
 import Combine
 
+var preferences = Preferences()
 let balam = Balam("Breaking")
 
 final class News: Publisher {
@@ -29,12 +30,20 @@ final class News: Publisher {
 
     init() {
         formatter.dateFormat = "E, d MMM yyyy HH:mm:ss Z"
+        balam.nodes(Preferences.self).sink {
+            Swift.print($0.count)
+            if let loaded = $0.first {
+                preferences = loaded
+            } else {
+                balam.add(preferences)
+            }
+        }.store(in: &cancellables)
     }
     
     func refresh() {
         if Calendar.current.date(byAdding: .minute, value: 15, to: last)! < .init() {
             last = .init()
-            request()
+            request([.guardian, .spiegel, .theLocal])
         }
     }
     
@@ -43,7 +52,7 @@ final class News: Publisher {
         subscriber.receive(subscription: sub)
     }
     
-    private func request(_ providers: [Provider] = [.guardian, .spiegel, .theLocal]) {
+    private func request(_ providers: [Provider]) {
         guard let provider = providers.first else {
             fetch()
             return

@@ -6,6 +6,7 @@ final class Scene: NSObject, UIWindowSceneDelegate {
     private let news = News()
     
     func scene(_ scene: UIScene, willConnectTo: UISceneSession, options: UIScene.ConnectionOptions) {
+        UISwitch.appearance().onTintColor = UIColor(named: "lightning")!
         let window = UIWindow(windowScene: scene as! UIWindowScene)
         window.rootViewController = UIHostingController(rootView: Articles(news: news))
         window.makeKeyAndVisible()
