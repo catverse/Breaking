@@ -33,18 +33,26 @@ struct Detail: View {
                         .padding()
                     Spacer()
                 }
-            }.navigationBarTitle(.init(.key("Provider.\(item.provider)")), displayMode: .inline)
-                .navigationBarItems(leading: Button(action: close) {
+            }.navigationBarItems(leading:
+                HStack {
+                    Text(.init(.key("Provider.\(item.provider)")))
+                        .font(Font.footnote.bold())
+                        .foregroundColor(.secondary)
+                    Text(when).font(.footnote)
+                        .foregroundColor(.secondary)
+                },
+                                 trailing:
+                Button(action: close) {
                     Image(systemName: "xmark")
                         .accentColor(.secondary)
-                }, trailing: Text(when))
+                }.frame(width: 120, height: 65, alignment: .trailing))
         }.navigationViewStyle(StackNavigationViewStyle())
             .onAppear {
-            self.when = self.item.date > Calendar.current.date(byAdding: .hour, value: -13, to: self.item.date)!
+                self.when = self.item.date > Calendar.current.date(byAdding: .hour, value: -23, to: .init())!
                 ? RelativeDateTimeFormatter().localizedString(for: self.item.date, relativeTo: .init())
                 : {
                     $0.dateStyle = .full
-                    $0.timeStyle = .short
+                    $0.timeStyle = .none
                     return $0.string(from: self.item.date)
             } (DateFormatter())
         }

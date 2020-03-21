@@ -34,11 +34,11 @@ struct Article: View {
             }
         }.padding(.vertical, 10)
             .onAppear {
-            self.when = self.item.date > Calendar.current.date(byAdding: .hour, value: -13, to: self.item.date)!
+                self.when = self.item.date > Calendar.current.date(byAdding: .hour, value: -23, to: .init())!
                 ? RelativeDateTimeFormatter().localizedString(for: self.item.date, relativeTo: .init())
                 : {
                     $0.dateStyle = .full
-                    $0.timeStyle = .short
+                    $0.timeStyle = .none
                     return $0.string(from: self.item.date)
             } (DateFormatter())
         }
