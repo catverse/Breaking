@@ -2,7 +2,7 @@ import SwiftUI
 
 struct Article: View {
     @State var item: Item
-    let select: (Item) -> Void
+    let select: (Article) -> Void
     @State private var when = ""
     
     var body: some View {
@@ -11,17 +11,19 @@ struct Article: View {
                 self.item.status = .read
             }
             balam.update(self.item)
-            self.select(self.item)
+            self.select(self)
         }) {
             VStack {
                 HStack {
                     Text(.init(.key("Provider.\(item.provider)")))
                         .foregroundColor(.primary)
                         .font(.caption)
+                        .opacity(item.status == .read ? 0.3 : 1)
                     Spacer()
                     Text(when)
                         .foregroundColor(.secondary)
                         .font(.caption)
+                        .opacity(item.status == .read ? 0.6 : 1)
                 }.padding(.bottom, 10)
                 HStack {
                     if item.status == .new {
@@ -31,6 +33,7 @@ struct Article: View {
                     Text(item.title)
                         .foregroundColor(.primary)
                         .fixedSize(horizontal: false, vertical: true)
+                        .opacity(item.status == .read ? 0.3 : 1)
                     Spacer()
                 }
                 HStack {
@@ -44,7 +47,6 @@ struct Article: View {
         }.accentColor(.accentColor)
             .background(Color.clear)
             .padding(.vertical, 10)
-            .opacity(item.status == .read ? 0.4 : 1)
             .onAppear {
                 self.when = self.item.date > Calendar.current.date(byAdding: .hour, value: -23, to: .init())!
                 ? RelativeDateTimeFormatter().localizedString(for: self.item.date, relativeTo: .init())

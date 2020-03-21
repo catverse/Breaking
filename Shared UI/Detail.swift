@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct Detail: View {
-    let item: Item
+    @Binding var item: Item
     var close: () -> Void
     @State private var when = ""
     
@@ -23,6 +23,17 @@ struct Detail: View {
                 HStack {
                     Spacer()
                     Button(action: {
+                        self.item.favourite.toggle()
+                        balam.update(self.item)
+                    }) {
+                        Image(systemName: "heart.fill")
+                            .foregroundColor(item.favourite ? .accentColor : .secondary)
+                    }.frame(width: 50, height: 50)
+                    Spacer()
+                }.padding()
+                HStack {
+                    Spacer()
+                    Button(action: {
                         UIApplication.shared.open(self.item.link)
                     }) {
                         Text("More")
@@ -33,7 +44,7 @@ struct Detail: View {
                         .cornerRadius(6)
                         .padding()
                     Spacer()
-                }.padding(.vertical, 20)
+                }.padding(.bottom, 20)
             }.navigationBarItems(leading:
                 HStack {
                     Text(.init(.key("Provider.\(item.provider)")))

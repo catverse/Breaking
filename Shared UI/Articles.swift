@@ -3,7 +3,8 @@ import SwiftUI
 struct Articles: View {
     let news: News
     @State private var items = [Item]()
-    @State private var selected: Item?
+    @State private var detail = false
+    @State private var selected: Article?
     private let formatter = NumberFormatter()
     
     var body: some View {
@@ -20,16 +21,17 @@ struct Articles: View {
                     ForEach(items) { item in
                         Article(item: item) {
                             self.selected = $0
+                            self.detail = true
                         }
                     }
                 }
             }.listStyle(GroupedListStyle())
                 .navigationBarTitle(.init("App.title"), displayMode: .large)
         }.navigationViewStyle(StackNavigationViewStyle())
-            .sheet(item: $selected) {
-                Detail(item: $0) {
-                    self.selected = nil
-                }
+        .sheet(isPresented: $detail) {
+            Detail(item: self.selected!.$item) {
+                self.detail = false
+            }
         }.onReceive(news) {
             self.items = $0
         }
