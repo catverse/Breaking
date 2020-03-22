@@ -1,5 +1,4 @@
-App.title="Breaking news";
-Badge.New="New";
+App.title="News";
 Counter=" articles";
 More="Continue Reading";
 Provider.guardian="The Guardian";
