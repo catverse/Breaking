@@ -5,7 +5,6 @@ struct Articles: View {
     @State private var items = [Item]()
     @State private var selected: Article?
     @State private var detail = false
-    @State private var settings = false
     private let formatter = NumberFormatter()
     
     var body: some View {
@@ -15,9 +14,6 @@ struct Articles: View {
                     Section {
                         Empty()
                     }
-                }
-                if settings {
-                    Settings()
                 }
                 Section(header: Text(items.isEmpty
                     ? ""
@@ -32,12 +28,10 @@ struct Articles: View {
             }.listStyle(GroupedListStyle())
                 .navigationBarTitle(.init("App.title"), displayMode: .large)
                 .navigationBarItems(trailing:
-                    Button(action: {
-                        self.settings.toggle()
-                    }) {
+                    NavigationLink(destination: Settings()) {
                         Image(systemName: "slider.horizontal.3")
-                            .accentColor(settings ? .init("lightning") : .secondary)
-                }.frame(width: 120, height: 80, alignment: .trailing))
+                            .accentColor(.init("lightning"))
+                    }.frame(width: 120, height: 80, alignment: .trailing))
         }.navigationViewStyle(StackNavigationViewStyle())
             .onReceive(news) {
             self.items = $0
