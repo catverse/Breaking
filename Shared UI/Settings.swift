@@ -7,32 +7,31 @@ struct Settings: View {
     @State private var guardian = news.preferences.providers.contains(.guardian)
     @State private var spiegel = news.preferences.providers.contains(.spiegel)
     @State private var theLocal = news.preferences.providers.contains(.theLocal)
-    @State private var favourites = news.preferences.favourites
+    @State private var filter = news.preferences.filter
     
     var body: some View {
         List {
+            Section(header: Text("Settings.filter")) {
+                Picker(selection: $filter, label: Text("Settings.filter")) {
+                    Text("Filter.all").tag(Filter.all)
+                    Text("Filter.unread").tag(Filter.unread)
+                    Text("Filter.favourites").tag(Filter.favourites)
+                }.pickerStyle(SegmentedPickerStyle())
+            }
             Section(header: Text("Settings.reload")) {
                 Picker(selection: $refresh, label: Text("Settings.reload")) {
-                        Text("Reload.5").tag(5)
-                        Text("Reload.15").tag(15)
-                        Text("Reload.30").tag(30)
-                        Text("Reload.60").tag(60)
-                    }.pickerStyle(SegmentedPickerStyle())
-                }
+                    Text("Reload.5").tag(5)
+                    Text("Reload.15").tag(15)
+                    Text("Reload.30").tag(30)
+                    Text("Reload.60").tag(60)
+                }.pickerStyle(SegmentedPickerStyle())
+            }
             Section(header: Text("Settings.hide")) {
-                VStack {
-                    Picker(selection: $hide, label: Text("Settings.hide")) {
-                        Text("Hide.7").tag(7)
-                        Text("Hide.30").tag(30)
-                        Text("Hide.365").tag(365)
-                    }.pickerStyle(SegmentedPickerStyle())
-                    HStack {
-                        Text("Settings.still")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                        Spacer()
-                    }
-                }
+                Picker(selection: $hide, label: Text("Settings.hide")) {
+                    Text("Hide.7").tag(7)
+                    Text("Hide.30").tag(30)
+                    Text("Hide.365").tag(365)
+                }.pickerStyle(SegmentedPickerStyle())
             }
             Section(header: Text("Settings.providers")) {
                 Toggle(isOn: $guardian) {
@@ -51,15 +50,12 @@ struct Settings: View {
                         .foregroundColor(theLocal ? .primary : .secondary)
                 }
             }
-            Section {
-                Toggle(isOn: $favourites) {
-                    Text("Settings.favourites")
-                        .bold()
-                        .foregroundColor(favourites ? .primary : .secondary)
-                }
-            }
         }.listStyle(GroupedListStyle())
             .navigationBarTitle(.init("Settings.title"), displayMode: .inline)
+        .onReceive(Just(filter)) {
+            news.preferences.filter = $0
+            news.balam.update(news.preferences)
+        }
         .onReceive(Just(refresh)) {
             news.preferences.refresh = $0
             news.balam.update(news.preferences)
@@ -83,9 +79,6 @@ struct Settings: View {
             if $0 {
                 news.preferences.providers.append(.theLocal)
             }
-            news.balam.update(news.preferences)
-        }.onReceive(Just(favourites)) {
-            news.preferences.favourites = $0
             news.balam.update(news.preferences)
         }.onDisappear {
             news.reload()

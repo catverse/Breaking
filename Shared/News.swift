@@ -59,7 +59,13 @@ final class News: Publisher {
             let items = $0
                 .filter { self.preferences.providers.contains($0.provider) }
                 .filter { $0.date > older }
-                .filter { self.preferences.favourites ? $0.favourite : true }
+                .filter {
+                    switch(self.preferences.filter) {
+                    case .favourites: return $0.favourite
+                    case .unread: return $0.status != .read
+                    default: return true
+                    }
+                }
                 .sorted { $0.date > $1.date }
             DispatchQueue.main.async {
                 _ = self.sub.subscriber?.receive(items)
