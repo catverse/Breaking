@@ -9,11 +9,11 @@ struct Articles: View {
     var body: some View {
         NavigationView {
             List {
-//                if items.isEmpty {
+                if items.isEmpty {
                     Section {
                         Empty()
                     }
-//                }
+                }
                 Section(header: Text(items.isEmpty
                     ? ""
                     : .init(formatter.string(from: .init(value: items.count))! + .key("Counter")))) {
