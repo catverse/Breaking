@@ -2,12 +2,14 @@ import Balam
 import Foundation
 import Combine
 
-var preferences = Preferences()
-let balam = Balam("Breaking")
+let news = News()
 
 final class News: Publisher {
     typealias Output = [Item]
     typealias Failure = Never
+    
+    var preferences = Preferences()
+    let balam = Balam("Breaking")
     private var cancellables = Set<AnyCancellable>()
     private var last = Date.distantPast
     private let sub = Sub()
@@ -28,20 +30,19 @@ final class News: Publisher {
         "\n" : ""
     ]
 
-    init() {
+    fileprivate init() {
         formatter.dateFormat = "E, d MMM yyyy HH:mm:ss Z"
         balam.nodes(Preferences.self).sink {
-            Swift.print($0.count)
             if let loaded = $0.first {
-                preferences = loaded
+                self.preferences = loaded
             } else {
-                balam.add(preferences)
+                self.balam.add(self.preferences)
             }
         }.store(in: &cancellables)
     }
     
     func refresh() {
-        if Calendar.current.date(byAdding: .minute, value: 15, to: last)! < .init() {
+        if Calendar.current.date(byAdding: .minute, value: preferences.refresh, to: last)! < .init() {
             last = .init()
             request([.guardian, .spiegel, .theLocal])
         }
@@ -52,13 +53,27 @@ final class News: Publisher {
         subscriber.receive(subscription: sub)
     }
     
+    func reload() {
+        balam.nodes(Item.self).sink {
+            let older = Calendar.current.date(byAdding: .day, value: -self.preferences.hide, to: .init())!
+            let items = $0
+                .filter { self.preferences.providers.contains($0.provider) }
+                .filter { $0.date > older }
+                .filter { self.preferences.favourites ? $0.favourite : true }
+                .sorted { $0.date > $1.date }
+            DispatchQueue.main.async {
+                _ = self.sub.subscriber?.receive(items)
+            }
+        }.store(in: &cancellables)
+    }
+    
     private func request(_ providers: [Provider]) {
         guard let provider = providers.first else {
             fetch()
             return
         }
         URLSession.shared.dataTaskPublisher(for: url[provider]!).map { self.parse($0, provider: provider) }.replaceError(with: []).sink {
-            balam.add($0)
+            self.balam.add($0)
             self.request(.init(providers.dropFirst()))
         }.store(in: &cancellables)
     }
@@ -70,11 +85,7 @@ final class News: Publisher {
                 $0.status = .waiting
             }
         }
-        balam.nodes(Item.self).sink { items in
-            DispatchQueue.main.async {
-                _ = self.sub.subscriber?.receive(items.sorted { $0.date > $1.date })
-            }
-        }.store(in: &cancellables)
+        reload()
     }
     
     private func parse(_ output: URLSession.DataTaskPublisher.Output, provider: Provider) -> [Item] {

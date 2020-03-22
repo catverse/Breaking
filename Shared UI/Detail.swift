@@ -24,7 +24,7 @@ struct Detail: View {
                     Spacer()
                     Button(action: {
                         self.item.favourite.toggle()
-                        balam.update(self.item)
+                        news.balam.update(self.item)
                     }) {
                         Image(systemName: "heart.fill")
                             .foregroundColor(item.favourite ? .init("lightning") : .secondary)

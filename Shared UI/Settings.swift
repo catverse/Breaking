@@ -2,12 +2,12 @@ import SwiftUI
 import Combine
 
 struct Settings: View {
-    @State private var refresh = preferences.refresh
-    @State private var hide = preferences.hide
-    @State private var guardian = preferences.providers.contains(.guardian)
-    @State private var spiegel = preferences.providers.contains(.spiegel)
-    @State private var theLocal = preferences.providers.contains(.theLocal)
-    @State private var favourites = preferences.favourites
+    @State private var refresh = news.preferences.refresh
+    @State private var hide = news.preferences.hide
+    @State private var guardian = news.preferences.providers.contains(.guardian)
+    @State private var spiegel = news.preferences.providers.contains(.spiegel)
+    @State private var theLocal = news.preferences.providers.contains(.theLocal)
+    @State private var favourites = news.preferences.favourites
     
     var body: some View {
         List {
@@ -61,32 +61,34 @@ struct Settings: View {
         }.listStyle(GroupedListStyle())
             .navigationBarTitle(.init("Settings.title"), displayMode: .inline)
         .onReceive(Just(refresh)) {
-            preferences.refresh = $0
-            balam.update(preferences)
+            news.preferences.refresh = $0
+            news.balam.update(news.preferences)
         }.onReceive(Just(hide)) {
-            preferences.hide = $0
-            balam.update(preferences)
+            news.preferences.hide = $0
+            news.balam.update(news.preferences)
         }.onReceive(Just(guardian)) {
-            preferences.providers.removeAll { $0 == .guardian }
+            news.preferences.providers.removeAll { $0 == .guardian }
             if $0 {
-                preferences.providers.append(.guardian)
+                news.preferences.providers.append(.guardian)
             }
-            balam.update(preferences)
+            news.balam.update(news.preferences)
         }.onReceive(Just(spiegel)) {
-            preferences.providers.removeAll { $0 == .spiegel }
+            news.preferences.providers.removeAll { $0 == .spiegel }
             if $0 {
-                preferences.providers.append(.spiegel)
+                news.preferences.providers.append(.spiegel)
             }
-            balam.update(preferences)
+            news.balam.update(news.preferences)
         }.onReceive(Just(theLocal)) {
-            preferences.providers.removeAll { $0 == .theLocal }
+            news.preferences.providers.removeAll { $0 == .theLocal }
             if $0 {
-                preferences.providers.append(.theLocal)
+                news.preferences.providers.append(.theLocal)
             }
-            balam.update(preferences)
+            news.balam.update(news.preferences)
         }.onReceive(Just(favourites)) {
-            preferences.favourites = $0
-            balam.update(preferences)
+            news.preferences.favourites = $0
+            news.balam.update(news.preferences)
+        }.onDisappear {
+            news.reload()
         }
     }
 }

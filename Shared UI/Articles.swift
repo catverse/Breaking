@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct Articles: View {
-    let news: News
     @State private var items = [Item]()
     @State private var selected: Article?
     @State private var detail = false

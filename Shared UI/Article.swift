@@ -10,7 +10,7 @@ struct Article: View {
             withAnimation {
                 self.item.status = .read
             }
-            balam.update(self.item)
+            news.balam.update(self.item)
             self.select(self)
         }) {
             VStack {
