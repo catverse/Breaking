@@ -6,8 +6,8 @@ final class Window: NSWindow {
     private var sub: AnyCancellable?
     
     init() {
-        super.init(contentRect: .init(x: 0, y: 0, width: 400, height: 800), styleMask: [.borderless, .miniaturizable, .resizable, .closable, .titled, .unifiedTitleAndToolbar, .fullSizeContentView], backing: .buffered, defer: false)
-        minSize = .init(width: 180, height: 120)
+        super.init(contentRect: .init(x: 0, y: 0, width: 1000, height: 700), styleMask: [.borderless, .miniaturizable, .resizable, .closable, .titled, .unifiedTitleAndToolbar, .fullSizeContentView], backing: .buffered, defer: false)
+        minSize = .init(width: 400, height: 120)
         center()
         titlebarAppearsTransparent = true
         titleVisibility = .hidden
@@ -16,12 +16,7 @@ final class Window: NSWindow {
         collectionBehavior = .fullScreenNone
         isReleasedWhenClosed = false
         
-        let blur = NSVisualEffectView()
-        blur.translatesAutoresizingMaskIntoConstraints = false
-        blur.blendingMode = .withinWindow
-        contentView!.addSubview(blur)
-        
-        let counter = Label("", .regular(12))
+        let counter = Label("", .light(12))
         counter.lineBreakMode = .byTruncatingTail
         counter.maximumNumberOfLines = 1
         counter.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
@@ -31,19 +26,14 @@ final class Window: NSWindow {
         let scroll = Scroll()
         contentView!.addSubview(scroll)
         
-        blur.topAnchor.constraint(equalTo: contentView!.topAnchor).isActive = true
-        blur.leftAnchor.constraint(equalTo: contentView!.leftAnchor).isActive = true
-        blur.rightAnchor.constraint(equalTo: contentView!.rightAnchor).isActive = true
-        blur.heightAnchor.constraint(equalToConstant: 38).isActive = true
+        counter.leftAnchor.constraint(equalTo: contentView!.leftAnchor, constant: 75).isActive = true
+        counter.centerYAnchor.constraint(equalTo: contentView!.topAnchor, constant: 19).isActive = true
         
-        counter.rightAnchor.constraint(equalTo: contentView!.rightAnchor, constant: -20).isActive = true
-        counter.centerYAnchor.constraint(equalTo: blur.centerYAnchor).isActive = true
-        
-        scroll.topAnchor.constraint(equalTo: blur.bottomAnchor, constant: 1).isActive = true
+        scroll.topAnchor.constraint(equalTo: contentView!.topAnchor, constant: 38).isActive = true
         scroll.leftAnchor.constraint(equalTo: contentView!.leftAnchor, constant: 1).isActive = true
-        scroll.rightAnchor.constraint(equalTo: contentView!.rightAnchor, constant: -1).isActive = true
+        scroll.widthAnchor.constraint(equalToConstant: 250).isActive = true
         scroll.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -1).isActive = true
-        scroll.right.constraint(equalTo: scroll.rightAnchor).isActive = true
+        scroll.width.constraint(equalToConstant: 250).isActive = true
         scroll.bottom.constraint(greaterThanOrEqualTo: scroll.bottomAnchor).isActive = true
         
         let formatter = NumberFormatter()
