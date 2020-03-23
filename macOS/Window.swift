@@ -5,11 +5,14 @@ final class Window: NSWindow {
     private weak var counter: Label!
     private weak var list: Scroll!
     private weak var content: Scroll!
+    private weak var selector: NSView!
+    private weak var selectorTop: NSLayoutConstraint!
+    private weak var selectorBottom: NSLayoutConstraint!
     private var sub: AnyCancellable?
     
     init() {
-        super.init(contentRect: .init(x: 0, y: 0, width: 1000, height: 700), styleMask: [.borderless, .miniaturizable, .resizable, .closable, .titled, .unifiedTitleAndToolbar, .fullSizeContentView], backing: .buffered, defer: false)
-        minSize = .init(width: 400, height: 120)
+        super.init(contentRect: .init(x: 0, y: 0, width: 800, height: 600), styleMask: [.borderless, .miniaturizable, .resizable, .closable, .titled, .unifiedTitleAndToolbar, .fullSizeContentView], backing: .buffered, defer: false)
+        minSize = .init(width: 500, height: 200)
         center()
         titlebarAppearsTransparent = true
         titleVisibility = .hidden
@@ -38,16 +41,16 @@ final class Window: NSWindow {
         
         list.topAnchor.constraint(equalTo: contentView!.topAnchor, constant: 38).isActive = true
         list.leftAnchor.constraint(equalTo: contentView!.leftAnchor, constant: 1).isActive = true
-        list.widthAnchor.constraint(equalToConstant: 250).isActive = true
+        list.widthAnchor.constraint(equalToConstant: 220).isActive = true
         list.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -1).isActive = true
-        list.width.constraint(equalToConstant: 250).isActive = true
+        list.width.constraint(equalTo: list.widthAnchor).isActive = true
         list.bottom.constraint(greaterThanOrEqualTo: list.bottomAnchor).isActive = true
         
-        content.topAnchor.constraint(equalTo: contentView!.topAnchor, constant: 38).isActive = true
+        content.topAnchor.constraint(equalTo: contentView!.topAnchor, constant: 1).isActive = true
         content.leftAnchor.constraint(equalTo: list.rightAnchor, constant: 1).isActive = true
         content.rightAnchor.constraint(equalTo: contentView!.rightAnchor, constant: -1).isActive = true
         content.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -1).isActive = true
-        content.right.constraint(equalTo: contentView!.rightAnchor).isActive = true
+        content.right.constraint(equalTo: content.rightAnchor).isActive = true
         content.bottom.constraint(greaterThanOrEqualTo: content.bottomAnchor).isActive = true
         
         let formatter = NumberFormatter()
@@ -68,6 +71,17 @@ final class Window: NSWindow {
                 }
             }
             list.bottom.constraint(greaterThanOrEqualTo: top).isActive = true
+            
+            let selector = NSView()
+            selector.translatesAutoresizingMaskIntoConstraints = false
+            selector.wantsLayer = true
+            selector.layer!.backgroundColor = NSColor(named: "lightning")!.cgColor
+            selector.layer!.cornerRadius = 1.5
+            list.add(selector)
+            self.selector = selector
+            
+            selector.rightAnchor.constraint(equalTo: list.right).isActive = true
+            selector.widthAnchor.constraint(equalToConstant: 3).isActive = true
         }
     }
     
@@ -92,9 +106,22 @@ final class Window: NSWindow {
         detail.rightAnchor.constraint(equalTo: content.right).isActive = true
         content.bottom.constraint(greaterThanOrEqualTo: detail.bottomAnchor).isActive = true
         
-//        article.item.status = .read
-//        news.balam.update(article.item)
-//        article.update()
+        selectorTop?.isActive = false
+        selectorBottom?.isActive = false
+        selectorTop = selector.topAnchor.constraint(equalTo: article.topAnchor, constant: -20)
+        selectorBottom = selector.bottomAnchor.constraint(equalTo: article.bottomAnchor, constant: 20)
+        selectorTop.isActive = true
+        selectorBottom.isActive = true
+        
+        article.item.status = .read
+        news.balam.update(article.item)
+        article.update()
 //        NSWorkspace.shared.open(article.item.link)
+        NSAnimationContext.runAnimationGroup {
+            $0.allowsImplicitAnimation = true
+            $0.duration = 1
+            detail.alphaValue = 1
+            list.contentView.layoutSubtreeIfNeeded()
+        }
     }
 }

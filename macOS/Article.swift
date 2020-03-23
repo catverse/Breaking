@@ -24,10 +24,9 @@ final class Article: Control {
         wantsLayer = true
         layer!.backgroundColor = .clear
         
-        let provider = Label(.key("Provider.\(item.provider)"), .light(11))
+        let provider = Label(.key("Provider.\(item.provider)"), .light(10))
         provider.setContentCompressionResistancePriority(.init(2), for: .horizontal)
         provider.maximumNumberOfLines = 1
-        provider.textColor = .labelColor
         addSubview(provider)
         self.provider = provider
         
@@ -37,7 +36,7 @@ final class Article: Control {
                 $0.dateStyle = .medium
                 $0.timeStyle = .none
                 return $0.string(from: item.date)
-            } (DateFormatter()), .light(11))
+            } (DateFormatter()), .light(10))
         date.maximumNumberOfLines = 1
         date.lineBreakMode = .byTruncatingTail
         date.setContentCompressionResistancePriority(.init(1), for: .horizontal)
@@ -54,15 +53,15 @@ final class Article: Control {
         bottomAnchor.constraint(equalTo: title.bottomAnchor, constant: 20).isActive = true
         
         provider.topAnchor.constraint(equalTo: topAnchor, constant: 20).isActive = true
-        provider.leftAnchor.constraint(equalTo: leftAnchor, constant: 20).isActive = true
+        provider.leftAnchor.constraint(equalTo: leftAnchor, constant: 18).isActive = true
         
         date.topAnchor.constraint(equalTo: topAnchor, constant: 20).isActive = true
-        date.rightAnchor.constraint(equalTo: rightAnchor, constant: -20).isActive = true
+        date.rightAnchor.constraint(equalTo: rightAnchor, constant: -15).isActive = true
         date.leftAnchor.constraint(greaterThanOrEqualTo: provider.rightAnchor).isActive = true
         
-        title.topAnchor.constraint(equalTo: date.bottomAnchor, constant: 10).isActive = true
-        title.leftAnchor.constraint(equalTo: leftAnchor, constant: 20).isActive = true
-        title.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -20).isActive = true
+        title.topAnchor.constraint(equalTo: date.bottomAnchor, constant: 15).isActive = true
+        title.leftAnchor.constraint(equalTo: leftAnchor, constant: 18).isActive = true
+        title.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -10).isActive = true
         
         update()
     }
@@ -78,6 +77,10 @@ final class Article: Control {
     }
     
     func update() {
+        provider.alphaValue = item.status == .read ? 0.4 : 1
+        date.alphaValue = item.status == .read ? 0.6 : 1
+        title.alphaValue = item.status == .read ? 0.4 : 1
+        
 //        provider.textColor = item.status == .read ? .tertiaryLabelColor : .labelColor
 //        date.textColor = item.status == .read ? .tertiaryLabelColor : .secondaryLabelColor
 //        title.textColor = item.status == .read ? .tertiaryLabelColor : .headerTextColor
