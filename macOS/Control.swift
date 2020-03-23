@@ -22,6 +22,20 @@ class Control: NSView {
         hoverOff()
     }
     
+    override func mouseDown(with: NSEvent) {
+        hoverOn()
+    }
+    
+    override func mouseUp(with: NSEvent) {
+        window!.makeFirstResponder(self)
+        if bounds.contains(convert(with.locationInWindow, from: nil)) {
+            _ = target.perform(click, with: self)
+        } else {
+            super.mouseUp(with: with)
+        }
+        hoverOff()
+    }
+    
     func hoverOn() {
         alphaValue = 0.3
     }

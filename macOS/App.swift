@@ -10,7 +10,7 @@ import AppKit
     }
     
     func applicationDidBecomeActive(_: Notification) {
-        window.news.refresh()
+        news.refresh()
     }
     
     func applicationWillFinishLaunching(_: Notification) {
