@@ -1,7 +1,8 @@
 import AppKit
 
 final class Detail: NSView {
-    private let item: Item
+    private weak var favourite: Favourite!
+    private var item: Item
     
     required init?(coder: NSCoder) { nil }
     init(_ item: Item) {
@@ -39,7 +40,12 @@ final class Detail: NSView {
         descr.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         addSubview(descr)
         
-        bottomAnchor.constraint(equalTo: descr.bottomAnchor).isActive = true
+        let favourite = Favourite()
+        addSubview(favourite)
+        favourite.update(item.favourite)
+        self.favourite = favourite
+        
+        bottomAnchor.constraint(equalTo: favourite.bottomAnchor).isActive = true
         
         provider.topAnchor.constraint(equalTo: topAnchor, constant: 30).isActive = true
         provider.leftAnchor.constraint(equalTo: leftAnchor, constant: 50).isActive = true
@@ -57,5 +63,8 @@ final class Detail: NSView {
         descr.leftAnchor.constraint(equalTo: leftAnchor, constant: 50).isActive = true
         descr.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -50).isActive = true
         descr.widthAnchor.constraint(lessThanOrEqualToConstant: 800).isActive = true
+        
+        favourite.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        favourite.topAnchor.constraint(equalTo: descr.bottomAnchor, constant: 40).isActive = true
     }
 }

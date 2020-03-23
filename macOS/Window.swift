@@ -90,6 +90,10 @@ final class Window: NSWindow {
     }
     
     @objc private func click(_ article: Article) {
+        article.item.status = .read
+        news.balam.update(article.item)
+        article.update()
+        
         list.views.compactMap { $0 as? Article }.forEach {
             if article == $0 {
                 $0.selected = true
@@ -113,9 +117,7 @@ final class Window: NSWindow {
         selectorTop.isActive = true
         selectorBottom.isActive = true
         
-        article.item.status = .read
-        news.balam.update(article.item)
-        article.update()
+        
 //        NSWorkspace.shared.open(article.item.link)
         NSAnimationContext.runAnimationGroup {
             $0.allowsImplicitAnimation = true
