@@ -2,6 +2,17 @@ import AppKit
 
 final class Article: Control {
     var item: Item
+    var selected = false {
+        didSet {
+            NSAnimationContext.runAnimationGroup {
+                $0.duration = 0.5
+                $0.allowsImplicitAnimation = true
+                layer!.backgroundColor =  selected ? NSColor(named: "lightning")!.cgColor : .clear
+                appearance = selected ? NSAppearance(named: .aqua) : nil
+            }
+        }
+    }
+    
     private weak var provider: Label!
     private weak var date: Label!
     private weak var title: Label!
@@ -10,6 +21,8 @@ final class Article: Control {
     init(_ item: Item) {
         self.item = item
         super.init()
+        wantsLayer = true
+        layer!.backgroundColor = .clear
         
         let provider = Label(.key("Provider.\(item.provider)"), .light(11))
         provider.setContentCompressionResistancePriority(.init(2), for: .horizontal)
@@ -38,21 +51,30 @@ final class Article: Control {
         addSubview(title)
         self.title = title
         
-        bottomAnchor.constraint(equalTo: title.bottomAnchor).isActive = true
+        bottomAnchor.constraint(equalTo: title.bottomAnchor, constant: 20).isActive = true
         
-        provider.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        provider.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        provider.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor).isActive = true
+        provider.topAnchor.constraint(equalTo: topAnchor, constant: 20).isActive = true
+        provider.leftAnchor.constraint(equalTo: leftAnchor, constant: 20).isActive = true
         
-        date.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        date.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        date.topAnchor.constraint(equalTo: topAnchor, constant: 20).isActive = true
+        date.rightAnchor.constraint(equalTo: rightAnchor, constant: -20).isActive = true
         date.leftAnchor.constraint(greaterThanOrEqualTo: provider.rightAnchor).isActive = true
         
         title.topAnchor.constraint(equalTo: date.bottomAnchor, constant: 10).isActive = true
-        title.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        title.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor).isActive = true
+        title.leftAnchor.constraint(equalTo: leftAnchor, constant: 20).isActive = true
+        title.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -20).isActive = true
         
         update()
+    }
+    
+    override func mouseUp(with: NSEvent) {
+        window!.makeFirstResponder(self)
+        if bounds.contains(convert(with.locationInWindow, from: nil)) {
+            selected = true
+            _ = target.perform(action, with: self)
+        } else {
+            super.mouseUp(with: with)
+        }
     }
     
     func update() {

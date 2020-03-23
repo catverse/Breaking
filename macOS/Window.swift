@@ -3,6 +3,7 @@ import Combine
 
 final class Window: NSWindow {
     private weak var counter: Label!
+    private weak var list: Scroll!
     private var sub: AnyCancellable?
     
     init() {
@@ -23,37 +24,38 @@ final class Window: NSWindow {
         counter.textColor = .secondaryLabelColor
         contentView!.addSubview(counter)
         
-        let scroll = Scroll()
-        contentView!.addSubview(scroll)
+        let list = Scroll()
+        contentView!.addSubview(list)
+        self.list = list
         
         counter.leftAnchor.constraint(equalTo: contentView!.leftAnchor, constant: 75).isActive = true
         counter.centerYAnchor.constraint(equalTo: contentView!.topAnchor, constant: 19).isActive = true
         
-        scroll.topAnchor.constraint(equalTo: contentView!.topAnchor, constant: 38).isActive = true
-        scroll.leftAnchor.constraint(equalTo: contentView!.leftAnchor, constant: 1).isActive = true
-        scroll.widthAnchor.constraint(equalToConstant: 250).isActive = true
-        scroll.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -1).isActive = true
-        scroll.width.constraint(equalToConstant: 250).isActive = true
-        scroll.bottom.constraint(greaterThanOrEqualTo: scroll.bottomAnchor).isActive = true
+        list.topAnchor.constraint(equalTo: contentView!.topAnchor, constant: 38).isActive = true
+        list.leftAnchor.constraint(equalTo: contentView!.leftAnchor, constant: 1).isActive = true
+        list.widthAnchor.constraint(equalToConstant: 250).isActive = true
+        list.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -1).isActive = true
+        list.width.constraint(equalToConstant: 250).isActive = true
+        list.bottom.constraint(greaterThanOrEqualTo: list.bottomAnchor).isActive = true
         
         let formatter = NumberFormatter()
         sub = news.sink {
-            scroll.views.forEach { $0.removeFromSuperview() }
+            list.views.forEach { $0.removeFromSuperview() }
             counter.stringValue = formatter.string(from: .init(value: $0.count))! + .key("Counter")
             guard !$0.isEmpty else { return }
-            var top = scroll.top
+            var top = list.top
             $0.map(Article.init(_:)).forEach {
                 $0.target = self
-                $0.click = #selector(self.click(_:))
-                (top == scroll.top ? [$0] : [Separator(), $0]).forEach {
-                    scroll.add($0)
-                    $0.topAnchor.constraint(equalTo: top, constant: 20).isActive = true
-                    $0.leftAnchor.constraint(equalTo: scroll.left, constant: 20).isActive = true
-                    $0.rightAnchor.constraint(equalTo: scroll.right, constant: -20).isActive = true
+                $0.action = #selector(self.click(_:))
+                (top == list.top ? [$0] : [Separator(), $0]).forEach {
+                    list.add($0)
+                    $0.topAnchor.constraint(equalTo: top).isActive = true
+                    $0.leftAnchor.constraint(equalTo: list.left).isActive = true
+                    $0.rightAnchor.constraint(equalTo: list.right).isActive = true
                     top = $0.bottomAnchor
                 }
             }
-            scroll.bottom.constraint(greaterThanOrEqualTo: top, constant: 15).isActive = true
+            list.bottom.constraint(greaterThanOrEqualTo: top).isActive = true
         }
     }
     
@@ -62,9 +64,17 @@ final class Window: NSWindow {
     }
     
     @objc private func click(_ article: Article) {
-        article.item.status = .read
-        news.balam.update(article.item)
-        article.update()
-        NSWorkspace.shared.open(article.item.link)
+        list.views.compactMap { $0 as? Article }.forEach {
+            if article == $0 {
+                $0.selected = true
+            } else if $0.selected {
+                $0.selected = false
+            }
+        }
+        
+//        article.item.status = .read
+//        news.balam.update(article.item)
+//        article.update()
+//        NSWorkspace.shared.open(article.item.link)
     }
 }
