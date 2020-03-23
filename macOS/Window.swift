@@ -4,6 +4,7 @@ import Combine
 final class Window: NSWindow {
     private weak var counter: Label!
     private weak var list: Scroll!
+    private weak var content: Scroll!
     private var sub: AnyCancellable?
     
     init() {
@@ -28,6 +29,10 @@ final class Window: NSWindow {
         contentView!.addSubview(list)
         self.list = list
         
+        let content = Scroll()
+        contentView!.addSubview(content)
+        self.content = content
+        
         counter.leftAnchor.constraint(equalTo: contentView!.leftAnchor, constant: 75).isActive = true
         counter.centerYAnchor.constraint(equalTo: contentView!.topAnchor, constant: 19).isActive = true
         
@@ -37,6 +42,13 @@ final class Window: NSWindow {
         list.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -1).isActive = true
         list.width.constraint(equalToConstant: 250).isActive = true
         list.bottom.constraint(greaterThanOrEqualTo: list.bottomAnchor).isActive = true
+        
+        content.topAnchor.constraint(equalTo: contentView!.topAnchor, constant: 38).isActive = true
+        content.leftAnchor.constraint(equalTo: list.rightAnchor, constant: 1).isActive = true
+        content.rightAnchor.constraint(equalTo: contentView!.rightAnchor, constant: -1).isActive = true
+        content.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -1).isActive = true
+        content.right.constraint(equalTo: contentView!.rightAnchor).isActive = true
+        content.bottom.constraint(greaterThanOrEqualTo: content.bottomAnchor).isActive = true
         
         let formatter = NumberFormatter()
         sub = news.sink {
@@ -71,6 +83,14 @@ final class Window: NSWindow {
                 $0.selected = false
             }
         }
+        content.views.forEach { $0.removeFromSuperview() }
+        let detail = Detail(article.item)
+        content.add(detail)
+        
+        detail.topAnchor.constraint(equalTo: content.top).isActive = true
+        detail.leftAnchor.constraint(equalTo: content.left).isActive = true
+        detail.rightAnchor.constraint(equalTo: content.right).isActive = true
+        content.bottom.constraint(greaterThanOrEqualTo: detail.bottomAnchor).isActive = true
         
 //        article.item.status = .read
 //        news.balam.update(article.item)
