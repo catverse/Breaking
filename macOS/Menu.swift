@@ -11,11 +11,13 @@ final class Menu: NSMenu {
         menu(.key("Menu.breaking"), items: [
             .init(title: .key("Menu.about"), action: #selector(NSApplication.orderFrontStandardAboutPanel(_:)), keyEquivalent: ""),
         .separator(),
+        .init(title: .key("Menu.preferences"), action: #selector(App.preferences), keyEquivalent: ","),
+        .separator(),
         .init(title: .key("Menu.hide"), action: #selector(NSApplication.hide(_:)), keyEquivalent: "h"),
         {
             $0.keyEquivalentModifierMask = [.option, .command]
             return $0
-            } (NSMenuItem(title: .key("Menu.hideOthers"), action: #selector(NSApplication.hideOtherApplications(_:)), keyEquivalent: "h")),
+        } (NSMenuItem(title: .key("Menu.hideOthers"), action: #selector(NSApplication.hideOtherApplications(_:)), keyEquivalent: "h")),
         .init(title: .key("Menu.showAll"), action: #selector(NSApplication.unhideAllApplications(_:)), keyEquivalent: ""),
         .separator(),
         .init(title: .key("Menu.quit"), action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")])
@@ -40,4 +42,6 @@ final class Menu: NSMenu {
         menu.submenu?.items = items
         return menu
     }
+    
+    
 }

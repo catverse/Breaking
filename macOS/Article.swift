@@ -59,7 +59,7 @@ final class Article: Control {
         addSubview(favourite)
         self.favourite = favourite
         
-        let new = Label("+", .systemFont(ofSize: 18, weight: .light))
+        let new = Label("+", .light(18))
         new.textColor = .headerColor
         addSubview(new)
         self.new = new

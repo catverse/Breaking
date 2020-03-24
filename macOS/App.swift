@@ -1,8 +1,6 @@
 import AppKit
 
 @NSApplicationMain final class App: NSApplication, NSApplicationDelegate {
-    private weak var window: Window!
-    
     required init?(coder: NSCoder) { nil }
     override init() {
         super.init()
@@ -15,8 +13,11 @@ import AppKit
     
     func applicationWillFinishLaunching(_: Notification) {
         mainMenu = Menu()
-        let window = Window()
-        self.window = window
-        window.makeKeyAndOrderFront(nil)
+        Window().makeKeyAndOrderFront(nil)
+    }
+    
+    @objc func preferences() {
+        windows.filter { $0 is Settings }.forEach { $0.close() }
+        Settings().makeKeyAndOrderFront(nil)
     }
 }
