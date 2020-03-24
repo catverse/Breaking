@@ -31,6 +31,9 @@ final class Settings: NSWindow {
         default: filter.selectItem(at: 0)
         }
         
+        let filterSeparator = Separator()
+        contentView!.addSubview(filterSeparator)
+        
         let downloadTitle = Label(.key("Settings.reload"), .light(14))
         downloadTitle.textColor = .secondaryLabelColor
         contentView!.addSubview(downloadTitle)
@@ -49,6 +52,29 @@ final class Settings: NSWindow {
         default: download.selectItem(at: 0)
         }
         
+        let downloadSeparator = Separator()
+        contentView!.addSubview(downloadSeparator)
+        
+        let hideTitle = Label(.key("Settings.hide"), .light(14))
+        hideTitle.textColor = .secondaryLabelColor
+        contentView!.addSubview(hideTitle)
+        
+        let hide = NSPopUpButton(frame: .zero)
+        hide.translatesAutoresizingMaskIntoConstraints = false
+        hide.addItems(withTitles: [.key("Hide.7"), .key("Hide.30"), .key("Hide.365")])
+        hide.target = self
+        hide.action = #selector(self.hide(_:))
+        contentView!.addSubview(hide)
+        
+        switch news.preferences.hide {
+        case 30: hide.selectItem(at: 1)
+        case 365: hide.selectItem(at: 2)
+        default: hide.selectItem(at: 0)
+        }
+        
+        let hideSeparator = Separator()
+        contentView!.addSubview(hideSeparator)
+        
         title.centerYAnchor.constraint(equalTo: contentView!.topAnchor, constant: 19).isActive = true
         title.centerXAnchor.constraint(equalTo: contentView!.centerXAnchor).isActive = true
         
@@ -58,11 +84,29 @@ final class Settings: NSWindow {
         filter.topAnchor.constraint(equalTo: contentView!.topAnchor, constant: 60).isActive = true
         filter.leftAnchor.constraint(equalTo: contentView!.leftAnchor, constant: 160).isActive = true
         
+        filterSeparator.topAnchor.constraint(equalTo: filter.bottomAnchor, constant: 15).isActive = true
+        filterSeparator.leftAnchor.constraint(equalTo: contentView!.leftAnchor, constant: 40).isActive = true
+        filterSeparator.rightAnchor.constraint(equalTo: contentView!.rightAnchor, constant: -40).isActive = true
+        
         downloadTitle.rightAnchor.constraint(equalTo: download.leftAnchor, constant: -10).isActive = true
         downloadTitle.centerYAnchor.constraint(equalTo: download.centerYAnchor).isActive = true
         
-        download.topAnchor.constraint(equalTo: filter.bottomAnchor, constant: 30).isActive = true
+        download.topAnchor.constraint(equalTo: filterSeparator.bottomAnchor, constant: 15).isActive = true
         download.leftAnchor.constraint(equalTo: contentView!.leftAnchor, constant: 160).isActive = true
+        
+        downloadSeparator.topAnchor.constraint(equalTo: download.bottomAnchor, constant: 15).isActive = true
+        downloadSeparator.leftAnchor.constraint(equalTo: contentView!.leftAnchor, constant: 40).isActive = true
+        downloadSeparator.rightAnchor.constraint(equalTo: contentView!.rightAnchor, constant: -40).isActive = true
+        
+        hideTitle.rightAnchor.constraint(equalTo: hide.leftAnchor, constant: -10).isActive = true
+        hideTitle.centerYAnchor.constraint(equalTo: hide.centerYAnchor).isActive = true
+        
+        hide.topAnchor.constraint(equalTo: downloadSeparator.bottomAnchor, constant: 15).isActive = true
+        hide.leftAnchor.constraint(equalTo: contentView!.leftAnchor, constant: 160).isActive = true
+        
+        hideSeparator.topAnchor.constraint(equalTo: hide.bottomAnchor, constant: 15).isActive = true
+        hideSeparator.leftAnchor.constraint(equalTo: contentView!.leftAnchor, constant: 40).isActive = true
+        hideSeparator.rightAnchor.constraint(equalTo: contentView!.rightAnchor, constant: -40).isActive = true
     }
     
     @objc private func filter(_ button: NSPopUpButton) {
@@ -83,5 +127,15 @@ final class Settings: NSWindow {
         default: news.preferences.refresh = 5
         }
         news.balam.update(news.preferences)
+    }
+    
+    @objc private func hide(_ button: NSPopUpButton) {
+        switch button.indexOfSelectedItem {
+        case 1: news.preferences.hide = 30
+        case 2: news.preferences.hide = 365
+        default: news.preferences.hide = 7
+        }
+        news.balam.update(news.preferences)
+        news.reload()
     }
 }

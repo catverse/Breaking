@@ -55,7 +55,9 @@ final class Window: NSWindow {
         
         let formatter = NumberFormatter()
         sub = news.sink {
+            let selected = list.views.compactMap { $0 as? Article }.first { $0.selected }?.item.id
             list.views.forEach { $0.removeFromSuperview() }
+            content.views.forEach { $0.removeFromSuperview() }
             counter.stringValue = formatter.string(from: .init(value: $0.count))! + .key("Counter")
             guard !$0.isEmpty else { return }
             var top = list.top
@@ -82,11 +84,21 @@ final class Window: NSWindow {
             
             selector.rightAnchor.constraint(equalTo: list.right).isActive = true
             selector.widthAnchor.constraint(equalToConstant: 3).isActive = true
+            
+            selected.map(self.synth)
         }
     }
     
     override func close() {
         NSApp.terminate(nil)
+    }
+    
+    private func synth(_ id: String) {
+        list.contentView.layoutSubtreeIfNeeded()
+        list.views.compactMap { $0 as? Article }.first { $0.item.id == id }.map {
+            list.center($0.frame)
+            click($0)
+        }
     }
     
     @objc private func click(_ article: Article) {
