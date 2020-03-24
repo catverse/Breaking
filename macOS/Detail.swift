@@ -1,28 +1,27 @@
 import AppKit
 
 final class Detail: NSView {
-    private weak var favourite: Favourite!
-    private var item: Item
+    private weak var article: Article!
     
     required init?(coder: NSCoder) { nil }
-    init(_ item: Item) {
-        self.item = item
+    init(_ article: Article) {
+        self.article = article
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         wantsLayer = true
         alphaValue = 0
         
-        let provider = Label(.key("Provider.\(item.provider)"), .light(13))
+        let provider = Label(.key("Provider.\(article.item.provider)"), .light(13))
         provider.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         provider.maximumNumberOfLines = 1
         addSubview(provider)
         
-        let date = Label(item.date > Calendar.current.date(byAdding: .hour, value: -23, to: .init())!
-            ? RelativeDateTimeFormatter().localizedString(for: item.date, relativeTo: .init())
+        let date = Label(article.item.date > Calendar.current.date(byAdding: .hour, value: -23, to: .init())!
+            ? RelativeDateTimeFormatter().localizedString(for: article.item.date, relativeTo: .init())
             : {
                 $0.dateStyle = .full
                 $0.timeStyle = .short
-                return $0.string(from: item.date)
+                return $0.string(from: article.item.date)
             } (DateFormatter()), .light(13))
         date.maximumNumberOfLines = 1
         date.lineBreakMode = .byTruncatingTail
@@ -30,20 +29,21 @@ final class Detail: NSView {
         date.textColor = .secondaryLabelColor
         addSubview(date)
         
-        let title = Label(item.title, .regular(16))
+        let title = Label(article.item.title, .regular(16))
         title.textColor = .headerColor
         title.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         addSubview(title)
         
-        let descr = Label(item.description, .regular(16))
+        let descr = Label(article.item.description, .regular(16))
         descr.textColor = .secondaryLabelColor
         descr.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         addSubview(descr)
         
         let favourite = Favourite()
+        favourite.target = self
+        favourite.action = #selector(toggle(_:))
         addSubview(favourite)
-        favourite.update(item.favourite)
-        self.favourite = favourite
+        favourite.update(article.item.favourite)
         
         bottomAnchor.constraint(equalTo: favourite.bottomAnchor).isActive = true
         
@@ -66,5 +66,12 @@ final class Detail: NSView {
         
         favourite.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         favourite.topAnchor.constraint(equalTo: descr.bottomAnchor, constant: 40).isActive = true
+    }
+    
+    @objc private func toggle(_ favourite: Favourite) {
+        article.item.favourite.toggle()
+        favourite.update(article.item.favourite)
+        article.update()
+        news.balam.update(article.item)
     }
 }

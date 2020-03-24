@@ -17,4 +17,13 @@ class Control: NSView {
     override func resetCursorRects() {
         addCursorRect(bounds, cursor: .pointingHand)
     }
+    
+    override func mouseUp(with: NSEvent) {
+        window!.makeFirstResponder(self)
+        if bounds.contains(convert(with.locationInWindow, from: nil)) {
+            _ = target.perform(action, with: self)
+        } else {
+            super.mouseUp(with: with)
+        }
+    }
 }

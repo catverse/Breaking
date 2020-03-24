@@ -66,16 +66,6 @@ final class Article: Control {
         update()
     }
     
-    override func mouseUp(with: NSEvent) {
-        window!.makeFirstResponder(self)
-        if bounds.contains(convert(with.locationInWindow, from: nil)) {
-            selected = true
-            _ = target.perform(action, with: self)
-        } else {
-            super.mouseUp(with: with)
-        }
-    }
-    
     func update() {
         provider.alphaValue = item.status == .read ? 0.4 : 1
         date.alphaValue = item.status == .read ? 0.6 : 1

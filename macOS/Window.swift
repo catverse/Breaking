@@ -90,9 +90,11 @@ final class Window: NSWindow {
     }
     
     @objc private func click(_ article: Article) {
-        article.item.status = .read
-        news.balam.update(article.item)
-        article.update()
+        if article.item.status != .read {
+            article.item.status = .read
+            news.balam.update(article.item)
+            article.update()
+        }
         
         list.views.compactMap { $0 as? Article }.forEach {
             if article == $0 {
@@ -102,7 +104,7 @@ final class Window: NSWindow {
             }
         }
         content.views.forEach { $0.removeFromSuperview() }
-        let detail = Detail(article.item)
+        let detail = Detail(article)
         content.add(detail)
         
         detail.topAnchor.constraint(equalTo: content.top).isActive = true

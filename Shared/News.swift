@@ -48,11 +48,6 @@ final class News: Publisher {
         }
     }
     
-    func receive<S>(subscriber: S) where S : Subscriber, Failure == S.Failure, Output == S.Input {
-        sub.subscriber = .init(subscriber)
-        subscriber.receive(subscription: sub)
-    }
-    
     func reload() {
         balam.nodes(Item.self).sink {
             let older = Calendar.current.date(byAdding: .day, value: -self.preferences.hide, to: .init())!
@@ -71,6 +66,11 @@ final class News: Publisher {
                 _ = self.sub.subscriber?.receive(items)
             }
         }.store(in: &cancellables)
+    }
+    
+    func receive<S>(subscriber: S) where S : Subscriber, Failure == S.Failure, Output == S.Input {
+        sub.subscriber = .init(subscriber)
+        subscriber.receive(subscription: sub)
     }
     
     private func request(_ providers: [Provider]) {
