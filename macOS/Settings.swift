@@ -2,7 +2,7 @@ import AppKit
 
 final class Settings: NSWindow {
     init() {
-        super.init(contentRect: .init(x: 0, y: 0, width: 300, height: 300), styleMask: [.borderless, .closable, .titled, .unifiedTitleAndToolbar, .fullSizeContentView], backing: .buffered, defer: false)
+        super.init(contentRect: .init(x: 0, y: 0, width: 300, height: 400), styleMask: [.borderless, .closable, .titled, .unifiedTitleAndToolbar, .fullSizeContentView], backing: .buffered, defer: false)
         center()
         titlebarAppearsTransparent = true
         titleVisibility = .hidden
@@ -22,7 +22,7 @@ final class Settings: NSWindow {
         filter.translatesAutoresizingMaskIntoConstraints = false
         filter.addItems(withTitles: [.key("Filter.all"), .key("Filter.unread"), .key("Filter.favourites")])
         filter.target = self
-        filter.action = #selector(self.filter(_:))
+        filter.action = #selector(filter(_:))
         contentView!.addSubview(filter)
         
         switch news.preferences.filter {
@@ -42,7 +42,7 @@ final class Settings: NSWindow {
         download.translatesAutoresizingMaskIntoConstraints = false
         download.addItems(withTitles: [.key("Reload.5"), .key("Reload.15"), .key("Reload.30"), .key("Reload.60")])
         download.target = self
-        download.action = #selector(self.download(_:))
+        download.action = #selector(download(_:))
         contentView!.addSubview(download)
         
         switch news.preferences.refresh {
@@ -63,7 +63,7 @@ final class Settings: NSWindow {
         hide.translatesAutoresizingMaskIntoConstraints = false
         hide.addItems(withTitles: [.key("Hide.7"), .key("Hide.30"), .key("Hide.365")])
         hide.target = self
-        hide.action = #selector(self.hide(_:))
+        hide.action = #selector(hide(_:))
         contentView!.addSubview(hide)
         
         switch news.preferences.hide {
@@ -74,6 +74,25 @@ final class Settings: NSWindow {
         
         let hideSeparator = Separator()
         contentView!.addSubview(hideSeparator)
+        
+        let providerTitle = Label(.key("Settings.providers"), .light(14))
+        providerTitle.textColor = .secondaryLabelColor
+        contentView!.addSubview(providerTitle)
+        
+        let guardian = NSButton(checkboxWithTitle: .key("Provider.guardian"), target: self, action: #selector(guardian(_:)))
+        guardian.translatesAutoresizingMaskIntoConstraints = false
+        guardian.state = news.preferences.providers.contains(.guardian) ? .on : .off
+        contentView!.addSubview(guardian)
+        
+        let spiegel = NSButton(checkboxWithTitle: .key("Provider.spiegel"), target: self, action: #selector(spiegel(_:)))
+        spiegel.translatesAutoresizingMaskIntoConstraints = false
+        spiegel.state = news.preferences.providers.contains(.spiegel) ? .on : .off
+        contentView!.addSubview(spiegel)
+        
+        let theLocal = NSButton(checkboxWithTitle: .key("Provider.theLocal"), target: self, action: #selector(theLocal(_:)))
+        theLocal.translatesAutoresizingMaskIntoConstraints = false
+        theLocal.state = news.preferences.providers.contains(.theLocal) ? .on : .off
+        contentView!.addSubview(theLocal)
         
         title.centerYAnchor.constraint(equalTo: contentView!.topAnchor, constant: 19).isActive = true
         title.centerXAnchor.constraint(equalTo: contentView!.centerXAnchor).isActive = true
@@ -107,6 +126,18 @@ final class Settings: NSWindow {
         hideSeparator.topAnchor.constraint(equalTo: hide.bottomAnchor, constant: 15).isActive = true
         hideSeparator.leftAnchor.constraint(equalTo: contentView!.leftAnchor, constant: 40).isActive = true
         hideSeparator.rightAnchor.constraint(equalTo: contentView!.rightAnchor, constant: -40).isActive = true
+        
+        providerTitle.centerXAnchor.constraint(equalTo: contentView!.centerXAnchor).isActive = true
+        providerTitle.topAnchor.constraint(equalTo: hideSeparator.bottomAnchor, constant: 20).isActive = true
+        
+        guardian.leftAnchor.constraint(equalTo: contentView!.leftAnchor, constant: 100).isActive = true
+        guardian.topAnchor.constraint(equalTo: providerTitle.bottomAnchor, constant: 20).isActive = true
+        
+        spiegel.leftAnchor.constraint(equalTo: contentView!.leftAnchor, constant: 100).isActive = true
+        spiegel.topAnchor.constraint(equalTo: guardian.bottomAnchor, constant: 20).isActive = true
+        
+        theLocal.leftAnchor.constraint(equalTo: contentView!.leftAnchor, constant: 100).isActive = true
+        theLocal.topAnchor.constraint(equalTo: spiegel.bottomAnchor, constant: 20).isActive = true
     }
     
     @objc private func filter(_ button: NSPopUpButton) {
@@ -134,6 +165,33 @@ final class Settings: NSWindow {
         case 1: news.preferences.hide = 30
         case 2: news.preferences.hide = 365
         default: news.preferences.hide = 7
+        }
+        news.balam.update(news.preferences)
+        news.reload()
+    }
+    
+    @objc private func guardian(_ button: NSButton) {
+        news.preferences.providers.removeAll { $0 == .guardian }
+        if button.state == .on {
+            news.preferences.providers.append(.guardian)
+        }
+        news.balam.update(news.preferences)
+        news.reload()
+    }
+    
+    @objc private func spiegel(_ button: NSButton) {
+        news.preferences.providers.removeAll { $0 == .spiegel }
+        if button.state == .on {
+            news.preferences.providers.append(.spiegel)
+        }
+        news.balam.update(news.preferences)
+        news.reload()
+    }
+    
+    @objc private func theLocal(_ button: NSButton) {
+        news.preferences.providers.removeAll { $0 == .theLocal }
+        if button.state == .on {
+            news.preferences.providers.append(.theLocal)
         }
         news.balam.update(news.preferences)
         news.reload()
