@@ -18,6 +18,14 @@ class Control: NSView {
         addCursorRect(bounds, cursor: .pointingHand)
     }
     
+    override func mouseDown(with: NSEvent) {
+        alphaValue = 0.3
+    }
+    
+    override func mouseExited(with: NSEvent) {
+        alphaValue = 1
+    }
+    
     override func mouseUp(with: NSEvent) {
         window!.makeFirstResponder(self)
         if bounds.contains(convert(with.locationInWindow, from: nil)) {
@@ -25,5 +33,6 @@ class Control: NSView {
         } else {
             super.mouseUp(with: with)
         }
+        alphaValue = 1
     }
 }

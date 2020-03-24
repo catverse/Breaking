@@ -119,8 +119,6 @@ final class Window: NSWindow {
         selectorTop.isActive = true
         selectorBottom.isActive = true
         
-        
-//        NSWorkspace.shared.open(article.item.link)
         NSAnimationContext.runAnimationGroup {
             $0.allowsImplicitAnimation = true
             $0.duration = 1

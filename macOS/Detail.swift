@@ -45,7 +45,12 @@ final class Detail: NSView {
         addSubview(favourite)
         favourite.update(article.item.favourite)
         
-        bottomAnchor.constraint(equalTo: favourite.bottomAnchor).isActive = true
+        let read = Button(.key("More"))
+        read.target = self
+        read.action = #selector(open)
+        addSubview(read)
+        
+        bottomAnchor.constraint(equalTo: read.bottomAnchor, constant: 50).isActive = true
         
         provider.topAnchor.constraint(equalTo: topAnchor, constant: 30).isActive = true
         provider.leftAnchor.constraint(equalTo: leftAnchor, constant: 50).isActive = true
@@ -65,7 +70,10 @@ final class Detail: NSView {
         descr.widthAnchor.constraint(lessThanOrEqualToConstant: 800).isActive = true
         
         favourite.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        favourite.topAnchor.constraint(equalTo: descr.bottomAnchor, constant: 40).isActive = true
+        favourite.topAnchor.constraint(equalTo: descr.bottomAnchor, constant: 20).isActive = true
+        
+        read.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        read.topAnchor.constraint(equalTo: favourite.bottomAnchor, constant: 10).isActive = true
     }
     
     @objc private func toggle(_ favourite: Favourite) {
@@ -73,5 +81,9 @@ final class Detail: NSView {
         favourite.update(article.item.favourite)
         article.update()
         news.balam.update(article.item)
+    }
+    
+    @objc private func open() {
+        NSWorkspace.shared.open(article.item.link)
     }
 }
