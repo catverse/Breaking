@@ -16,6 +16,9 @@ final class Article: Control {
     private weak var provider: Label!
     private weak var date: Label!
     private weak var title: Label!
+    private weak var new: Label!
+    private weak var favourite: NSImageView!
+    private weak var titleRight: NSLayoutConstraint!
     
     required init?(coder: NSCoder) { nil }
     init(_ item: Item) {
@@ -50,18 +53,38 @@ final class Article: Control {
         addSubview(title)
         self.title = title
         
+        let favourite = NSImageView()
+        favourite.translatesAutoresizingMaskIntoConstraints = false
+        favourite.imageScaling = .scaleProportionallyDown
+        addSubview(favourite)
+        self.favourite = favourite
+        
+        let new = Label("+", .systemFont(ofSize: 18, weight: .light))
+        new.textColor = .headerColor
+        addSubview(new)
+        self.new = new
+        
         bottomAnchor.constraint(equalTo: title.bottomAnchor, constant: 20).isActive = true
         
         provider.topAnchor.constraint(equalTo: topAnchor, constant: 20).isActive = true
         provider.leftAnchor.constraint(equalTo: leftAnchor, constant: 18).isActive = true
         
         date.topAnchor.constraint(equalTo: topAnchor, constant: 20).isActive = true
-        date.rightAnchor.constraint(equalTo: rightAnchor, constant: -15).isActive = true
+        date.rightAnchor.constraint(equalTo: rightAnchor, constant: -17).isActive = true
         date.leftAnchor.constraint(greaterThanOrEqualTo: provider.rightAnchor).isActive = true
         
         title.topAnchor.constraint(equalTo: date.bottomAnchor, constant: 15).isActive = true
         title.leftAnchor.constraint(equalTo: leftAnchor, constant: 18).isActive = true
-        title.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -10).isActive = true
+        titleRight = title.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: 0)
+        titleRight.isActive = true
+        
+        favourite.rightAnchor.constraint(equalTo: rightAnchor, constant: -12).isActive = true
+        favourite.bottomAnchor.constraint(equalTo: title.bottomAnchor, constant: -3).isActive = true
+        favourite.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        favourite.widthAnchor.constraint(equalToConstant: 10).isActive = true
+        
+        new.rightAnchor.constraint(equalTo: rightAnchor, constant: -12).isActive = true
+        new.topAnchor.constraint(equalTo: title.topAnchor, constant: -3).isActive = true
         
         update()
     }
@@ -70,15 +93,22 @@ final class Article: Control {
         provider.alphaValue = item.status == .read ? 0.4 : 1
         date.alphaValue = item.status == .read ? 0.6 : 1
         title.alphaValue = item.status == .read ? 0.4 : 1
+        new.isHidden = item.status != .new
         
-//        provider.textColor = item.status == .read ? .tertiaryLabelColor : .labelColor
-//        date.textColor = item.status == .read ? .tertiaryLabelColor : .secondaryLabelColor
-//        title.textColor = item.status == .read ? .tertiaryLabelColor : .headerTextColor
+        if item.favourite {
+            favourite.image = NSImage(named: "favourite")!.copy() as? NSImage
+            favourite.image!.lockFocus()
+            NSColor.secondaryLabelColor.set()
+            NSRect(origin: .init(), size: favourite.image!.size).fill(using: .sourceIn)
+            favourite.image!.unlockFocus()
+        } else {
+            favourite.image = nil
+        }
         
-//        hearth.image = NSImage(named: "favourite")!.copy() as? NSImage
-//        hearth.image!.lockFocus()
-//        item.favourite ? NSColor.controlAccentColor.set() : NSColor.tertiaryLabelColor.set()
-//        NSRect(origin: .init(), size: hearth.image!.size).fill(using: .sourceIn)
-//        hearth.image!.unlockFocus()
+        if item.favourite || item.status == .new {
+            titleRight.constant = -29
+        } else {
+            titleRight.constant = -17
+        }
     }
 }
