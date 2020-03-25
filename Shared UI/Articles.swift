@@ -12,6 +12,8 @@ struct Articles: View {
                 if items.isEmpty {
                     Section {
                         Empty()
+                        Empty()
+                        Empty()
                     }
                 }
                 Section(header: Text(items.isEmpty
