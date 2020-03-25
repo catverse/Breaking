@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		CE0C676B242613F900FE89F4 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0C676A242613F900FE89F4 /* Settings.swift */; };
-		CE0C676C242613F900FE89F4 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0C676A242613F900FE89F4 /* Settings.swift */; };
 		CE0C676E242616C800FE89F4 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0C676D242616C800FE89F4 /* Preferences.swift */; };
 		CE0C676F242616C800FE89F4 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0C676D242616C800FE89F4 /* Preferences.swift */; };
 		CE0C6770242616C800FE89F4 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0C676D242616C800FE89F4 /* Preferences.swift */; };
@@ -44,18 +43,14 @@
 		CE6E10B924160FD2003D86A5 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E10B724160FD2003D86A5 /* Provider.swift */; };
 		CE6E10BA24160FD2003D86A5 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E10B724160FD2003D86A5 /* Provider.swift */; };
 		CE759224242499DC000B4CB9 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE759223242499DC000B4CB9 /* Article.swift */; };
-		CE759225242499DC000B4CB9 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE759223242499DC000B4CB9 /* Article.swift */; };
 		CE759227242499F3000B4CB9 /* Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE759226242499F3000B4CB9 /* Empty.swift */; };
-		CE759228242499F3000B4CB9 /* Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE759226242499F3000B4CB9 /* Empty.swift */; };
-		CE75922A24249A03000B4CB9 /* Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE75922924249A03000B4CB9 /* Detail.swift */; };
-		CE75922B24249A03000B4CB9 /* Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE75922924249A03000B4CB9 /* Detail.swift */; };
+		CE78AAA9242B3D7500DFA2A1 /* Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE78AAA8242B3D7500DFA2A1 /* Detail.swift */; };
 		CE7F11AB241E5EF300E23EFB /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7F11AA241E5EF300E23EFB /* Menu.swift */; };
 		CEA38ECC2415292800ED4BBE /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA38ECB2415292800ED4BBE /* Item.swift */; };
 		CEA38ECD2415292800ED4BBE /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA38ECB2415292800ED4BBE /* Item.swift */; };
 		CEA38ECE2415292800ED4BBE /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA38ECB2415292800ED4BBE /* Item.swift */; };
 		CEA38ED0241533C300ED4BBE /* Separator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA38ECF241533C300ED4BBE /* Separator.swift */; };
 		CEBB41F6242895790013E883 /* Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBB41F5242895790013E883 /* Detail.swift */; };
-		CED94A8C24234088007D19F9 /* Articles.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF8BDF5241F4DCB0040B9F9 /* Articles.swift */; };
 		CED94A9024234841007D19F9 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE23A0FF24150F42004F8C96 /* String.swift */; };
 		CED94A9124234841007D19F9 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE23A0FF24150F42004F8C96 /* String.swift */; };
 		CEE97007241519D600A01699 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CEE97005241519D600A01699 /* Localizable.strings */; };
@@ -115,8 +110,8 @@
 		CE0C676D242616C800FE89F4 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		CE0C9D832427770F00AFC0D4 /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		CE1AE62C241D06C5009CC86A /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
-		CE23A0C224150C28004F8C96 /* BreakingWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BreakingWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		CE23A0C324150C2D004F8C96 /* BreakingWatchExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BreakingWatchExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE23A0C224150C28004F8C96 /* Breaking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Breaking.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE23A0C324150C2D004F8C96 /* Breaking.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Breaking.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE23A0C424150C78004F8C96 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		CE23A0C524150C78004F8C96 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		CE23A0C624150C78004F8C96 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -148,7 +143,7 @@
 		CE6E10B724160FD2003D86A5 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
 		CE759223242499DC000B4CB9 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		CE759226242499F3000B4CB9 /* Empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Empty.swift; sourceTree = "<group>"; };
-		CE75922924249A03000B4CB9 /* Detail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.swift; sourceTree = "<group>"; };
+		CE78AAA8242B3D7500DFA2A1 /* Detail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.swift; sourceTree = "<group>"; };
 		CE7F11AA241E5EF300E23EFB /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		CEA38ECB2415292800ED4BBE /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		CEA38ECF241533C300ED4BBE /* Separator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Separator.swift; sourceTree = "<group>"; };
@@ -197,14 +192,13 @@
 				CE23A10124150FBD004F8C96 /* Breaking.app */,
 				CE23A10224150FED004F8C96 /* Breaking.app */,
 				CE23A10324151045004F8C96 /* Breaking.app */,
-				CE23A0C224150C28004F8C96 /* BreakingWatch.app */,
-				CE23A0C324150C2D004F8C96 /* BreakingWatchExtension.appex */,
+				CE23A0C224150C28004F8C96 /* Breaking.app */,
+				CE23A0C324150C2D004F8C96 /* Breaking.appex */,
 				CE23A0C424150C78004F8C96 /* README.md */,
 				CE23A0F024150DFA004F8C96 /* Frameworks */,
 				CE23A0CF24150CDD004F8C96 /* iOS */,
 				CE23A0C724150CD2004F8C96 /* macOS */,
 				CE23A0EC24150D2C004F8C96 /* Shared */,
-				CED94A8B2423406E007D19F9 /* Shared UI */,
 				CE23A0E024150D0C004F8C96 /* watchOS App */,
 				CE23A0E724150D17004F8C96 /* watchOS Extension */,
 			);
@@ -239,7 +233,12 @@
 				CE23A0D324150CDD004F8C96 /* Info.plist */,
 				CE23A0D024150CDD004F8C96 /* LaunchScreen.storyboard */,
 				CEF8BDF9241F53580040B9F9 /* App.swift */,
+				CE759223242499DC000B4CB9 /* Article.swift */,
+				CEF8BDF5241F4DCB0040B9F9 /* Articles.swift */,
+				CE78AAA8242B3D7500DFA2A1 /* Detail.swift */,
+				CE759226242499F3000B4CB9 /* Empty.swift */,
 				CEF8BDF7241F50FF0040B9F9 /* Scene.swift */,
+				CE0C676A242613F900FE89F4 /* Settings.swift */,
 				CE23A0D124150CDD004F8C96 /* Assets.xcassets */,
 			);
 			path = iOS;
@@ -285,18 +284,6 @@
 			children = (
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		CED94A8B2423406E007D19F9 /* Shared UI */ = {
-			isa = PBXGroup;
-			children = (
-				CE759223242499DC000B4CB9 /* Article.swift */,
-				CEF8BDF5241F4DCB0040B9F9 /* Articles.swift */,
-				CE75922924249A03000B4CB9 /* Detail.swift */,
-				CE759226242499F3000B4CB9 /* Empty.swift */,
-				CE0C676A242613F900FE89F4 /* Settings.swift */,
-			);
-			path = "Shared UI";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -373,7 +360,7 @@
 			);
 			name = "watchOS App";
 			productName = "watchOS WatchKit App";
-			productReference = CE23A0C224150C28004F8C96 /* BreakingWatch.app */;
+			productReference = CE23A0C224150C28004F8C96 /* Breaking.app */;
 			productType = "com.apple.product-type.application.watchapp2";
 		};
 		CE23A0A524150B46004F8C96 /* watchOS Extension */ = {
@@ -393,7 +380,7 @@
 				CE23A0F324150E00004F8C96 /* Balam */,
 			);
 			productName = "watchOS WatchKit Extension";
-			productReference = CE23A0C324150C2D004F8C96 /* BreakingWatchExtension.appex */;
+			productReference = CE23A0C324150C2D004F8C96 /* Breaking.appex */;
 			productType = "com.apple.product-type.watchkit2-extension";
 		};
 /* End PBXNativeTarget section */
@@ -528,6 +515,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE78AAA9242B3D7500DFA2A1 /* Detail.swift in Sources */,
 				CE6E10B924160FD2003D86A5 /* Provider.swift in Sources */,
 				CE1AE62E241D06C5009CC86A /* Status.swift in Sources */,
 				CE759224242499DC000B4CB9 /* Article.swift in Sources */,
@@ -540,7 +528,6 @@
 				CE759227242499F3000B4CB9 /* Empty.swift in Sources */,
 				CE0C676F242616C800FE89F4 /* Preferences.swift in Sources */,
 				CED94A9124234841007D19F9 /* String.swift in Sources */,
-				CE75922A24249A03000B4CB9 /* Detail.swift in Sources */,
 				CEF8BDF6241F4DCB0040B9F9 /* Articles.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -554,14 +541,9 @@
 				CE0C6770242616C800FE89F4 /* Preferences.swift in Sources */,
 				CEE9700F24151E3300A01699 /* News.swift in Sources */,
 				CEA38ECE2415292800ED4BBE /* Item.swift in Sources */,
-				CE759225242499DC000B4CB9 /* Article.swift in Sources */,
-				CE759228242499F3000B4CB9 /* Empty.swift in Sources */,
-				CE75922B24249A03000B4CB9 /* Detail.swift in Sources */,
 				CED94A9024234841007D19F9 /* String.swift in Sources */,
 				CE23A0EA24150D17004F8C96 /* ContentView.swift in Sources */,
 				CE0C9D862427770F00AFC0D4 /* Filter.swift in Sources */,
-				CE0C676C242613F900FE89F4 /* Settings.swift in Sources */,
-				CED94A8C24234088007D19F9 /* Articles.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -889,7 +871,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -935,7 +916,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "watchOS WatchKit Extension/Info.plist";
+				INFOPLIST_FILE = "watchOS Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -944,8 +925,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = breaking.watchOS.watchkitapp.watchkitextension;
-				PRODUCT_NAME = BreakingWatchExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = breaking.watchOS.app.extension;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -957,7 +937,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -998,7 +977,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "watchOS WatchKit Extension/Info.plist";
+				INFOPLIST_FILE = "watchOS Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1006,8 +985,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = breaking.watchOS.watchkitapp.watchkitextension;
-				PRODUCT_NAME = BreakingWatchExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = breaking.watchOS.app.extension;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -1066,12 +1044,11 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IBSC_MODULE = watchOS_WatchKit_Extension;
-				INFOPLIST_FILE = "watchOS WatchKit App/Info.plist";
+				INFOPLIST_FILE = "watchOS App/Info.plist";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = breaking.watchOS.watchkitapp;
-				PRODUCT_NAME = BreakingWatch;
+				PRODUCT_BUNDLE_IDENTIFIER = breaking.watchOS.app;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1125,11 +1102,10 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IBSC_MODULE = watchOS_WatchKit_Extension;
-				INFOPLIST_FILE = "watchOS WatchKit App/Info.plist";
+				INFOPLIST_FILE = "watchOS App/Info.plist";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = breaking.watchOS.watchkitapp;
-				PRODUCT_NAME = BreakingWatch;
+				PRODUCT_BUNDLE_IDENTIFIER = breaking.watchOS.app;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
