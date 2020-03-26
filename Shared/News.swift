@@ -27,8 +27,8 @@ final class News: Publisher {
         "&#039;" : "'",
         "  " : " ",
         "&nbsp;" : "",
-        "\r" : "",
-        "\n" : ""
+        "\r" : " ",
+        "\n" : " ",
     ]
 
     fileprivate init() {
@@ -117,9 +117,13 @@ final class News: Publisher {
     }
     
     private func clean(_ string: String) -> String {
-        characters.reduce(string) {
+        var cleaned = characters.reduce(string) {
             $0.replacingOccurrences(of: $1.0, with: $1.1)
         }
+        while cleaned.contains("  ") {
+            cleaned = cleaned.replacingOccurrences(of: "  ", with: " ")
+        }
+        return cleaned
     }
     
     private func strip(_ string: String) -> String {
