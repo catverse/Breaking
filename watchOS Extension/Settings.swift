@@ -16,7 +16,7 @@ struct Settings: View {
                     Text("Filter.all").tag(Filter.all)
                     Text("Filter.unread").tag(Filter.unread)
                     Text("Filter.favourites").tag(Filter.favourites)
-                }.pickerStyle(SegmentedPickerStyle())
+                }
             }
             Section(header: Text("Settings.reload")) {
                 Picker(selection: $refresh, label: Text("Settings.reload")) {
@@ -24,14 +24,14 @@ struct Settings: View {
                     Text("Reload.15").tag(15)
                     Text("Reload.30").tag(30)
                     Text("Reload.60").tag(60)
-                }.pickerStyle(SegmentedPickerStyle())
+                }
             }
             Section(header: Text("Settings.hide")) {
                 Picker(selection: $hide, label: Text("Settings.hide")) {
                     Text("Hide.7").tag(7)
                     Text("Hide.30").tag(30)
                     Text("Hide.365").tag(365)
-                }.pickerStyle(SegmentedPickerStyle())
+                }
             }
             Section(header: Text("Settings.providers")) {
                 Toggle(isOn: $guardian) {
@@ -50,12 +50,11 @@ struct Settings: View {
                         .foregroundColor(theLocal ? .primary : .secondary)
                 }
             }
-        }.listStyle(GroupedListStyle())
-            .navigationBarTitle(.init("Settings.title"), displayMode: .inline)
-        .onReceive(Just(filter)) {
-            news.preferences.filter = $0
-            news.save()
-        }
+        }.navigationBarTitle(.init("Settings.title"))
+            .onReceive(Just(filter)) {
+                news.preferences.filter = $0
+                news.save()
+            }
         .onReceive(Just(refresh)) {
             news.preferences.refresh = $0
             news.save()

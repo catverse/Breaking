@@ -146,7 +146,7 @@ final class Settings: NSWindow {
         case 2: news.preferences.filter = .favourites
         default: news.preferences.filter = .all
         }
-        news.balam.update(news.preferences)
+        news.save()
         news.reload()
     }
     
@@ -157,7 +157,7 @@ final class Settings: NSWindow {
         case 3: news.preferences.refresh = 60
         default: news.preferences.refresh = 5
         }
-        news.balam.update(news.preferences)
+        news.save()
     }
     
     @objc private func hide(_ button: NSPopUpButton) {
@@ -166,7 +166,7 @@ final class Settings: NSWindow {
         case 2: news.preferences.hide = 365
         default: news.preferences.hide = 7
         }
-        news.balam.update(news.preferences)
+        news.save()
         news.reload()
     }
     
@@ -175,7 +175,7 @@ final class Settings: NSWindow {
         if button.state == .on {
             news.preferences.providers.append(.guardian)
         }
-        news.balam.update(news.preferences)
+        news.save()
         news.reload()
     }
     
@@ -184,7 +184,7 @@ final class Settings: NSWindow {
         if button.state == .on {
             news.preferences.providers.append(.spiegel)
         }
-        news.balam.update(news.preferences)
+        news.save()
         news.reload()
     }
     
@@ -193,7 +193,7 @@ final class Settings: NSWindow {
         if button.state == .on {
             news.preferences.providers.append(.theLocal)
         }
-        news.balam.update(news.preferences)
+        news.save()
         news.reload()
     }
 }

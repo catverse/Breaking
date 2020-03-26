@@ -20,6 +20,7 @@ final class News: Publisher {
     private let characters = [
         "&quot;" : "\"",
         "&amp;" : "&",
+        "amp;" : "",
         "&apos;" : "'",
         "&lt;" : "<",
         "&gt;" : ">",
@@ -71,6 +72,10 @@ final class News: Publisher {
     func receive<S>(subscriber: S) where S : Subscriber, Failure == S.Failure, Output == S.Input {
         sub.subscriber = .init(subscriber)
         subscriber.receive(subscription: sub)
+    }
+    
+    func save() {
+        balam.update(preferences)
     }
     
     private func request(_ providers: [Provider]) {
