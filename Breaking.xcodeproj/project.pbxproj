@@ -23,7 +23,7 @@
 		CE23A0D524150CDD004F8C96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE23A0D124150CDD004F8C96 /* Assets.xcassets */; };
 		CE23A0E424150D0C004F8C96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE23A0E124150D0C004F8C96 /* Assets.xcassets */; };
 		CE23A0E624150D0C004F8C96 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE23A0E324150D0C004F8C96 /* Interface.storyboard */; };
-		CE23A0EA24150D17004F8C96 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE23A0E824150D17004F8C96 /* ContentView.swift */; };
+		CE23A0EA24150D17004F8C96 /* Articles.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE23A0E824150D17004F8C96 /* Articles.swift */; };
 		CE23A0EF24150DC9004F8C96 /* Balam in Frameworks */ = {isa = PBXBuildFile; productRef = CE23A0EE24150DC9004F8C96 /* Balam */; };
 		CE23A0F224150DFA004F8C96 /* Balam in Frameworks */ = {isa = PBXBuildFile; productRef = CE23A0F124150DFA004F8C96 /* Balam */; };
 		CE23A0F424150E00004F8C96 /* Balam in Frameworks */ = {isa = PBXBuildFile; productRef = CE23A0F324150E00004F8C96 /* Balam */; };
@@ -33,6 +33,9 @@
 		CE23A0FC24150EE3004F8C96 /* Scroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE23A0FB24150EE3004F8C96 /* Scroll.swift */; };
 		CE23A0FE24150F28004F8C96 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE23A0FD24150F28004F8C96 /* Font.swift */; };
 		CE23A10024150F42004F8C96 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE23A0FF24150F42004F8C96 /* String.swift */; };
+		CE341FE8242C891600633CBE /* Breaking.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CE23A0C324150C2D004F8C96 /* Breaking.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		CE341FE9242C893B00633CBE /* Breaking.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = CE23A0C224150C28004F8C96 /* Breaking.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		CE341FEB242C89E800633CBE /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE341FEA242C89E800633CBE /* App.swift */; };
 		CE39E2052429279300D37528 /* Favourite.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE39E2042429279300D37528 /* Favourite.swift */; };
 		CE435D082417670E00130754 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE435D072417670E00130754 /* Media.xcassets */; };
 		CE435D092417670E00130754 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE435D072417670E00130754 /* Media.xcassets */; };
@@ -89,6 +92,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				CE341FE8242C891600633CBE /* Breaking.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -99,6 +103,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
+				CE341FE9242C893B00633CBE /* Breaking.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -125,7 +130,7 @@
 		CE23A0E124150D0C004F8C96 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE23A0E224150D0C004F8C96 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE23A0E324150D0C004F8C96 /* Interface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Interface.storyboard; sourceTree = "<group>"; };
-		CE23A0E824150D17004F8C96 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		CE23A0E824150D17004F8C96 /* Articles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Articles.swift; sourceTree = "<group>"; };
 		CE23A0E924150D17004F8C96 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE23A0F524150E6B004F8C96 /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
 		CE23A0F724150EB8004F8C96 /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
@@ -136,6 +141,7 @@
 		CE23A10124150FBD004F8C96 /* Breaking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Breaking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE23A10224150FED004F8C96 /* Breaking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Breaking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE23A10324151045004F8C96 /* Breaking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Breaking.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE341FEA242C89E800633CBE /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		CE39E2042429279300D37528 /* Favourite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favourite.swift; sourceTree = "<group>"; };
 		CE435D072417670E00130754 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		CE4F317B2429DDE90048E9FD /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
@@ -258,7 +264,8 @@
 			isa = PBXGroup;
 			children = (
 				CE23A0E924150D17004F8C96 /* Info.plist */,
-				CE23A0E824150D17004F8C96 /* ContentView.swift */,
+				CE341FEA242C89E800633CBE /* App.swift */,
+				CE23A0E824150D17004F8C96 /* Articles.swift */,
 			);
 			path = "watchOS Extension";
 			sourceTree = "<group>";
@@ -536,13 +543,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE341FEB242C89E800633CBE /* App.swift in Sources */,
 				CE6E10BA24160FD2003D86A5 /* Provider.swift in Sources */,
 				CE1AE62F241D06C5009CC86A /* Status.swift in Sources */,
 				CE0C6770242616C800FE89F4 /* Preferences.swift in Sources */,
 				CEE9700F24151E3300A01699 /* News.swift in Sources */,
 				CEA38ECE2415292800ED4BBE /* Item.swift in Sources */,
 				CED94A9024234841007D19F9 /* String.swift in Sources */,
-				CE23A0EA24150D17004F8C96 /* ContentView.swift in Sources */,
+				CE23A0EA24150D17004F8C96 /* Articles.swift in Sources */,
 				CE0C9D862427770F00AFC0D4 /* Filter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
