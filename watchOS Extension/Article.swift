@@ -17,20 +17,29 @@ struct Article: View {
                 HStack {
                     Text(.init(.key("Provider.\(item.provider)")))
                         .foregroundColor(.primary)
-                        .font(.caption)
+                        .font(.footnote)
                         .opacity(item.status == .read ? 0.3 : 1)
                     Spacer()
+                }
+                HStack {
                     Text(when)
                         .foregroundColor(.secondary)
-                        .font(.caption)
+                        .font(.footnote)
                         .opacity(item.status == .read ? 0.6 : 1)
-                }.padding(.bottom, 10)
-                HStack {
-                    if item.status == .new {
-                        Image(systemName: "plus")
-                            .foregroundColor(.primary)
+                    Spacer()
+                }
+                if item.status == .new {
+                    HStack {
+                        if item.status == .new {
+                            Image(systemName: "plus")
+                                .foregroundColor(.primary)
+                        }
+                        Spacer()
                     }
+                }
+                HStack {
                     Text(item.title)
+                        .font(.footnote)
                         .foregroundColor(.primary)
                         .fixedSize(horizontal: false, vertical: true)
                         .opacity(item.status == .read ? 0.3 : 1)
@@ -45,8 +54,7 @@ struct Article: View {
                 }
             }
         }.accentColor(.accentColor)
-            .background(Color.clear)
-            .padding(.vertical, 10)
+            .padding(.init(top: 12, leading: 0, bottom: 6, trailing: 0))
             .onAppear {
                 self.when = self.item.date > Calendar.current.date(byAdding: .hour, value: -23, to: .init())!
                 ? RelativeDateTimeFormatter().localizedString(for: self.item.date, relativeTo: .init())

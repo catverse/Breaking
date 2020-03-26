@@ -38,13 +38,12 @@ private struct Content: View {
                 }
             }
         }.navigationBarTitle(.init("App.title"))
-            .onReceive(news) { _ in
-//                self.items = $0
+            .onReceive(news) {
+                self.items = $0
         }.sheet(isPresented: $detail) {
-            Circle()
-//            Detail(item: self.selected!.$item) {
-//                self.detail = false
-//            }
+            Detail(item: self.selected!.$item) {
+                self.detail = false
+            }
         }
     }
 }

@@ -45,6 +45,8 @@
 		CE6E10B824160FD2003D86A5 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E10B724160FD2003D86A5 /* Provider.swift */; };
 		CE6E10B924160FD2003D86A5 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E10B724160FD2003D86A5 /* Provider.swift */; };
 		CE6E10BA24160FD2003D86A5 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E10B724160FD2003D86A5 /* Provider.swift */; };
+		CE731A6D242D0F6B00D396EB /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE731A6C242D0F6B00D396EB /* Article.swift */; };
+		CE731A6F242D121600D396EB /* Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE731A6E242D121600D396EB /* Detail.swift */; };
 		CE759224242499DC000B4CB9 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE759223242499DC000B4CB9 /* Article.swift */; };
 		CE759227242499F3000B4CB9 /* Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE759226242499F3000B4CB9 /* Empty.swift */; };
 		CE78AAA9242B3D7500DFA2A1 /* Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE78AAA8242B3D7500DFA2A1 /* Detail.swift */; };
@@ -53,7 +55,6 @@
 		CEA38ECD2415292800ED4BBE /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA38ECB2415292800ED4BBE /* Item.swift */; };
 		CEA38ECE2415292800ED4BBE /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA38ECB2415292800ED4BBE /* Item.swift */; };
 		CEA38ED0241533C300ED4BBE /* Separator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA38ECF241533C300ED4BBE /* Separator.swift */; };
-		CEAE74CB242C8BEC005C6B13 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE759223242499DC000B4CB9 /* Article.swift */; };
 		CEAE74CC242C8C97005C6B13 /* Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE759226242499F3000B4CB9 /* Empty.swift */; };
 		CEAE74CF242C8E56005C6B13 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE74CE242C8E56005C6B13 /* Settings.swift */; };
 		CEBB41F6242895790013E883 /* Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBB41F5242895790013E883 /* Detail.swift */; };
@@ -150,6 +151,8 @@
 		CE4F317B2429DDE90048E9FD /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		CE4F317D2429E5AB0048E9FD /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		CE6E10B724160FD2003D86A5 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
+		CE731A6C242D0F6B00D396EB /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
+		CE731A6E242D121600D396EB /* Detail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.swift; sourceTree = "<group>"; };
 		CE759223242499DC000B4CB9 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		CE759226242499F3000B4CB9 /* Empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Empty.swift; sourceTree = "<group>"; };
 		CE78AAA8242B3D7500DFA2A1 /* Detail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.swift; sourceTree = "<group>"; };
@@ -244,6 +247,7 @@
 				CE23A0D324150CDD004F8C96 /* Info.plist */,
 				CE23A0D024150CDD004F8C96 /* LaunchScreen.storyboard */,
 				CEF8BDF9241F53580040B9F9 /* App.swift */,
+				CE759223242499DC000B4CB9 /* Article.swift */,
 				CEF8BDF5241F4DCB0040B9F9 /* Articles.swift */,
 				CE78AAA8242B3D7500DFA2A1 /* Detail.swift */,
 				CEF8BDF7241F50FF0040B9F9 /* Scene.swift */,
@@ -268,7 +272,9 @@
 			children = (
 				CE23A0E924150D17004F8C96 /* Info.plist */,
 				CE341FEA242C89E800633CBE /* App.swift */,
+				CE731A6C242D0F6B00D396EB /* Article.swift */,
 				CE23A0E824150D17004F8C96 /* Articles.swift */,
+				CE731A6E242D121600D396EB /* Detail.swift */,
 				CEAE74CE242C8E56005C6B13 /* Settings.swift */,
 			);
 			path = "watchOS Extension";
@@ -300,7 +306,6 @@
 		CEAE74CA242C8BD8005C6B13 /* Shared UI */ = {
 			isa = PBXGroup;
 			children = (
-				CE759223242499DC000B4CB9 /* Article.swift */,
 				CE759226242499F3000B4CB9 /* Empty.swift */,
 			);
 			path = "Shared UI";
@@ -560,14 +565,15 @@
 				CE6E10BA24160FD2003D86A5 /* Provider.swift in Sources */,
 				CE1AE62F241D06C5009CC86A /* Status.swift in Sources */,
 				CE0C6770242616C800FE89F4 /* Preferences.swift in Sources */,
-				CEAE74CB242C8BEC005C6B13 /* Article.swift in Sources */,
 				CEE9700F24151E3300A01699 /* News.swift in Sources */,
 				CEAE74CF242C8E56005C6B13 /* Settings.swift in Sources */,
 				CEA38ECE2415292800ED4BBE /* Item.swift in Sources */,
 				CEAE74CC242C8C97005C6B13 /* Empty.swift in Sources */,
+				CE731A6D242D0F6B00D396EB /* Article.swift in Sources */,
 				CED94A9024234841007D19F9 /* String.swift in Sources */,
 				CE23A0EA24150D17004F8C96 /* Articles.swift in Sources */,
 				CE0C9D862427770F00AFC0D4 /* Filter.swift in Sources */,
+				CE731A6F242D121600D396EB /* Detail.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

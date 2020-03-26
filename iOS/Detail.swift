@@ -38,7 +38,7 @@ struct Detail: View {
                     }) {
                         Text("More")
                     }.frame(width: 170, height: 40)
-                        .font(Font.caption.bold())
+                        .font(Font.footnote.bold())
                         .foregroundColor(.black)
                         .background(Color("lightning"))
                         .cornerRadius(6)
@@ -47,10 +47,10 @@ struct Detail: View {
             }.navigationBarItems(leading:
                 HStack {
                     Text(.init(.key("Provider.\(item.provider)")))
-                        .font(Font.caption.bold())
+                        .font(Font.footnote.bold())
                         .foregroundColor(.secondary)
                     Text(when)
-                        .font(.caption)
+                        .font(.footnote)
                         .foregroundColor(.secondary)
                 },
                                  trailing:

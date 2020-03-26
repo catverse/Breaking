@@ -105,7 +105,7 @@ final class News: Publisher {
             guard
                 let id = content($0, tag: "guid"),
                 let title = content($0, tag: "title").flatMap( { clean($0) }),
-                let description = content($0, tag: "description").flatMap( { strip(clean($0)) } ),
+                let description = content($0, tag: "description").flatMap( { strip(unspace(clean($0))) } ),
                 let date = content($0, tag: "pubDate").flatMap( { formatter.date(from: $0) } ),
                 let link = content($0, tag: "link").flatMap( { URL(string: $0) } )
             else { return nil }
@@ -118,9 +118,13 @@ final class News: Publisher {
     }
     
     private func clean(_ string: String) -> String {
-        var cleaned = characters.reduce(string) {
+        characters.reduce(string) {
             $0.replacingOccurrences(of: $1.0, with: $1.1)
         }
+    }
+    
+    private func unspace(_ string: String) -> String {
+        var cleaned = string
         while cleaned.contains("  ") {
             cleaned = cleaned.replacingOccurrences(of: "  ", with: " ")
         }
