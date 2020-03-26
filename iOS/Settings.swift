@@ -52,36 +52,15 @@ struct Settings: View {
             }
         }.listStyle(GroupedListStyle())
             .navigationBarTitle(.init("Settings.title"), displayMode: .inline)
-        .onReceive(Just(filter)) {
-            news.preferences.filter = $0
-            news.save()
-        }
-        .onReceive(Just(refresh)) {
-            news.preferences.refresh = $0
-            news.save()
-        }.onReceive(Just(hide)) {
-            news.preferences.hide = $0
-            news.save()
-        }.onReceive(Just(guardian)) {
-            news.preferences.providers.removeAll { $0 == .guardian }
-            if $0 {
-                news.preferences.providers.append(.guardian)
-            }
-            news.save()
-        }.onReceive(Just(spiegel)) {
-            news.preferences.providers.removeAll { $0 == .spiegel }
-            if $0 {
-                news.preferences.providers.append(.spiegel)
-            }
-            news.save()
-        }.onReceive(Just(theLocal)) {
-            news.preferences.providers.removeAll { $0 == .theLocal }
-            if $0 {
-                news.preferences.providers.append(.theLocal)
-            }
-            news.save()
-        }.onDisappear {
-            news.reload()
+        .onDisappear {
+            news.preferences.filter = self.filter
+            news.preferences.refresh = self.refresh
+            news.preferences.hide = self.hide
+            news.preferences.providers =
+                (self.guardian ? [.guardian] : []) +
+                (self.spiegel ? [.spiegel] : []) +
+                (self.theLocal ? [.theLocal] : [])
+            news.savePreferences()
         }
     }
 }

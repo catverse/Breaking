@@ -49,7 +49,17 @@ final class News: Publisher {
         }
     }
     
-    func reload() {
+    func receive<S>(subscriber: S) where S : Subscriber, Failure == S.Failure, Output == S.Input {
+        sub.subscriber = .init(subscriber)
+        subscriber.receive(subscription: sub)
+    }
+    
+    func savePreferences() {
+        balam.update(preferences)
+        reload()
+    }
+    
+    private func reload() {
         balam.nodes(Item.self).sink {
             let older = Calendar.current.date(byAdding: .day, value: -self.preferences.hide, to: .init())!
             let items = $0
@@ -67,15 +77,6 @@ final class News: Publisher {
                 _ = self.sub.subscriber?.receive(items)
             }
         }.store(in: &cancellables)
-    }
-    
-    func receive<S>(subscriber: S) where S : Subscriber, Failure == S.Failure, Output == S.Input {
-        sub.subscriber = .init(subscriber)
-        subscriber.receive(subscription: sub)
-    }
-    
-    func save() {
-        balam.update(preferences)
     }
     
     private func request(_ providers: [Provider]) {
