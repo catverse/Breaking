@@ -135,8 +135,12 @@ final class News: Publisher {
         string.contains("<p")
             ? string.components(separatedBy: "<p>").dropFirst().reduce(into: "") {
                 $0 += $0.isEmpty ? "" : "\n\n"
-                $0 += $1.components(separatedBy: "</p>").first!.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression)
-                if !$0.hasSuffix(".") && !$0.hasSuffix(". ") && !$0.hasSuffix("?") && !$0.hasSuffix("\n") {
+                var input = $1.components(separatedBy: "</p>").first!.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression)
+                if input.hasPrefix(" ") {
+                    input.removeFirst()
+                }
+                $0 += input
+                if !$0.hasSuffix(".") && !$0.hasSuffix(" ") && !$0.hasSuffix("?") && !$0.hasSuffix("\n") && !$0.hasSuffix(":") {
                     $0 += "."
                 }
             }

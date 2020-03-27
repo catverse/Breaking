@@ -146,8 +146,7 @@ final class Settings: NSWindow {
         case 2: news.preferences.filter = .favourites
         default: news.preferences.filter = .all
         }
-        news.save()
-        news.reload()
+        news.savePreferences()
     }
     
     @objc private func download(_ button: NSPopUpButton) {
@@ -157,7 +156,7 @@ final class Settings: NSWindow {
         case 3: news.preferences.refresh = 60
         default: news.preferences.refresh = 5
         }
-        news.save()
+        news.savePreferences()
     }
     
     @objc private func hide(_ button: NSPopUpButton) {
@@ -166,8 +165,7 @@ final class Settings: NSWindow {
         case 2: news.preferences.hide = 365
         default: news.preferences.hide = 7
         }
-        news.save()
-        news.reload()
+        news.savePreferences()
     }
     
     @objc private func guardian(_ button: NSButton) {
@@ -175,8 +173,7 @@ final class Settings: NSWindow {
         if button.state == .on {
             news.preferences.providers.append(.guardian)
         }
-        news.save()
-        news.reload()
+        news.savePreferences()
     }
     
     @objc private func spiegel(_ button: NSButton) {
@@ -184,8 +181,7 @@ final class Settings: NSWindow {
         if button.state == .on {
             news.preferences.providers.append(.spiegel)
         }
-        news.save()
-        news.reload()
+        news.savePreferences()
     }
     
     @objc private func theLocal(_ button: NSButton) {
@@ -193,7 +189,6 @@ final class Settings: NSWindow {
         if button.state == .on {
             news.preferences.providers.append(.theLocal)
         }
-        news.save()
-        news.reload()
+        news.savePreferences()
     }
 }
