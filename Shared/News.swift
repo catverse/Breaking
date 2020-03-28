@@ -146,10 +146,10 @@ final class News: Publisher {
             }
             : string
     }
-    
-    private final class Sub: Subscription {
-        var subscriber: AnySubscriber<Output, Failure>?
-        func request(_ demand: Subscribers.Demand) { }
-        func cancel() { subscriber = nil }
-    }
+}
+
+private final class Sub: Subscription {
+    var subscriber: AnySubscriber<News.Output, News.Failure>?
+    func request(_ demand: Subscribers.Demand) { }
+    func cancel() { subscriber = nil }
 }
