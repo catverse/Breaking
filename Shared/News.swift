@@ -149,7 +149,7 @@ final class News: Publisher {
 }
 
 private final class Sub: Subscription {
-    var subscriber: AnySubscriber<News.Output, News.Failure>?
+    var subscriber: AnySubscriber<[Item], Never>?
     func request(_ demand: Subscribers.Demand) { }
     func cancel() { subscriber = nil }
 }
