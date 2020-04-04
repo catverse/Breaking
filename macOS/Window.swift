@@ -21,7 +21,7 @@ final class Window: NSWindow {
         collectionBehavior = .fullScreenNone
         isReleasedWhenClosed = false
         
-        let counter = Label("", .light(12))
+        let counter = Label("", .regular(12))
         counter.lineBreakMode = .byTruncatingTail
         counter.maximumNumberOfLines = 1
         counter.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
@@ -96,6 +96,48 @@ final class Window: NSWindow {
     private func synth(_ id: String) {
         list.contentView.layoutSubtreeIfNeeded()
         list.views.compactMap { $0 as? Article }.first { $0.item.id == id }.map {
+            list.center($0.frame)
+            click($0)
+        }
+    }
+    
+    @objc func next() {
+        let items = list.views.compactMap { $0 as? Article }
+        guard let selected = items.firstIndex(where: { $0.selected }) else {
+            first()
+            return
+        }
+        if items.count > selected + 1 {
+            list.center(items[selected + 1].frame)
+            click(items[selected + 1])
+        } else {
+            first()
+        }
+    }
+    
+    @objc func prev() {
+        let items = list.views.compactMap { $0 as? Article }
+        guard let selected = items.firstIndex(where: { $0.selected }) else {
+            last()
+            return
+        }
+        if selected > 0 {
+            list.center(items[selected - 1].frame)
+            click(items[selected - 1])
+        } else {
+            last()
+        }
+    }
+    
+    @objc func first() {
+        list.views.compactMap { $0 as? Article }.first.map {
+            list.center($0.frame)
+            click($0)
+        }
+    }
+    
+    @objc func last() {
+        list.views.compactMap { $0 as? Article }.last.map {
             list.center($0.frame)
             click($0)
         }

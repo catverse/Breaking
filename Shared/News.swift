@@ -26,7 +26,6 @@ final class News: Publisher {
         "&gt;" : ">",
         "&#039;" : "'",
         "&nbsp;" : "",
-        ". " : ".\n\n",
         "\r" : " ",
         "<br>" : "\n\n",
     ]
