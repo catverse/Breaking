@@ -10,6 +10,7 @@ struct Detail: View {
             ScrollView {
                 HStack {
                     Text(item.title)
+                        .font(.title)
                         .foregroundColor(.primary)
                         .fixedSize(horizontal: false, vertical: true)
                     Spacer()
@@ -46,11 +47,8 @@ struct Detail: View {
                 }.padding(.bottom, 40)
             }.navigationBarItems(leading:
                 HStack {
-                    Text(.init(.key("Provider.\(item.provider)")))
-                        .font(Font.footnote.bold())
-                        .foregroundColor(.secondary)
-                    Text(when)
-                        .font(.footnote)
+                    Text(.init(.key("Provider.\(item.provider)") + ": " + when))
+                        .font(.caption)
                         .foregroundColor(.secondary)
                 },
                                  trailing:
