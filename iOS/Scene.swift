@@ -9,7 +9,12 @@ final class Scene: NSObject, UIWindowSceneDelegate {
         UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(named: "lightning")!
         UISwitch.appearance().onTintColor = UIColor(named: "lightning")!
         let window = UIWindow(windowScene: scene as! UIWindowScene)
-        window.rootViewController = UIHostingController(rootView: Articles())
+        window.rootViewController = UIHostingController(rootView: {
+            switch $0 {
+            case .pad: return .init(Split())
+            default: return .init(Articles())
+            }
+        } (UIDevice.current.userInterfaceIdiom) as AnyView)
         window.makeKeyAndVisible()
         self.window = window
     }

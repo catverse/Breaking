@@ -28,7 +28,7 @@ struct Detail: View {
                     }) {
                         Image(systemName: "heart.fill")
                             .foregroundColor(item.favourite ? .init("lightning") : .secondary)
-                    }.frame(width: 60, height: 60)
+                    }.frame(width: 80, height: 80)
                     Spacer()
                 }
                 HStack {
@@ -37,13 +37,13 @@ struct Detail: View {
                         UIApplication.shared.open(self.item.link)
                     }) {
                         Text("More")
-                    }.frame(width: 170, height: 40)
+                    }.frame(width: 180, height: 42)
                         .font(Font.footnote.bold())
                         .foregroundColor(.black)
                         .background(Color("lightning"))
                         .cornerRadius(6)
                     Spacer()
-                }.padding(.bottom, 35)
+                }.padding(.bottom, 40)
             }.navigationBarItems(leading:
                 HStack {
                     Text(.init(.key("Provider.\(item.provider)")))

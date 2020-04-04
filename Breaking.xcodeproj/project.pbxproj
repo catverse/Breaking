@@ -58,6 +58,9 @@
 		CEAE74CC242C8C97005C6B13 /* Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE759226242499F3000B4CB9 /* Empty.swift */; };
 		CEAE74CF242C8E56005C6B13 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE74CE242C8E56005C6B13 /* Settings.swift */; };
 		CEAF1ABA2438820D00B54D8D /* Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAF1AB92438820D00B54D8D /* Empty.swift */; };
+		CEAF1ABC2438905A00B54D8D /* Split.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAF1ABB2438905A00B54D8D /* Split.swift */; };
+		CEAF1ABE2438910E00B54D8D /* Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAF1ABD2438910E00B54D8D /* Description.swift */; };
+		CEAF1AC02438921F00B54D8D /* Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAF1ABF2438921F00B54D8D /* Title.swift */; };
 		CEBB41F6242895790013E883 /* Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBB41F5242895790013E883 /* Detail.swift */; };
 		CED94A9024234841007D19F9 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE23A0FF24150F42004F8C96 /* String.swift */; };
 		CED94A9124234841007D19F9 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE23A0FF24150F42004F8C96 /* String.swift */; };
@@ -162,6 +165,9 @@
 		CEA38ECF241533C300ED4BBE /* Separator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Separator.swift; sourceTree = "<group>"; };
 		CEAE74CE242C8E56005C6B13 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		CEAF1AB92438820D00B54D8D /* Empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Empty.swift; sourceTree = "<group>"; };
+		CEAF1ABB2438905A00B54D8D /* Split.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Split.swift; sourceTree = "<group>"; };
+		CEAF1ABD2438910E00B54D8D /* Description.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Description.swift; sourceTree = "<group>"; };
+		CEAF1ABF2438921F00B54D8D /* Title.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Title.swift; sourceTree = "<group>"; };
 		CEBB41F5242895790013E883 /* Detail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.swift; sourceTree = "<group>"; };
 		CEE97006241519D600A01699 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CEE9700A24151C6700A01699 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
@@ -252,9 +258,12 @@
 				CEF8BDF9241F53580040B9F9 /* App.swift */,
 				CE759223242499DC000B4CB9 /* Article.swift */,
 				CEF8BDF5241F4DCB0040B9F9 /* Articles.swift */,
+				CEAF1ABF2438921F00B54D8D /* Title.swift */,
+				CEAF1ABD2438910E00B54D8D /* Description.swift */,
 				CE78AAA8242B3D7500DFA2A1 /* Detail.swift */,
 				CEF8BDF7241F50FF0040B9F9 /* Scene.swift */,
 				CE0C676A242613F900FE89F4 /* Settings.swift */,
+				CEAF1ABB2438905A00B54D8D /* Split.swift */,
 				CE23A0D124150CDD004F8C96 /* Assets.xcassets */,
 			);
 			path = iOS;
@@ -545,11 +554,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE78AAA9242B3D7500DFA2A1 /* Detail.swift in Sources */,
+				CEAF1AC02438921F00B54D8D /* Title.swift in Sources */,
 				CE6E10B924160FD2003D86A5 /* Provider.swift in Sources */,
 				CE1AE62E241D06C5009CC86A /* Status.swift in Sources */,
 				CE759224242499DC000B4CB9 /* Article.swift in Sources */,
+				CEAF1ABC2438905A00B54D8D /* Split.swift in Sources */,
 				CEE9700E24151E3300A01699 /* News.swift in Sources */,
 				CEA38ECD2415292800ED4BBE /* Item.swift in Sources */,
+				CEAF1ABE2438910E00B54D8D /* Description.swift in Sources */,
 				CEF8BDF8241F50FF0040B9F9 /* Scene.swift in Sources */,
 				CE0C676B242613F900FE89F4 /* Settings.swift in Sources */,
 				CE0C9D852427770F00AFC0D4 /* Filter.swift in Sources */,
