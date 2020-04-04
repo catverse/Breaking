@@ -4,15 +4,15 @@ import Combine
 
 let news = News()
 
-final class News: Publisher {
+final class News: Publisher, Subscription {
     typealias Output = [Item]
     typealias Failure = Never
     
     var preferences = Preferences()
     let balam = Balam("Breaking")
+    private var subscriber: AnySubscriber<[Item], Never>?
     private var cancellables = Set<AnyCancellable>()
     private var last = Date.distantPast
-    private let sub = Sub()
     private let formatter = DateFormatter()
     private let url = [Provider.guardian : URL(string: "https://www.theguardian.com/world/rss")!,
                        .spiegel : URL(string: "https://www.spiegel.de/international/index.rss")!,
@@ -49,9 +49,13 @@ final class News: Publisher {
     }
     
     func receive<S>(subscriber: S) where S : Subscriber, Failure == S.Failure, Output == S.Input {
-        sub.subscriber = .init(subscriber)
-        subscriber.receive(subscription: sub)
+        self.subscriber = .init(subscriber)
+        subscriber.receive(subscription: self)
     }
+    
+    func request(_ demand: Subscribers.Demand) { }
+    
+    func cancel() { subscriber = nil }
     
     func savePreferences() {
         balam.update(preferences)
@@ -73,7 +77,7 @@ final class News: Publisher {
                 }
                 .sorted { $0.date > $1.date }
             DispatchQueue.main.async {
-                _ = self.sub.subscriber?.receive(items)
+                _ = self.subscriber?.receive(items)
             }
         }.store(in: &cancellables)
     }
@@ -148,10 +152,4 @@ final class News: Publisher {
             }
             : string
     }
-}
-
-private final class Sub: Subscription {
-    var subscriber: AnySubscriber<[Item], Never>?
-    func request(_ demand: Subscribers.Demand) { }
-    func cancel() { subscriber = nil }
 }
