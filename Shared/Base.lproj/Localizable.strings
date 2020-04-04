@@ -1,6 +1,6 @@
 App.title="News";
 Counter=" articles";
-More="Continue Reading";
+More="Read";
 Provider.guardian="The Guardian";
 Provider.spiegel="Der Spiegel";
 Provider.theLocal="The Local";
@@ -34,6 +34,7 @@ Menu.first="First";
 Menu.last="Last";
 Menu.window="Window";
 Menu.minimize="Minimize";
+Menu.zoom="Zoom";
 Menu.bringAll="Bring All to Front";
 Menu.close="Close";
 Menu.help="Help";

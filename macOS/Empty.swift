@@ -14,15 +14,15 @@ final class Empty: NSView {
             bar.translatesAutoresizingMaskIntoConstraints = false
             bar.wantsLayer = true
             bar.layer!.backgroundColor = NSColor.tertiaryLabelColor.cgColor
-            bar.layer!.cornerRadius = 4
+            bar.layer!.cornerRadius = 6
             addSubview(bar)
             
-            bar.topAnchor.constraint(equalTo: top, constant: 10).isActive = true
+            bar.topAnchor.constraint(equalTo: top, constant: 15).isActive = true
             bar.leftAnchor.constraint(equalTo: leftAnchor, constant: 20).isActive = true
             bar.widthAnchor.constraint(equalTo: widthAnchor, multiplier: $0, constant: -20).isActive = true
-            bar.heightAnchor.constraint(equalToConstant: 8).isActive = true
+            bar.heightAnchor.constraint(equalToConstant: 12).isActive = true
             top = bar.bottomAnchor
         }
-        bottomAnchor.constraint(equalTo: top, constant: 10).isActive = true
+        bottomAnchor.constraint(equalTo: top, constant: 15).isActive = true
     }
 }

@@ -46,11 +46,12 @@ final class Menu: NSMenu {
     
     private var window: NSMenuItem {
         menu(.key("Menu.window"), items: [
-            .init(title: .key("Menu.minimize"), action: #selector(NSWindow.miniaturize(_:)), keyEquivalent: "m"),
-        .separator(),
-        .init(title: .key("Menu.bringAll"), action: #selector(NSApplication.arrangeInFront(_:)), keyEquivalent: ""),
-        .separator(),
-        .init(title: .key("Menu.close"), action: #selector(NSWindow.close), keyEquivalent: "w")])
+            .init(title: .key("Menu.minimize"), action: #selector(Window.miniaturize(_:)), keyEquivalent: "m"),
+            .init(title: .key("Menu.zoom"), action: #selector(Window.zoom(_:)), keyEquivalent: "p"),
+            .separator(),
+            .init(title: .key("Menu.bringAll"), action: #selector(NSApplication.arrangeInFront(_:)), keyEquivalent: ""),
+            .separator(),
+            .init(title: .key("Menu.close"), action: #selector(NSWindow.close), keyEquivalent: "w")])
     }
     
     private var help: NSMenuItem {

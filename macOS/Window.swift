@@ -163,8 +163,9 @@ final class Window: NSWindow {
         content.add(detail)
         
         detail.topAnchor.constraint(equalTo: content.top).isActive = true
-        detail.leftAnchor.constraint(equalTo: content.left).isActive = true
-        detail.rightAnchor.constraint(equalTo: content.right).isActive = true
+        detail.centerXAnchor.constraint(equalTo: content.centerX).isActive = true
+        detail.leftAnchor.constraint(greaterThanOrEqualTo: content.left).isActive = true
+        detail.rightAnchor.constraint(lessThanOrEqualTo: content.right).isActive = true
         content.bottom.constraint(greaterThanOrEqualTo: detail.bottomAnchor).isActive = true
         
         selectorTop?.isActive = false
@@ -176,7 +177,7 @@ final class Window: NSWindow {
         
         NSAnimationContext.runAnimationGroup {
             $0.allowsImplicitAnimation = true
-            $0.duration = 1
+            $0.duration = 2
             detail.alphaValue = 1
             list.contentView.layoutSubtreeIfNeeded()
         }
