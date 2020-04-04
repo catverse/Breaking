@@ -11,7 +11,7 @@ final class Window: NSWindow {
     private var sub: AnyCancellable?
     
     init() {
-        super.init(contentRect: .init(x: 0, y: 0, width: 800, height: 600), styleMask: [.borderless, .miniaturizable, .resizable, .closable, .titled, .unifiedTitleAndToolbar, .fullSizeContentView], backing: .buffered, defer: false)
+        super.init(contentRect: .init(x: 0, y: 0, width: 1200, height: 800), styleMask: [.borderless, .miniaturizable, .resizable, .closable, .titled, .unifiedTitleAndToolbar, .fullSizeContentView], backing: .buffered, defer: false)
         minSize = .init(width: 500, height: 200)
         center()
         titlebarAppearsTransparent = true
@@ -41,7 +41,7 @@ final class Window: NSWindow {
         
         list.topAnchor.constraint(equalTo: contentView!.topAnchor, constant: 38).isActive = true
         list.leftAnchor.constraint(equalTo: contentView!.leftAnchor, constant: 1).isActive = true
-        list.widthAnchor.constraint(equalToConstant: 220).isActive = true
+        list.widthAnchor.constraint(equalToConstant: 240).isActive = true
         list.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -1).isActive = true
         list.width.constraint(equalTo: list.widthAnchor).isActive = true
         list.bottom.constraint(greaterThanOrEqualTo: list.bottomAnchor).isActive = true
@@ -78,12 +78,12 @@ final class Window: NSWindow {
             selector.translatesAutoresizingMaskIntoConstraints = false
             selector.wantsLayer = true
             selector.layer!.backgroundColor = NSColor(named: "lightning")!.cgColor
-            selector.layer!.cornerRadius = 1.5
+            selector.layer!.cornerRadius = 2
             list.add(selector)
             self.selector = selector
             
             selector.rightAnchor.constraint(equalTo: list.right).isActive = true
-            selector.widthAnchor.constraint(equalToConstant: 3).isActive = true
+            selector.widthAnchor.constraint(equalToConstant: 4).isActive = true
             
             selected.map(self.synth)
         }

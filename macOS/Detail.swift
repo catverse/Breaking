@@ -11,7 +11,7 @@ final class Detail: NSView {
         wantsLayer = true
         alphaValue = 0
         
-        let provider = Label(.key("Provider.\(article.item.provider)"), .light(13))
+        let provider = Label(.key("Provider.\(article.item.provider)"), .light(14))
         provider.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         provider.maximumNumberOfLines = 1
         addSubview(provider)
@@ -22,19 +22,18 @@ final class Detail: NSView {
                 $0.dateStyle = .full
                 $0.timeStyle = .short
                 return $0.string(from: article.item.date)
-            } (DateFormatter()), .light(13))
+            } (DateFormatter()), .light(14))
         date.maximumNumberOfLines = 1
         date.lineBreakMode = .byTruncatingTail
         date.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         date.textColor = .secondaryLabelColor
         addSubview(date)
         
-        let title = Label(article.item.title, .regular(16))
-        title.textColor = .headerColor
+        let title = Label(article.item.title, .medium(18))
         title.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         addSubview(title)
         
-        let descr = Label(article.item.description, .regular(16))
+        let descr = Label(article.item.description, .regular(18))
         descr.textColor = .secondaryLabelColor
         descr.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         addSubview(descr)
@@ -50,7 +49,7 @@ final class Detail: NSView {
         read.action = #selector(open)
         addSubview(read)
         
-        bottomAnchor.constraint(equalTo: read.bottomAnchor, constant: 50).isActive = true
+        bottomAnchor.constraint(equalTo: read.bottomAnchor, constant: 60).isActive = true
         
         provider.topAnchor.constraint(equalTo: topAnchor, constant: 30).isActive = true
         provider.leftAnchor.constraint(equalTo: leftAnchor, constant: 50).isActive = true
@@ -70,10 +69,10 @@ final class Detail: NSView {
         descr.widthAnchor.constraint(lessThanOrEqualToConstant: 800).isActive = true
         
         favourite.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        favourite.topAnchor.constraint(equalTo: descr.bottomAnchor, constant: 20).isActive = true
+        favourite.topAnchor.constraint(equalTo: descr.bottomAnchor, constant: 30).isActive = true
         
         read.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        read.topAnchor.constraint(equalTo: favourite.bottomAnchor, constant: 10).isActive = true
+        read.topAnchor.constraint(equalTo: favourite.bottomAnchor, constant: 20).isActive = true
     }
     
     @objc private func toggle(_ favourite: Favourite) {

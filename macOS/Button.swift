@@ -8,7 +8,7 @@ final class Button: Control {
         layer!.cornerRadius = 6
         layer!.backgroundColor = NSColor(named: "lightning")!.cgColor
         
-        let label = Label(title, .medium(12))
+        let label = Label(title, .medium(13))
         label.textColor = .black
         label.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         addSubview(label)

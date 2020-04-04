@@ -12,8 +12,8 @@ final class Favourite: Control {
         addSubview(image)
         self.image = image
         
-        widthAnchor.constraint(equalToConstant: 40).isActive = true
-        heightAnchor.constraint(equalToConstant: 40).isActive = true
+        widthAnchor.constraint(equalToConstant: 50).isActive = true
+        heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         image.topAnchor.constraint(equalTo: topAnchor).isActive = true
         image.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
@@ -24,7 +24,7 @@ final class Favourite: Control {
     func update(_ active: Bool) {
         image.image = NSImage(named: "favourite")!.copy() as? NSImage
         image.image!.lockFocus()
-        active ? NSColor.controlAccentColor.set() : NSColor.tertiaryLabelColor.set()
+        active ? NSColor(named: "lightning")!.set() : NSColor.tertiaryLabelColor.set()
         NSRect(origin: .init(), size: image.image!.size).fill(using: .sourceIn)
         image.image!.unlockFocus()
     }
