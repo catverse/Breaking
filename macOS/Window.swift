@@ -36,6 +36,9 @@ final class Window: NSWindow {
         contentView!.addSubview(content)
         self.content = content
         
+        let empty = Empty()
+        list.add(empty)
+        
         counter.leftAnchor.constraint(equalTo: contentView!.leftAnchor, constant: 75).isActive = true
         counter.centerYAnchor.constraint(equalTo: contentView!.topAnchor, constant: 19).isActive = true
         
@@ -52,6 +55,10 @@ final class Window: NSWindow {
         content.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -1).isActive = true
         content.right.constraint(equalTo: content.rightAnchor).isActive = true
         content.bottom.constraint(greaterThanOrEqualTo: content.bottomAnchor).isActive = true
+        
+        empty.topAnchor.constraint(equalTo: list.top).isActive = true
+        empty.leftAnchor.constraint(equalTo: list.left).isActive = true
+        empty.rightAnchor.constraint(equalTo: list.right).isActive = true
         
         let formatter = NumberFormatter()
         sub = news.sink {
@@ -93,14 +100,6 @@ final class Window: NSWindow {
         NSApp.terminate(nil)
     }
     
-    private func synth(_ id: String) {
-        list.contentView.layoutSubtreeIfNeeded()
-        list.views.compactMap { $0 as? Article }.first { $0.item.id == id }.map {
-            list.center($0.frame)
-            click($0)
-        }
-    }
-    
     @objc func next() {
         let items = list.views.compactMap { $0 as? Article }
         guard let selected = items.firstIndex(where: { $0.selected }) else {
@@ -108,8 +107,7 @@ final class Window: NSWindow {
             return
         }
         if items.count > selected + 1 {
-            list.center(items[selected + 1].frame)
-            click(items[selected + 1])
+            synth(items[selected + 1])
         } else {
             first()
         }
@@ -122,25 +120,28 @@ final class Window: NSWindow {
             return
         }
         if selected > 0 {
-            list.center(items[selected - 1].frame)
-            click(items[selected - 1])
+            synth(items[selected - 1])
         } else {
             last()
         }
     }
     
     @objc func first() {
-        list.views.compactMap { $0 as? Article }.first.map {
-            list.center($0.frame)
-            click($0)
-        }
+        list.views.compactMap { $0 as? Article }.first.map(synth(_:))
     }
     
     @objc func last() {
-        list.views.compactMap { $0 as? Article }.last.map {
-            list.center($0.frame)
-            click($0)
-        }
+        list.views.compactMap { $0 as? Article }.last.map(synth(_:))
+    }
+    
+    private func synth(_ id: String) {
+        list.contentView.layoutSubtreeIfNeeded()
+        list.views.compactMap { $0 as? Article }.first { $0.item.id == id }.map(synth(_:))
+    }
+    
+    private func synth(_ article: Article) {
+        list.center(article.frame)
+        click(article)
     }
     
     @objc private func click(_ article: Article) {

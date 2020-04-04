@@ -25,11 +25,23 @@ final class Menu: NSMenu {
     
     private var articles: NSMenuItem {
         menu(.key("Menu.articles"), items: [
-            .init(title: .key("Menu.previous"), action: #selector(Window.prev), keyEquivalent: .init(Character(UnicodeScalar(NSUpArrowFunctionKey)!))),
-            .init(title: .key("Menu.next"), action: #selector(Window.next), keyEquivalent: .init(Character(UnicodeScalar(NSDownArrowFunctionKey)!))),
+            {
+                $0.keyEquivalentModifierMask = []
+                return $0
+            } (NSMenuItem(title: .key("Menu.previous"), action: #selector(Window.prev), keyEquivalent: .init(Character(UnicodeScalar(NSUpArrowFunctionKey)!)))),
+            {
+                $0.keyEquivalentModifierMask = []
+                return $0
+            } (NSMenuItem(title: .key("Menu.next"), action: #selector(Window.next), keyEquivalent: .init(Character(UnicodeScalar(NSDownArrowFunctionKey)!)))),
             .separator(),
-            .init(title: .key("Menu.first"), action: #selector(Window.first), keyEquivalent: .init(Character(UnicodeScalar(NSLeftArrowFunctionKey)!))),
-            .init(title: .key("Menu.last"), action: #selector(Window.last), keyEquivalent: .init(Character(UnicodeScalar(NSRightArrowFunctionKey)!)))])
+            {
+                $0.keyEquivalentModifierMask = []
+                return $0
+            } (NSMenuItem(title: .key("Menu.first"), action: #selector(Window.first), keyEquivalent: .init(Character(UnicodeScalar(NSLeftArrowFunctionKey)!)))),
+            {
+                $0.keyEquivalentModifierMask = []
+                return $0
+            } (NSMenuItem(title: .key("Menu.last"), action: #selector(Window.last), keyEquivalent: .init(Character(UnicodeScalar(NSRightArrowFunctionKey)!))))])
     }
     
     private var window: NSMenuItem {
