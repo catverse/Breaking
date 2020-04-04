@@ -25,10 +25,10 @@ final class News: Publisher {
         "&lt;" : "<",
         "&gt;" : ">",
         "&#039;" : "'",
-        "  " : " ",
         "&nbsp;" : "",
+        ". " : ".\n\n",
         "\r" : " ",
-        "\n" : " ",
+        "<br>" : "\n\n",
     ]
 
     fileprivate init() {
@@ -105,7 +105,7 @@ final class News: Publisher {
             guard
                 let id = content($0, tag: "guid"),
                 let title = content($0, tag: "title").flatMap( { clean($0) }),
-                let description = content($0, tag: "description").flatMap( { strip(unspace(clean($0))) } ),
+                let description = content($0, tag: "description").flatMap( { unspace(strip(clean($0))) } ),
                 let date = content($0, tag: "pubDate").flatMap( { formatter.date(from: $0) } ),
                 let link = content($0, tag: "link").flatMap( { URL(string: $0) } )
             else { return nil }
@@ -127,6 +127,9 @@ final class News: Publisher {
         var cleaned = string
         while cleaned.contains("  ") {
             cleaned = cleaned.replacingOccurrences(of: "  ", with: " ")
+        }
+        while cleaned.contains("\n\n\n") {
+            cleaned = cleaned.replacingOccurrences(of: "\n\n\n", with: "\n")
         }
         return cleaned
     }
