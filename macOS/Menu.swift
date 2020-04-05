@@ -13,14 +13,14 @@ final class Menu: NSMenu {
         .separator(),
         .init(title: .key("Menu.preferences"), action: #selector(App.preferences), keyEquivalent: ","),
         .separator(),
-        .init(title: .key("Menu.hide"), action: #selector(NSApplication.hide(_:)), keyEquivalent: "h"),
+        .init(title: .key("Menu.hide"), action: #selector(NSApplication.hide), keyEquivalent: "h"),
         {
             $0.keyEquivalentModifierMask = [.option, .command]
             return $0
-        } (NSMenuItem(title: .key("Menu.hideOthers"), action: #selector(NSApplication.hideOtherApplications(_:)), keyEquivalent: "h")),
-        .init(title: .key("Menu.showAll"), action: #selector(NSApplication.unhideAllApplications(_:)), keyEquivalent: ""),
+        } (NSMenuItem(title: .key("Menu.hideOthers"), action: #selector(NSApplication.hideOtherApplications), keyEquivalent: "h")),
+        .init(title: .key("Menu.showAll"), action: #selector(NSApplication.unhideAllApplications), keyEquivalent: ""),
         .separator(),
-        .init(title: .key("Menu.quit"), action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")])
+        .init(title: .key("Menu.quit"), action: #selector(NSApplication.terminate), keyEquivalent: "q")])
     }
     
     private var articles: NSMenuItem {
@@ -46,10 +46,10 @@ final class Menu: NSMenu {
     
     private var window: NSMenuItem {
         menu(.key("Menu.window"), items: [
-            .init(title: .key("Menu.minimize"), action: #selector(Window.miniaturize(_:)), keyEquivalent: "m"),
-            .init(title: .key("Menu.zoom"), action: #selector(Window.zoom(_:)), keyEquivalent: "p"),
+            .init(title: .key("Menu.minimize"), action: #selector(Window.miniaturize), keyEquivalent: "m"),
+            .init(title: .key("Menu.zoom"), action: #selector(Window.zoom), keyEquivalent: "p"),
             .separator(),
-            .init(title: .key("Menu.bringAll"), action: #selector(NSApplication.arrangeInFront(_:)), keyEquivalent: ""),
+            .init(title: .key("Menu.bringAll"), action: #selector(NSApplication.arrangeInFront), keyEquivalent: ""),
             .separator(),
             .init(title: .key("Menu.close"), action: #selector(NSWindow.close), keyEquivalent: "w")])
     }

@@ -33,7 +33,7 @@ final class Detail: NSView {
         
         let favourite = Favourite()
         favourite.target = self
-        favourite.action = #selector(toggle(_:))
+        favourite.action = #selector(toggle)
         addSubview(favourite)
         favourite.update(article.item.favourite)
         

@@ -68,9 +68,9 @@ final class Window: NSWindow {
             counter.stringValue = formatter.string(from: .init(value: $0.count))! + .key("Counter")
             guard !$0.isEmpty else { return }
             var top = list.top
-            $0.map(Article.init(_:)).forEach {
+            $0.map(Article.init).forEach {
                 $0.target = self
-                $0.action = #selector(self.click(_:))
+                $0.action = #selector(self.click)
                 (top == list.top ? [$0] : [Separator(), $0]).forEach {
                     list.add($0)
                     $0.topAnchor.constraint(equalTo: top).isActive = true
@@ -127,16 +127,16 @@ final class Window: NSWindow {
     }
     
     @objc func first() {
-        list.views.compactMap { $0 as? Article }.first.map(synth(_:))
+        list.views.compactMap { $0 as? Article }.first.map(synth)
     }
     
     @objc func last() {
-        list.views.compactMap { $0 as? Article }.last.map(synth(_:))
+        list.views.compactMap { $0 as? Article }.last.map(synth)
     }
     
     private func synth(_ id: String) {
         list.contentView.layoutSubtreeIfNeeded()
-        list.views.compactMap { $0 as? Article }.first { $0.item.id == id }.map(synth(_:))
+        list.views.compactMap { $0 as? Article }.first { $0.item.id == id }.map(synth)
     }
     
     private func synth(_ article: Article) {
