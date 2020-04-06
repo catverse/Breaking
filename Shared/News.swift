@@ -25,7 +25,8 @@ final class News: Publisher, Subscription {
         "&lt;" : "<",
         "&gt;" : ">",
         "&#039;" : "'",
-        "&nbsp;" : "",
+        "&nbsp;" : " ",
+        "nbsp;" : " ",
         "\r" : " ",
         "<br>" : "\n\n",
     ]
@@ -132,7 +133,7 @@ final class News: Publisher, Subscription {
             cleaned = cleaned.replacingOccurrences(of: "  ", with: " ")
         }
         while cleaned.contains("\n\n\n") {
-            cleaned = cleaned.replacingOccurrences(of: "\n\n\n", with: "\n")
+            cleaned = cleaned.replacingOccurrences(of: "\n\n\n", with: "\n\n")
         }
         return cleaned
     }
@@ -146,7 +147,7 @@ final class News: Publisher, Subscription {
                     input.removeFirst()
                 }
                 $0 += input
-                if !$0.hasSuffix(".") && !$0.hasSuffix(" ") && !$0.hasSuffix("?") && !$0.hasSuffix("\n") && !$0.hasSuffix(":") {
+                if !$0.hasSuffix(".") && !$0.hasSuffix(" ") && !$0.hasSuffix("?") && !$0.hasSuffix("\n") && !$0.hasSuffix(":") && !$0.hasSuffix("'") && !$0.hasSuffix("\"") {
                     $0 += "."
                 }
             }
