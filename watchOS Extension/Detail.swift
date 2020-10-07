@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct Detail: View {
-    @Binding var item: Item
+    @Binding var item: Item!
     var close: () -> Void
     @State private var when = ""
     

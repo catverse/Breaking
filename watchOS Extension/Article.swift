@@ -2,7 +2,7 @@ import SwiftUI
 
 struct Article: View {
     @State var item: Item
-    let select: (Article) -> Void
+    let select: () -> Void
     @State private var when = ""
     
     var body: some View {
@@ -11,7 +11,7 @@ struct Article: View {
                 self.item.status = .read
             }
             news.balam.update(self.item)
-            self.select(self)
+            self.select()
         }) {
             VStack {
                 HStack {

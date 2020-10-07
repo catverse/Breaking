@@ -6,7 +6,7 @@ final class Articles: WKHostingController<AnyView> {
 
 private struct Content: View {
     @State private var items = [Item]()
-    @State private var selected: Article?
+    @State private var selected: Item!
     @State private var detail = false
     private let formatter = NumberFormatter()
     
@@ -32,7 +32,7 @@ private struct Content: View {
                 : .init(formatter.string(from: .init(value: items.count))! + .key("Counter")))) {
                 ForEach(items) { item in
                     Article(item: item) {
-                        self.selected = $0
+                        self.selected = item
                         self.detail = true
                     }
                 }
@@ -41,7 +41,7 @@ private struct Content: View {
             .onReceive(news) {
                 self.items = $0
         }.sheet(isPresented: $detail) {
-            Detail(item: self.selected!.$item) {
+            Detail(item: $selected) {
                 self.detail = false
             }
         }
