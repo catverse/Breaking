@@ -2,16 +2,16 @@ import SwiftUI
 
 struct Article: View {
     @State var item: Item
-    let select: (Article) -> Void
+    let select: () -> Void
     @State private var when = ""
     
     var body: some View {
         Button(action: {
             withAnimation {
-                self.item.status = .read
+                item.status = .read
             }
-            news.balam.update(self.item)
-            self.select(self)
+            news.balam.update(item)
+            self.select()
         }) {
             VStack {
                 HStack {

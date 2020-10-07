@@ -64,6 +64,4 @@ final class Menu: NSMenu {
         menu.submenu?.items = items
         return menu
     }
-    
-    
 }

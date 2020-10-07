@@ -5,18 +5,17 @@ struct Split: View {
     @State private var selected: Item!
     
     var body: some View {
-        Group {
+        NavigationView {
+            Listed(items: $items, selected: $selected)
             if selected == nil {
-                NavigationView {
-                    Listed(items: $items, selected: $selected)
-                }.navigationViewStyle(StackNavigationViewStyle())
+                Text("Select an article")
+                    .foregroundColor(.secondary)
             } else {
-                NavigationView {
-                    Listed(items: $items, selected: $selected)
-                    Description(item: $selected)
-                }.navigationViewStyle(DoubleColumnNavigationViewStyle())
+                Description(item: $selected)
             }
-        }.onReceive(news) {
+        }
+        .navigationViewStyle(DoubleColumnNavigationViewStyle())
+        .onReceive(news) {
             self.items = $0
         }
     }
@@ -43,12 +42,13 @@ private struct Listed: View {
                 ? ""
                 : .init(formatter.string(from: .init(value: items.count))! + .key("Counter")))) {
                 ForEach(items) { item in
-                    Article(item: item) { article in
+                    Article(item: item) {
+                        var item = item
                         withAnimation {
-                            self.selected = article.item
-                            article.item.status = .read
+                            item.status = .read
+                            selected = item
                         }
-                        news.balam.update(article.item)
+                        news.balam.update(item)
                     }.listRowBackground(item.id == self.selected?.id ? Color("lightning") : Color.clear)
                 }
             }
