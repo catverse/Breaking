@@ -13,6 +13,7 @@ final class News: Publisher, Subscription {
     private var subscriber: AnySubscriber<[Item], Never>?
     private var cancellables = Set<AnyCancellable>()
     private var last = Date.distantPast
+    private let filter = Date(timeIntervalSince1970: 1602426083)
     private let formatter = DateFormatter()
     private let url = [Provider.guardian : URL(string: "https://www.theguardian.com/world/rss")!,
                        .spiegel : URL(string: "https://www.spiegel.de/international/index.rss")!,
@@ -113,6 +114,12 @@ final class News: Publisher, Subscription {
                 let date = content($0, tag: "pubDate").flatMap( { formatter.date(from: $0) } ),
                 let link = content($0, tag: "link").flatMap( { URL(string: $0) } )
             else { return nil }
+            if Date() < filter {
+                let title = title.lowercased()
+                if title.contains("corona") || title.contains("covid") || title.contains("virus") {
+                    return nil
+                }
+            }
             return Item(provider, id, title, description, date, link)
         }
     }
