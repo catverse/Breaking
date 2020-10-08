@@ -18,6 +18,9 @@ final class News: Publisher, Subscription {
     private let url = [Provider.guardian : URL(string: "https://www.theguardian.com/world/rss")!,
                        .spiegel : URL(string: "https://www.spiegel.de/international/index.rss")!,
                        .theLocal : URL(string: "https://feeds.thelocal.com/rss/de")!]
+    
+    private let blacklist = ["corona", "covid", "virus", "pand", "health"]
+    
     private let characters = [
         "&quot;" : "\"",
         "&amp;" : "&",
@@ -65,9 +68,24 @@ final class News: Publisher, Subscription {
     }
     
     private func reload() {
+        let now = Date()
         balam.nodes(Item.self).sink {
             let older = Calendar.current.date(byAdding: .day, value: -self.preferences.hide, to: .init())!
             let items = $0
+                .filter { item in
+                    if now < self.filter {
+                        var filter = true
+                        for i in self.blacklist {
+                            if item.title.lowercased().contains(i) || item.description.lowercased().contains(i) {
+                                filter = false
+                                break
+                            }
+                        }
+                        return filter
+                    }
+                    
+                    return true
+                }
                 .filter { self.preferences.providers.contains($0.provider) }
                 .filter { $0.date > older }
                 .filter {
@@ -114,12 +132,6 @@ final class News: Publisher, Subscription {
                 let date = content($0, tag: "pubDate").flatMap( { formatter.date(from: $0) } ),
                 let link = content($0, tag: "link").flatMap( { URL(string: $0) } )
             else { return nil }
-            if Date() < filter {
-                let title = title.lowercased()
-                if title.contains("corona") || title.contains("covid") || title.contains("virus") {
-                    return nil
-                }
-            }
             return Item(provider, id, title, description, date, link)
         }
     }
